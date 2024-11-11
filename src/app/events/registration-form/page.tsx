@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
 
 interface TeamMember {
@@ -73,108 +74,173 @@ const EventRegistrationForm = () => {
   return (
     <div>
         <h1 className="text-2xl font-bold text-white text-center mb-8">
-            Registration Form
+            REGISTRATION FORM
         </h1>
-    <div className="py-8 w-fit inset-x-0 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-950 mx-auto p-4 rounded-xl">
-      <div className="w-full max-w-2xl p-10">
+    <div className="py-8 w-1/2 inset-x-0 bg-gradient-to-b from-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
+      <div className=''
+      // use this for the radial gradient
+      >
+        <Image src={'/ass.png'} alt="Registration" className='mx-auto z-10 absolute inset-0 w-fit h-fit object-cover opacity-5' width={500} height={500} />
+      <div className="w-full max-w-2xl p-10 relative z-10 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-7">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Team Name"
-            name="teamName"
-            value={formData.teamName}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-
+          <div className="relative">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+              placeholder=" "
+              id='name'
+              required
+            />
+            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+              peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text "
+              htmlFor='name'
+              >
+              Name
+            </label>
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="teamName"
+              value={formData.teamName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+              placeholder=" "
+              id='teamName'
+              required
+            />
+            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+              peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+              htmlFor='teamName'
+              >
+              Team Name
+            </label>
+          </div>
           <div className="space-y-4">
             {formData.teamMembers.map((member, index) => (
               <div key={index} className="flex gap-2 items-center">
-                <input
-                  type="text"
-                  placeholder="Team Member Name"
-                  value={member.name}
-                  onChange={(e) => handleTeamMemberChange(index, 'name', e.target.value)}
-                  className="flex-1 px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Department"
-                  value={member.department}
-                  onChange={(e) => handleTeamMemberChange(index, 'department', e.target.value)}
-                  className="flex-1 px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    value={member.name}
+                    onChange={(e) => handleTeamMemberChange(index, 'name', e.target.value)}
+                    className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+                    id={`name-${index}`}
+                    required
+                  />
+                  <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+                  htmlFor={`name-${index}`}
+                  >
+                    Team Member Name
+                  </label>
+                </div>
+                
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    value={member.department}
+                    onChange={(e) => handleTeamMemberChange(index, 'department', e.target.value)}
+                    className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+                    id={`department-${index}`}
+                    required
+                  />
+                  <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+                  htmlFor={`department-${index}`}
+                  >
+                    Department
+                  </label>
+                </div>
+
                 {index > 0 && (
                   <button
                     type="button"
                     onClick={() => removeTeamMember(index)}
-                    className="p-2 text-red-400 hover:bg-red-400/10 rounded-full transition-colors"
-                    title="RemoveYOU"
+                    className="p-2 text-red-600 hover:bg-red-500/20 rounded-full transition-all border border-white/10"
+                    title="Remove"
                   >
                     <IoMdClose size={20} />
                   </button>
                 )}
               </div>
             ))}
+
             <button
               type="button"
               onClick={addTeamMember}
-              className="text-blue-300 border border-blue-300 px-3 py-1 rounded-md hover:bg-blue-300/10 transition-colors"
+              className="text-blue-300 border border-blue-300 px-3 py-1 rounded-md hover:bg-white/50 hover:text-black transition-all duration-200 hover:border-black"
             >
               + Add Another
             </button>
           </div>
-
-          <input
-            type="text"
-            placeholder="College Name"
-            name="collegeName"
-            value={formData.collegeName}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-
-          <input
-            type="email"
-            placeholder="Mail ID"
-            name="mailId"
-            value={formData.mailId}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-
-          <input
-            type="tel"
-            placeholder="Mobile Number"
-            name="mobileNumber"
-            value={formData.mobileNumber}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md bg-blue-950/5 border border-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-
+          <div className="relative">
+            <input
+              type="text"
+              name="collegeName"
+              value={formData.collegeName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+              placeholder=" "
+              id='collegeName'
+              required
+            />
+            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+              peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+              htmlFor='collegeName'
+              >
+              College Name
+            </label>
+          </div>
+          <div className="relative">
+            <input
+              type="email"
+              name="mailId"
+              value={formData.mailId}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+              placeholder=" "
+              id='mailId'
+              required
+            />
+            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+              peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+              htmlFor='mailId'
+              >
+              Mail ID
+            </label>
+          </div>
+          <div className="relative">
+            <input
+              type="tel"
+              name="mobileNumber"
+              value={formData.mobileNumber}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
+              placeholder=" "
+              id='mobileNumber'
+              required
+            />
+            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+              peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+              htmlFor='mobileNumber'
+              >
+              Mobile Number
+            </label>
+          </div>
+          <div className='flex justify-center'>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition-colors"
+            className="w-1/2 inset-x-0 bg-cyan-600 hover:bg-gray-300 duration-200 hover:text-black text-white py-4 font-semibold rounded-md transition-colors"
           >
             SUBMIT
           </button>
+          </div>
         </form>
+      </div>
       </div>
     </div>
     </div>
