@@ -72,7 +72,7 @@ const Footer = () => {
   return (
     <div className=''>
     <footer 
-      className="bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-16 pt-8 pb-1 rounded-3xl mb-10"
+      className="relative bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-16 pt-8 pb-1 rounded-3xl mb-10"
       style={{
         transform: `scale(${scale})`,
         transformOrigin: 'bottom',
