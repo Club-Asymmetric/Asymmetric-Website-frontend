@@ -50,7 +50,7 @@ const Navbar = () => {
     <>
     <div className=''>
     <Link href='/'>
-    <Image src="/logo.png" alt="Logo" className={`transition-all duration-300 fixed top-[4.5%] left-[6%] cursor-pointer ${shouldDissolveLogo ? 'opacity-0': 'opacity-100'} hover:scale-105`} width={250} height={100} 
+    <Image src="/logo.png" alt="Logo" className={`z-50 transition-all duration-300 fixed top-[4.5%] left-[6%] cursor-pointer ${shouldDissolveLogo ? 'opacity-0': 'opacity-100'} hover:scale-105`} width={250} height={100} 
     onMouseEnter={() => {
         setShouldDissolveLogo(false);
         setHoverLogo(true);
