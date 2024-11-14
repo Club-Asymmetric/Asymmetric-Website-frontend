@@ -17,10 +17,18 @@ export default {
               transform: 'scale(1)',
               opacity: '1',
             },
-          }
+          },
+          fadeIn:{
+            '0%':{
+                opacity: '0',
+            },'100%':{
+                opacity:'1',
+            },
+          },
         },
         animation: {
           zoomIn: "zoomIn 1s ease-in-out forwards",
+          fadeIn: "fadeIn 2s ease-in-out forwards"
         },
       colors: {
         background: "var(--background)",
