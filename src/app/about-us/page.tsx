@@ -1,34 +1,33 @@
+'use client';
+
+import ColorText from "@/components/ColorText";
+import TypingHeader from "@/components/TypingHeader";
+
+const heading=[
+  { text: "Vision", showLine: true },
+  { text: "Mission", showLine: true },
+  { text: "Asymmetric" }
+]
+
 export default function AboutUs() {
   return (
-    <div>
-      <div className="font-bold text-3xl flex justify-center mb-5">
+    <div className="">
+      <div className="font-bold text-4xl flex justify-center mb-5 hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300">
         <h1>About Us</h1>
       </div>
       <section className="h-fit w-fit mx-auto bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 text-white p-16 rounded-2xl flex items-center">
       <div className="max-w-6xl mx-auto">
-        <div className="space-y-12">
-          {/* Header Section */}
-          <div className="flex flex-row items-center justify-center gap-2">
-            <div className="flex items-center gap-4">
-              <h2 className="text-3xl font-bold">Vision</h2>
-              <div className="h-[1px] w-40 bg-white/30"></div>
-            </div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-3xl font-bold">Mission</h2>
-              <div className="h-[1px] w-40 bg-white/30"></div>
-            </div>
-            <div className="flex items-center gap-4">
-              <h2 className="text-3xl font-bold">Asymmetric</h2>
-            </div>
-          </div>
+        <div className="space-y-10">
+          {/* Title */}
+          <TypingHeader items={heading} delay={500} duration={300}/>
 
           {/* Subtitle */}
-          <div className="uppercase tracking-wider text-base font-light">
-            Build. Streamline your development
+          <div className="text-xl font-semibold transition-all duration-200">
+            <ColorText text="Build. Streamline your development" interval={50}/>
           </div>
-
+          {/* Try to add Some Animation using Framer Motion */}
           {/* Main Content */}
-          <div className="max-w-3xl text-white text-base leading-relaxed">
+          <div className="max-w-4xl text-white leading-relaxed">
             We're on a mission to transform the way people work together by helping them collaborate better. 
             Faster. On everything. From anywhere. solid foundation for your application while ensuring adaptability 
             to future need, with this template that looks effortlessly on-point in the conference, consultations, 

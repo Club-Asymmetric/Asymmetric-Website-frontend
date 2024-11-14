@@ -1,4 +1,6 @@
 import React from "react";
+import { RiMapPinLine } from "react-icons/ri";
+import { IoCalendarOutline } from "react-icons/io5";
 
 export default function Event(
     props: { 
@@ -36,10 +38,12 @@ export default function Event(
                     <div className="flex flex-row mt-[2rem]">
                         <div className="flex flex-row pr-[5rem]">
                             <img src="/calendar.png" className="ml-[2rem] mr-[0.8rem] place-self-start" alt="date"></img>
+                            <IoCalendarOutline className="ml-[2rem] mr-[1rem] place-self-start w-[22px] h-[22px]" />
                             <div className="text-white text-xl font-medium font-['Outfit'] leading-[25px]">{props.date}</div>
                         </div>
                         <div className="flex flex-row">
                             <img src="/map_pin.png" className="ml-[2rem] mr-[0.8rem] place-self-start" alt="location"></img>
+                            <RiMapPinLine className="ml-[2rem] mr-[1rem] place-self-start h-[22px] w-[22px]" />
                             <div className="text-white text-xl font-medium font-['Outfit'] leading-[25px]">{props.location}</div>
                         </div>
                     </div>
