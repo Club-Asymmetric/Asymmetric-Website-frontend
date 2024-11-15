@@ -1,9 +1,30 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Oswald,Outfit,ABeeZee } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlowyThing from "@/components/Glowything";
+
+//Configure the fonts
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-oswald",
+});
+
+const aBeeZee = ABeeZee({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ABeeZee",
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,13 +49,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${geistSans.variable}`}>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet" />
+
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col relative`}
+        className={`antialiased min-h-screen flex flex-col relative font-outfit`}
       >
         <div className="flex flex-col flex-grow relative over">
             <div className="absolute inset-0 w-full pointer-events-none overflow-hidden" style={{ bottom: 'auto', height: '100%' }}>

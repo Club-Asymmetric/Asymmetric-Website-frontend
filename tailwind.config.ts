@@ -26,6 +26,12 @@ export default {
             },
           },
         },
+        fontFamily: {
+          outfit: ['var(--font-outfit)', 'sans-serif'],
+          oswald: ['var(--font-oswald)', 'sans-serif'],
+          aBeeZee: ['var(--font-ABeeZee)', 'sans-serif'],
+          'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+        },
         animation: {
           zoomIn: "zoomIn 1s ease-in-out forwards",
           fadeIn: "fadeIn 2s ease-in-out forwards"

@@ -24,8 +24,8 @@ export default function Event(
                 <img src={props.imageSrc} className=""></img>
                 <div className="flex flex-col w-full">
                     <div className="flex flex-row mt-10 ml-[2rem] w-[80%]">
-                        <p className="text-2xl font-medium font-['Oswald'] leading-[25px] w-[90%] self-start">{props.synopsis}</p>
-                        <p className="text-sm font-normal font-['ABeeZee'] leading-[10px] self-start">{props.type}</p>
+                        <p className="text-2xl font-medium font-oswald leading-[25px] w-[90%] self-start">{props.synopsis}</p>
+                        <p className="text-sm font-normal font-aBeeZee leading-[10px] self-start">{props.type}</p>
                     </div>
                     <p className="place-self-start text-white text-5xl font-extrabold mt-4 ml-[2rem] hover:bg-gradient-to-r hover:from-blue-400 hover:to-green-500  hover:bg-clip-text hover:text-transparent cursor-pointer transition-colors duration-100 ease-linear" 
                         onClick={() => props.openPopup({
@@ -38,11 +38,11 @@ export default function Event(
                     <div className="flex flex-row mt-[2rem]">
                         <div className="flex flex-row pr-[5rem]">
                             <IoCalendarOutline className="ml-[2rem] mr-[1rem] place-self-start w-[22px] h-[22px]" />
-                            <div className="text-white text-xl font-medium font-['Outfit'] leading-[25px]">{props.date}</div>
+                            <div className="text-white text-xl font-medium font-outfit leading-[25px]">{props.date}</div>
                         </div>
                         <div className="flex flex-row">
                             <RiMapPinLine className="ml-[2rem] mr-[1rem] place-self-start h-[22px] w-[22px]" />
-                            <div className="text-white text-xl font-medium font-['Outfit'] leading-[25px]">{props.location}</div>
+                            <div className="text-white text-xl font-medium font-outfit leading-[25px]">{props.location}</div>
                         </div>
                     </div>
                     <div className="flex flex-row mt-[2rem]">

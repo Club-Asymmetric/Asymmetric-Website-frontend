@@ -57,7 +57,7 @@ const Events = () => {
     <>
       <div className="flex flex-col items-center w-[100%]">
         <div className="flex flex-col items-start justify-center w-[80%] mb-[4rem] ml-1">
-          <h1 className="font-['outfit'] text-4xl font-bold animate-fadeIn">Events</h1>
+          <h1 className="font-outfit text-4xl font-bold animate-fadeIn">Events</h1>
         </div>
         <div className="flex flex-col bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,0.5)] to-[rgba(60,65,165,0.7)] w-[80%] pt-[2rem] rounded-[20px] animate-zoomIn">
           {dataFromDB.events.map((event, index) => (
@@ -82,9 +82,9 @@ const Events = () => {
             <div className="flex flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,0.5)] to-[rgba(60,65,165,0.7)] w-[80%] rounded-[1rem]" onClick={(e) => e.stopPropagation()}>
             <img src={popupContent.img} alt="Event" className="w-[50%] h-[50%] object-cover rounded-l-lg py-[3rem] px-[3rem]" />
             <div className='flex flex-col py-[3rem] pr-[3rem]'>
-              <p className="text-2xl font-medium font-['Oswald'] leading-[25px] mb-3">{popupContent.synopsis}</p>
-              <p className="text-5xl font-extrabold font-['Outfit'] mb-[2rem]">{popupContent.name}</p>
-              <p className='text-white text-2xl font-normal font-[Outfit] leading-7'>{popupContent.desc}</p>
+              <p className="text-2xl font-medium font-oswald leading-[25px] mb-3">{popupContent.synopsis}</p>
+              <p className="text-5xl font-extrabold font-outfit mb-[2rem]">{popupContent.name}</p>
+              <p className='text-white text-2xl font-normal font-outfit leading-7'>{popupContent.desc}</p>
               <button onClick={openRegistrationPage}  className="px-[5rem] h-9 bg-[#88d0d1]/80 rounded-[5px] mt-[2rem] mx-[10rem] hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline-2 hover:outline">
                 Register
               </button>
