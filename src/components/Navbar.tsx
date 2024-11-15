@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -15,7 +15,7 @@ const Navbar = () => {
     if (hoverLogo) {
       dissolveTimer = setTimeout(() => {
         setShouldDissolveLogo(true);
-      }, 2000); // 2 seconds delay before dissolve effect starts
+      }, 2000);
     } else {
       setShouldDissolveLogo(false);
     }
@@ -28,7 +28,7 @@ const Navbar = () => {
     if (hoveredItem) {
       dissolveTimer = setTimeout(() => {
         setShouldDissolve(true);
-      }, 2000); // 2 seconds delay before dissolve effect starts
+      }, 2000);
     } else {
       setShouldDissolve(false);
     }
@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    {name:'About Us', href:'/about-us'},
+    { name: 'About Us', href: '/about-us' },
     { name: 'Events', href: '/events' },
     { name: 'Podcasts', href: '/podcast' },
     { name: 'Members', href: '/members' },
@@ -47,49 +47,65 @@ const Navbar = () => {
   ];
 
   return (
-    <>
-    <div className=''>
-    <Link href='/'>
-    <Image src="/logo.png" alt="Logo" className={`z-50 transition-all duration-300 fixed top-[4.5%] left-[6%] cursor-pointer ${shouldDissolveLogo ? 'opacity-0': 'opacity-100'} hover:scale-105`} width={250} height={100} 
-    onMouseEnter={() => {
-        setShouldDissolveLogo(false);
-        setHoverLogo(true);
-    }}
-        onMouseLeave={() => {
-        setShouldDissolveLogo(false);
-        setHoverLogo(false);
-    }}
-    />
-    </Link>
-    <nav className="fixed top-[5%] inset-x-0 w-fit z-50 bg-blue-950/70 backdrop-blur-md rounded-full mx-auto">
-      <div className="flex items-center justify-between p-4 rounded-full px-10">
-        <ul className="flex space-x-16">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-                className={`
-                  transition-all duration-200
-                  ${hoveredItem !== null && hoveredItem !== item.name ? `text-gray-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}` : 'text-white hover:rounded-2xl hover:bg-white hover:text-black hover:p-2 hover:px-8'}
-                    `}
-                onMouseEnter={() => {
-                    setHoveredItem(item.name);
-                    setShouldDissolve(false);
-                }}
-                    onMouseLeave={() => {
-                    setHoveredItem(null);
-                    setShouldDissolve(false);
-                }}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <div className="top-0 w-full">
+      <div className="container mx-auto">
+        <div className="flex items-center justify-center gap-8 mt-6">
+          {/* Logo */}
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              className={`z-50 transition-all duration-300 cursor-pointer ${
+                shouldDissolveLogo ? 'opacity-0' : 'opacity-100'
+              } hover:scale-105`}
+              width={250}
+              height={100}
+              onMouseEnter={() => {
+                setShouldDissolveLogo(false);
+                setHoverLogo(true);
+              }}
+              onMouseLeave={() => {
+                setShouldDissolveLogo(false);
+                setHoverLogo(false);
+              }}
+            />
+          </Link>
+
+          {/* Navigation */}
+          <nav className="bg-blue-950/70 backdrop-blur-md rounded-full">
+            <div className="flex items-center justify-center p-4 rounded-full px-10">
+              <ul className="flex space-x-16">
+                {navItems.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className={`
+                        transition-all duration-200
+                        ${
+                          hoveredItem !== null && hoveredItem !== item.name
+                            ? `text-gray-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
+                            : 'text-white hover:rounded-2xl hover:bg-white hover:text-black hover:p-2 hover:px-8'
+                        }
+                      `}
+                      onMouseEnter={() => {
+                        setHoveredItem(item.name);
+                        setShouldDissolve(false);
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredItem(null);
+                        setShouldDissolve(false);
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+        </div>
       </div>
-    </nav>
     </div>
-    </>
   );
 };
 

@@ -36,14 +36,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col relative`}
       >
-        <Navbar />
         <div className="flex flex-col flex-grow relative over">
             <div className="absolute inset-0 w-full pointer-events-none overflow-hidden" style={{ bottom: 'auto', height: '100%' }}>
               <GlowyThing color="#88D0D1" left="-25vw" top="-120vh"/>
               <GlowyThing color="#6F6F9A" left="80vw" top="60vh"/>
               <GlowyThing color="#E0C585" left="-35vw" top="350vh"/>  
             </div>
-          <main className="flex-grow flex-shrink-0 mt-36 mb-10 relative z-10">
+          <Navbar />
+          <main className="flex-grow flex-shrink-0 mt-10 mb-10 relative z-10">
             {children}
           </main>
           <Footer />
