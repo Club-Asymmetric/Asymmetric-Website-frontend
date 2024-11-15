@@ -21,6 +21,10 @@ const Footer = () => {
   const [hoveredPrimary, setHoveredPrimary] = useState<string | null>(null);
   const [hoveredSecondary, setHoveredSecondary] = useState<string | null>(null);
 
+  const handleEasterEggHover = (isHovering: boolean) => {
+    document.documentElement.classList.toggle('grayscale-active', isHovering);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const windowHeight = window.innerHeight;
@@ -40,8 +44,12 @@ const Footer = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.documentElement.classList.remove('grayscale-active');
+    };
   }, []);
+
 
   const primaryLinks: FooterLink[] = [
     { text: 'Home', href: '/' },
@@ -142,6 +150,12 @@ const Footer = () => {
         <div className="flex flex-row justify-between items-center py-4 border-t border-white">
           <div className="text-sm">
             <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
+          </div>
+          <div>
+            <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer'
+            onMouseEnter={() => handleEasterEggHover(true)}
+            onMouseLeave={() => handleEasterEggHover(false)}
+            >WOW YOU FOUND A ESTER'S EGG MF</p>
           </div>
         </div>
         <div className="flex flex-row justify-between items-center pt-6 border-t border-white">

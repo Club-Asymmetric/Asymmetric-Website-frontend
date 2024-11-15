@@ -12,7 +12,7 @@ const heading=[
 export default function AboutUs() {
   return (
     <div className="">
-      <div className="font-bold text-4xl flex justify-center mb-5 hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300">
+      <div className="font-bold text-4xl flex justify-center mb-8 hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300">
         <h1>About Us</h1>
       </div>
       <section className="h-fit w-fit mx-auto bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 text-white p-16 rounded-2xl flex items-center">
