@@ -22,7 +22,7 @@ export default function AboutUs() {
           <TypingHeader items={heading} delay={500} duration={300}/>
 
           {/* Subtitle */}
-          <div className="text-xl font-semibold transition-all duration-200">
+          <div className="text-xl font-semibold transition-all duration-200 font-nicoMoji">
             <ColorText text="Build. Streamline your development" interval={50}/>
           </div>
           {/* Try to add Some Animation using Framer Motion */}

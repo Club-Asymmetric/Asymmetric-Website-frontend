@@ -30,6 +30,7 @@ export default {
           outfit: ['var(--font-outfit)', 'sans-serif'],
           oswald: ['var(--font-oswald)', 'sans-serif'],
           aBeeZee: ['var(--font-ABeeZee)', 'sans-serif'],
+          nicoMoji: ['var(--font-nicomoji)', 'sans-serif'],
           'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
         },
         animation: {
