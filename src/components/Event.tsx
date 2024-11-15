@@ -21,9 +21,9 @@ export default function Event(
     return (
         <>
             <div className="flex flex-row pb-[3rem] px-[2rem] animate-zoomIn">
-                <img src={props.imageSrc} className=""></img>
+                <img src={props.imageSrc} className="w-[281px] h-[287px]"/>
                 <div className="flex flex-col w-full">
-                    <div className="flex flex-row mt-10 ml-[2rem] w-[80%]">
+                    <div className="flex flex-row mt-10 ml-[2rem] w-[92%]">
                         <p className="text-2xl font-medium font-oswald leading-[25px] w-[90%] self-start">{props.synopsis}</p>
                         <p className="text-sm font-normal font-aBeeZee leading-[10px] self-start">{props.type}</p>
                     </div>
@@ -56,7 +56,7 @@ export default function Event(
                                 })}>
                             Explore Further
                         </button>
-                        <button onClick={openRegistrationPage}  className="px-[5rem] h-9 bg-[#88d0d1]/80 rounded-[5px] ml-[6rem] hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline-2 hover:outline">
+                        <button onClick={openRegistrationPage}  className="px-[5rem] h-9 bg-[#88d0d1]/80 rounded-[5px] ml-[20rem] hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline-2 hover:outline">
                             Get Involved
                         </button>
                     </div>
