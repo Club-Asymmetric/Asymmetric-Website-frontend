@@ -1,6 +1,8 @@
 'use client';
 
+import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Home() {
@@ -23,7 +25,29 @@ export default function Home() {
   return (
     <>
       <div>
-        <h1>Home</h1>
+        {/* AboutUs Section */}
+        <div className="flex items-center justify-center my-10">
+          <div className="flex flex-row items-center justify-center rounded-xl p-10 max-w-6xl bg-blue-950">
+            <div className="flex-1 mb-0 ml-10">
+              <h1 className="text-4xl font-bold">
+                <ColorText text="Welcome to Asymmetric!" />
+              </h1>
+              <p className="mt-4">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
+                Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
+              </p>
+              <Link href='/about-us'>
+              <button className="mt-6 bg-cyan-500 text-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-300">
+                Dive Deeper
+              </button>
+              </Link>
+            </div>
+            <div className="flex justify-end items-center">
+              <img src="Aboutus_Placeholder.png" alt="AboutUs" className="w-96" />
+            </div>
+          </div>
+        </div>
+        {/* Events Section */}
         <div className='flex justify-center'>
         <Event 
             imageSrc="/Events_Placeholder.png"

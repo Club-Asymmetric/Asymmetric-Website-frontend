@@ -23,7 +23,7 @@ export default function AboutUs() {
 
           {/* Subtitle */}
           <div className="text-xl transition-all duration-200 font-nicoMoji">
-            <ColorText text="Build. Streamline your development" interval={50}/>
+            <ColorText text="Build. Streamline your development" interval={100}/>
           </div>
           {/* Try to add Some Animation using Framer Motion */}
           {/* Main Content */}
