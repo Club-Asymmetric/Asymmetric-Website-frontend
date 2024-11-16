@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Oswald, Outfit, ABeeZee } from "next/font/google";import "./globals.css";
+import { Oswald, Outfit, ABeeZee, Parisienne } from "next/font/google";import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlowyThing from "@/components/Glowything";
@@ -23,6 +23,13 @@ const aBeeZee = ABeeZee({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-ABeeZee",
+});
+
+const parisienne = Parisienne({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-parisienne",
 });
 
 const nicoMoji = localFont({
@@ -53,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${nicoMoji.variable} ${geistSans.variable}`}>
+    <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${nicoMoji.variable} ${parisienne.variable} ${geistSans.variable}`}>
       <head>
 
       </head>

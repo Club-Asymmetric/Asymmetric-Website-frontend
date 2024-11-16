@@ -2,6 +2,7 @@
 
 import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
+import PodcastCard from '@/components/PodcastCard';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -48,8 +49,18 @@ export default function Home() {
           </div>
         </div>
         {/* Events Section */}
-        <div className='flex justify-center'>
+        <div className='flex flex-col w-fit rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
         <Event 
+            imageSrc="/Events_Placeholder.png"
+            synopsis="Event description goes here"
+            name="EVENT NAME GOES HERE"
+            type="Team"
+            date="Jan 24, 2025"
+            desc="lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactum est in alienum sensum omne quicquid est, ut non intellegamus, sic omne quod est in nostris sensibus, ut non videamus, nec audiamus, nec gustemus, nec concipiamus, sensibile est."
+            location="CIT Chennai, Kundrathur"
+            openPopup={openPopup}
+          />
+          <Event 
             imageSrc="/Events_Placeholder.png"
             synopsis="Event description goes here"
             name="EVENT NAME GOES HERE"
@@ -61,7 +72,7 @@ export default function Home() {
           />
         </div>
       </div>
-      {/* Global Popup */}
+      {/* Global Popup for Events */}
       {isOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-[#000000b8] flex justify-center items-center animate-fadeIn transition-all duration-300 ease-in-out z-50">
           <div className="flex flex-row bg-gradient-to-br  from-[rgb(23,25,63)] via-[rgba(25,27,68,0.5)] to-[rgba(60,65,165,0.7)] w-[80%] rounded-[1rem]">
@@ -76,6 +87,28 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/*Podcast Section*/}
+      <div className='flex flex-row justify-evenly items-center -space-x-40'>
+      <PodcastCard
+        title="Morning Tech Talk"
+        author="Jessica Page"
+        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        imageUrl="/PodcastFace.png"
+      />
+      <PodcastCard
+        title="Morning Tech Talk"
+        author="Jessica Page"
+        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        imageUrl="/PodcastFace.png"
+      />
+      <PodcastCard
+        title="Morning Tech Talk"
+        author="Jessica Page"
+        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        imageUrl="/PodcastFace.png"
+      />
+      </div>
+      
     </>
   );
 }

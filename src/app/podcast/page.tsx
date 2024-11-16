@@ -51,11 +51,11 @@ const Podcast: React.FC<PropType> = ({ title, hosts, description, links, sourcef
     return (
 //w-[100%] my-10  bg-[#2b2e4a] grid grid-cols-[1fr_2fr] px-5 py-10 rounded-xl
       // <div className='transition-transform transform hover:scale-105 duration-500 ease-in-out'>
-      <div className={`w-[100%] my-10  bg-[#2b2e4a] grid grid-cols-[1fr_2fr] px-5 py-10 rounded-xl `}>
+      <div className={`w-[100%] my-10  bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 grid grid-cols-[1fr_2fr] px-5 py-10 rounded-xl `}>
             <div className="flex place-items-center">
             <Image src={img} alt="Logo"  width={250} height={100} />
             </div>
-            <div className=" bg-[#2b2e4a] flex flex-col gap-4 px-10">
+            <div className="flex flex-col gap-4 px-10">
               <h1 className="text-3xl font-bold">{title}</h1>
               <h2>{hostNames}</h2>
               <p>
@@ -86,7 +86,7 @@ export default function Podcasts(){
 
   const hosts = ['host1', 'host2'];
   const links = ['https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C', 'https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C', 'https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C'];
-  const description = 'soluta, explicabo, quam assumenda facilis. Tempore dolor tempora nisi minus inventore explicabo! Sunt facere inventore qui ex molestiae nostrum nulla eligendi omnis minima nam dolorem officia, cupiditate harum aliquam reprehenderit porro officiis ab blanditiis! Accusamus facilis aspernatur, consequatur veniam tempore nobis voluptas cum beatae amet voluptate hic eaque, neque doloremque consectetur repudiandae nam nostrum blanditiis voluptatum aperiam magni doloribus. Nostrum fugit autem officiis placeat, quo sed incidunt aut tempora optio mollitia perspiciatis soluta libero minus iusto, magni vero assumenda numquam. Saepe cum dolor iure tempora, tenetur non soluta aliquam deserunt. Cumque fuga, doloribus error velit, nisi deserunt praesentium odio quas quaerat ducimus labore aliquam et ratione amet officiis. Commodi natus voluptates omnis adipisci vitae minima sequi expedita debitis provident voluptate? Earum, quisquam soluta quae veritatis quis incidunt, voluptas ullam quo harum consequatur maiores dolorum. Consequuntur, modi tenetur quo a impedit animi sapiente excepturi ipsum optio rem consequatur sint fugit? Facere, dolor. Adipisci voluptates similique, a minus voluptas excepturi? Molestias beatae, nulla fuga voluptatum aliquid harum maxime nam. Odit necessitatibus dolorem saepe dicta, blanditiis tenetur. Eaque pariatur vel suscipit ab officiis magnam! Laudantium, voluptatibus officia nostrum aliquid aspernatur corrupti laborum quam esse, beatae a sed? Minima reprehenderit veniam doloribus laboriosam error beatae vitae perspiciatis nihil, ullam facere recusandae dolorum officiis quasi nobis consectetur eveniet fugit sapiente temporibus voluptatum repudiandae. Veniam pariatur voluptatibus, corrupti unde reiciendis ab praesentium assumenda nobis, dolorem quas aliquam! Repellat modi illo laboriosam odio accusamus provident deleniti minus, quos quam atque odit! Maxime blanditiis, laborum provident corrupti cupiditate accusamus adipisci impedit animi vitae architecto nesciunt fuga. Nostrum distinctio dolor vitae? Dignissimos et possimus totam nobis, cum illum id ab culpa dicta repellendus? Odio voluptates earum aspernatur necessitatibus atque esse!';
+  const description = 'soluta, explicabo, quam assumenda facilis. Tempore dolor tempora nisi minus inventore explicabo! Sunt facere inventore qui ex molestiae nostrum nulla eligendi omnis minima nam dolorem officia, cupiditate harum aliquam reprehenderit porro officiis ab blanditiis! Accusamus facilis aspernatur, Consequuntur, modi tenetur quo a impedit animi sapiente excepturi ipsum optio rem consequatur sint fugit? Facere, dolor. Adipisci voluptates similique, a minus voluptas excepturi? Molestias beatae, nulla fuga voluptatum aliquid harum maxime nam. Odit necessitatibus dolorem saepe dicta';
   return <div className='w-[80%] mx-auto'>
 
     <h1 className="text-3xl font-bold">Podcasts</h1>

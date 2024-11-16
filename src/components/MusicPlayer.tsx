@@ -83,7 +83,7 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
   };
 
   return (
-    <div className="flex items-center justify-between bg-[#2b2e4a] text-white py-4 rounded-lg gap-4">
+    <div className="flex items-center justify-between text-white py-4 rounded-lg gap-4">
       <audio
         ref={audioRef}
         src="/song.mp3" // Replace with your audio file
