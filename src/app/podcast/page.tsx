@@ -57,11 +57,11 @@ const Podcast: React.FC<PropType> = ({ title, hosts, description, links, sourcef
             </div>
             <div className="flex flex-col gap-4 px-10">
               <h1 className="text-3xl font-bold">{title}</h1>
-              <h2>{hostNames}</h2>
+              <h2 className='font-imprintMTShadow'>{hostNames}</h2>
               <p>
                 {description}
               </p>
-              <h2>Editing by Asymmetric</h2>
+              <h2 className='font-metal'>Editing by <span className='text-orange-500'>Asymmetric</span></h2>
               <div className="icons flex flex-cols gap-4 items-center">
                 <Link href={spotifyLink} target='_blank' className="transition-colors">
                   <FaSpotify className="transition-all duration-300 w-5 h-5 hover:bg-green-400 rounded-lg" />

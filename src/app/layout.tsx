@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Oswald, Outfit, ABeeZee, Parisienne } from "next/font/google";import "./globals.css";
+import { Oswald, Outfit, ABeeZee, Parisienne, Metal } from "next/font/google";
+import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlowyThing from "@/components/Glowything";
@@ -32,6 +33,18 @@ const parisienne = Parisienne({
   variable: "--font-parisienne",
 });
 
+const metal = Metal({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-metal",
+});
+
+const imprintMTShadow = localFont({
+  src: "./fonts/imprint-mt-shadow.ttf",
+  variable: "--font-imprintMTShadow",
+});
+
 const nicoMoji = localFont({
   src: "./fonts/Nicomoji-Regular.ttf",
   variable: "--font-nicomoji",
@@ -60,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${nicoMoji.variable} ${parisienne.variable} ${geistSans.variable}`}>
+    <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${nicoMoji.variable} ${parisienne.variable} ${metal.variable} ${imprintMTShadow.variable} ${geistSans.variable}`}>
       <head>
 
       </head>

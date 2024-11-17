@@ -32,6 +32,8 @@ export default {
           aBeeZee: ['var(--font-ABeeZee)', 'sans-serif'],
           parisienne: ['var(--font-parisienne)', 'sans-serif'],
           nicoMoji: ['var(--font-nicomoji)', 'sans-serif'],
+          metal: ['var(--font-metal)', 'sans-serif'],
+          imprintMTShadow: ['var(--font-imprintMTShadow)', 'sans-serif'],
           'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
         },
         animation: {
