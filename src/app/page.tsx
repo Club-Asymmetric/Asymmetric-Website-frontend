@@ -4,17 +4,39 @@ import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import PodcastCard from '@/components/PodcastCard';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 export default function Home() {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [popupContent, setPopupContent] = useState({
     desc : "",
     img : "/Events_Placeholder.png",
     name : "Title",
     synopsis : "synopsis"
     });
+  
+  function openRegistrationPage() {
+    window.location.href="/events/registration-form"
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      const scrollY = window.scrollY;
+      setScrollPosition(scrollY);
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPosition);
+    }
+  }, [isOpen, scrollPosition]);
 
   const openPopup = (content: { desc: string; img: string; name: string; synopsis: string }) => {
     setPopupContent(content);
@@ -22,6 +44,10 @@ export default function Home() {
   };
 
   const closePopup = () => setIsOpen(false);
+
+  const handlePopupContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
   return (
     <>
@@ -73,17 +99,48 @@ export default function Home() {
         </div>
       </div>
       {/* Global Popup for Events */}
+      {/* Popup */}
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-[#000000b8] flex justify-center items-center animate-fadeIn transition-all duration-300 ease-in-out z-50">
-          <div className="flex flex-row bg-gradient-to-br  from-[rgb(23,25,63)] via-[rgba(25,27,68,0.5)] to-[rgba(60,65,165,0.7)] w-[80%] rounded-[1rem]">
+        <div 
+          className="fixed inset-0 w-full h-full bg-[#000000b8] flex justify-center items-center z-50 animate-fadeIn" 
+          style={{animationDuration: '1s'}} 
+          onClick={closePopup}
+        >
+          <div 
+            className="relative flex flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg"
+            onClick={handlePopupContentClick}
+          >
+            <img 
+              src={popupContent.img} 
+              alt="Event" 
+              className="w-[35%] object-cover rounded-l-lg py-12 px-12" 
+            />
             
-            <img src={popupContent.img} alt="Event" className="w-[296px] h-[348px] object-cover rounded-l-lg py-[3rem] px-[3rem]" />
-            <div className='flex flex-col py-[3rem] pr-[3rem]'>
-              <p className="text-2xl font-medium font-['oswald'] leading-[25px] mb-3">{popupContent.synopsis}</p>
-              <p className="text-5xl font-extrabold font-['Outfit'] mb-[2rem]">{popupContent.name}</p>
-              <p className='text-white text-2xl font-normal font-[Outfit] leading-7'>{popupContent.desc}</p>
+            <div className="flex flex-col flex-1 py-12 pr-12">
+              <p className="text-2xl font-medium font-oswald leading-tight mb-3">
+                {popupContent.synopsis}
+              </p>
+              <p className="text-5xl font-extrabold font-outfit mb-8">
+                {popupContent.name}
+              </p>
+              <p className="text-white text-2xl font-normal font-outfit leading-7">
+                {popupContent.desc}
+              </p>
+              <button 
+                onClick={openRegistrationPage}
+                className="px-20 py-2 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline hover:outline-2"
+              >
+                Register
+              </button>
             </div>
-            <p className="cursor-pointer hover:scale-110 place-self-start transition-transform duration-100 ease-linear p-[1rem]" onClick={closePopup}>X</p >
+            
+            <button 
+              className="absolute top-4 right-4 text-white hover:scale-110 transition-transform duration-100 ease-linear p-4"
+              onClick={closePopup}
+              aria-label="Close popup"
+            >
+              ✕
+            </button>
           </div>
         </div>
       )}

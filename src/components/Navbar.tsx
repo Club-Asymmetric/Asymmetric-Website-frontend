@@ -38,12 +38,12 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about-us' },
+    { name: 'About-Us', href: '/about-us' },
     { name: 'Events', href: '/events' },
     { name: 'Podcasts', href: '/podcast' },
     { name: 'Members', href: '/members' },
     { name: 'Team', href: '/team' },
-    { name: 'Contact Us', href: '/contact-us' }
+    { name: 'Contact-Us', href: '/contact-us' }
   ];
 
   return (
@@ -73,8 +73,8 @@ const Navbar = () => {
 
           {/* Navigation */}
           <nav className="bg-blue-950/70 backdrop-blur-md rounded-full">
-            <div className="flex items-center justify-center p-4 rounded-full px-10">
-              <ul className="flex space-x-16">
+            <div className="flex items-center justify-center p-4 rounded-full px-6 md:px-10">
+              <ul className="flex flex-wrap justify-center gap-4 md:gap-8 lg:gap-12">
                 {navItems.map((item) => (
                   <li key={item.name}>
                     <Link

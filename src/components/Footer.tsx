@@ -147,7 +147,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-row justify-between items-center py-4 border-t border-white">
+        <div className="flex flex-row justify-between items-center px-4 py-4 border-t border-white">
           <div className="text-sm">
             <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
           </div>
