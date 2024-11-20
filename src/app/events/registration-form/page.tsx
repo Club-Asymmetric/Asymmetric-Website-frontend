@@ -4,6 +4,19 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
 
+// Define events
+const EVENTS = [
+  'Technical Symposium',
+  'Coding Competition',
+  'Robotics Workshop',
+  'Hackathon',
+  'Data Science Summit',
+  'AI Conference'
+];
+
+// Maximum number of team members
+const MAX_TEAM_MEMBERS = 4;
+
 interface TeamMember {
   name: string;
   department: string;
@@ -16,6 +29,7 @@ interface FormData {
   collegeName: string;
   mailId: string;
   mobileNumber: string;
+  event: string;
 }
 
 const EventRegistrationForm = () => {
@@ -25,10 +39,11 @@ const EventRegistrationForm = () => {
     teamMembers: [{ name: '', department: '' }],
     collegeName: '',
     mailId: '',
-    mobileNumber: ''
+    mobileNumber: '',
+    event: '' // New event field
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -51,10 +66,12 @@ const EventRegistrationForm = () => {
   };
 
   const addTeamMember = () => {
-    setFormData(prev => ({
-      ...prev,
-      teamMembers: [...prev.teamMembers, { name: '', department: '' }]
-    }));
+    if (formData.teamMembers.length < MAX_TEAM_MEMBERS) {
+      setFormData(prev => ({
+        ...prev,
+        teamMembers: [...prev.teamMembers, { name: '', department: '' }]
+      }));
+    }
   };
 
   const removeTeamMember = (indexToRemove: number) => {
@@ -132,8 +149,9 @@ const EventRegistrationForm = () => {
                     id={`name-${index}`}
                     required
                   />
-                  <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
-                  htmlFor={`name-${index}`}
+                  <label 
+                    className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+                    htmlFor={`name-${index}`}
                   >
                     Team Member Name
                   </label>
@@ -149,8 +167,9 @@ const EventRegistrationForm = () => {
                     id={`department-${index}`}
                     required
                   />
-                  <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
-                  htmlFor={`department-${index}`}
+                  <label 
+                    className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
+                    htmlFor={`department-${index}`}
                   >
                     Department
                   </label>
@@ -169,13 +188,56 @@ const EventRegistrationForm = () => {
               </div>
             ))}
 
-            <button
-              type="button"
-              onClick={addTeamMember}
-              className="text-blue-300 border border-blue-300 px-3 py-1 rounded-md hover:bg-white/50 hover:text-black transition-all duration-200 hover:border-black"
-            >
-              + Add Another
-            </button>
+            {formData.teamMembers.length < MAX_TEAM_MEMBERS && (
+              <button
+                type="button"
+                onClick={addTeamMember}
+                className="text-blue-300 border border-blue-300 px-3 py-1 rounded-md hover:bg-white/50 hover:text-black transition-all duration-200 hover:border-black"
+              >
+                + Add Another
+              </button>
+            )}
+            {formData.teamMembers.length === MAX_TEAM_MEMBERS && (
+              <p className="text-red-300 text-sm">
+                Maximum team size of {MAX_TEAM_MEMBERS} members reached
+              </p>
+            )}
+          </div>
+          <div className="relative">
+          <div className="relative">
+              <select
+                name="event"
+                value={formData.event}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white 
+                  focus:outline-none focus:ring-1 focus:ring-white 
+                  appearance-none" // Removes default browser styling
+                required
+              >
+                <option value="" disabled className="text-gray-500">Select an Event</option>
+                {EVENTS.map((event, index) => (
+                  <option 
+                    key={index} 
+                    value={event}
+                    className="bg-blue-950 text-white hover:bg-blue-900"
+                  >
+                    {event}
+                  </option>
+                ))}
+              </select>
+              {/* Custom dropdown arrow */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                <svg 
+                  className="fill-current h-4 w-4" 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  viewBox="0 0 20 20"
+                >
+                  <path 
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" 
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
           <div className="relative">
             <input
@@ -219,18 +281,27 @@ const EventRegistrationForm = () => {
               name="mobileNumber"
               value={formData.mobileNumber}
               onChange={handleInputChange}
+              pattern="[0-9]*"
+              inputMode="numeric"
               className="w-full px-4 py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer"
               placeholder=" "
               id='mobileNumber'
               required
             />
-            <label className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+            <label 
+              className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
               peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text"
               htmlFor='mobileNumber'
-              >
+            >
               Mobile Number
             </label>
           </div>
+          {/* Validation message */}
+          {formData.mobileNumber.length > 0 && formData.mobileNumber.length < 10 && (
+            <p className="text-red-300 text-sm mt-1">
+              Please enter a valid 10-digit mobile number
+            </p>
+          )}
           <div className='flex justify-center'>
           <button
             type="submit"
