@@ -50,7 +50,6 @@ const Footer = () => {
     };
   }, []);
 
-
   const primaryLinks: FooterLink[] = [
     { text: 'Home', href: '/' },
     { text: 'Events', href: '/events' },
@@ -78,9 +77,9 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <div className=''>
+    <div className='min-w-max'>
     <footer 
-      className="relative bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-16 pt-8 pb-1 rounded-3xl mb-10"
+      className="relative bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-16 pt-8 pb-1 rounded-3xl mb-10 min-w-max"
       style={{
         transform: `scale(${scale})`,
         transformOrigin: 'bottom',
@@ -89,15 +88,15 @@ const Footer = () => {
     >
       <div className="max-w-7xl mx-auto py-4 border-white border-t">
         <div className="text-center mb-7">
-          <h2 className="text-lg mb-4">Created by Students, for Students</h2>
+          <h2 className="text-base mb-4">Created by Students, for Students</h2>
           <div className='border-white border-t'/>
         </div>
 
-        <div className="grid grid-cols-4 gap-10 mb-8 text-center">
+        <div className="grid grid-cols-4 gap-8 mb-8 text-center min-w-max">
           <div className="space-y-5 font-semibold">
             {primaryLinks.map((link) => (
-              <div key={link.text}>
-                <Link href={link.href} className={`transition-all duration-75 ${hoveredPrimary!==null && hoveredPrimary!==link.text ? 'text-gray-300': 'text-white'}`}
+              <div key={link.text} className="whitespace-nowrap">
+                <Link href={link.href} className={`transition-all duration-75 text-base ${hoveredPrimary!==null && hoveredPrimary!==link.text ? 'text-gray-300': 'text-white'}`}
                 onMouseEnter={() => setHoveredPrimary(link.text)}
                 onMouseLeave={() => setHoveredPrimary(null)}
                 >
@@ -109,8 +108,8 @@ const Footer = () => {
 
           <div className="space-y-5 font-semibold">
             {secondaryLinks.map((link) => (
-              <div key={link.text}>
-                <Link href={link.href} className={`transition-all duration-75 ${hoveredSecondary!==null && hoveredSecondary!==link.text ? 'text-gray-300': 'text-white'}`}
+              <div key={link.text} className="whitespace-nowrap">
+                <Link href={link.href} className={`transition-all duration-75 text-base ${hoveredSecondary!==null && hoveredSecondary!==link.text ? 'text-gray-300': 'text-white'}`}
                 onMouseEnter={() => setHoveredSecondary(link.text)}
                 onMouseLeave={() => setHoveredSecondary(null)}
                 >
@@ -121,11 +120,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-xl mb-2">Events</h3>
+            <h3 className="font-semibold text-base mb-2">Events</h3>
             <div className="space-y-1">
               {events.map((event) => (
-                <div key={event.text}>
-                  <Link href={event.href} className="hover:text-gray-300 transition-colors">
+                <div key={event.text} className="whitespace-nowrap">
+                  <Link href={event.href} className="text-base hover:text-gray-300 transition-colors">
                     {event.text}
                   </Link>
                 </div>
@@ -134,11 +133,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-xl mb-2">Podcasts</h3>
+            <h3 className="font-semibold text-base mb-2">Podcasts</h3>
             <div className="space-y-1">
               {podcasts.map((podcast) => (
-                <div key={podcast.text}>
-                  <Link href={podcast.href} className="hover:text-gray-300 transition-colors">
+                <div key={podcast.text} className="whitespace-nowrap">
+                  <Link href={podcast.href} className="text-base hover:text-gray-300 transition-colors">
                     {podcast.text}
                   </Link>
                 </div>
@@ -152,7 +151,7 @@ const Footer = () => {
             <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
           </div>
           <div>
-            <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer'
+            <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer text-base'
             onMouseEnter={() => handleEasterEggHover(true)}
             onMouseLeave={() => handleEasterEggHover(false)}
             >WOW YOU FOUND A ESTER'S EGG MF</p>
@@ -161,7 +160,15 @@ const Footer = () => {
         <div className="flex flex-row justify-between items-center pt-6 border-t border-white px-3">
           <div>
             <Link href='/'>
-              <Image src="/logo.png" alt="Logo" className='cursor-pointer hover:scale-105 transition-all duration-300' width={175} height={100} />
+              <div className="w-44 h-16 relative">
+                <Image 
+                  src="/logo.png" 
+                  alt="Logo" 
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className='cursor-pointer hover:scale-105 transition-all duration-300' 
+                />
+              </div>
             </Link>
           </div>
           <div className="flex items-center space-x-4 mt-0 px-3">
