@@ -87,7 +87,7 @@ export default function RootLayout({
               <GlowyThing color="#E0C585" left="-35vw" top="350vh"/>  
             </div>
           <Navbar />
-          <main className="flex-grow flex-shrink-0 mt-10 mb-10 relative z-10">
+          <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
             {children}
           </main>
           <Footer />

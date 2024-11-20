@@ -158,13 +158,13 @@ const Footer = () => {
             >WOW YOU FOUND A ESTER'S EGG MF</p>
           </div>
         </div>
-        <div className="flex flex-row justify-between items-center pt-6 border-t border-white">
+        <div className="flex flex-row justify-between items-center pt-6 border-t border-white px-3">
           <div>
             <Link href='/'>
               <Image src="/logo.png" alt="Logo" className='cursor-pointer hover:scale-105 transition-all duration-300' width={175} height={100} />
             </Link>
           </div>
-          <div className="flex items-center space-x-4 mt-0">
+          <div className="flex items-center space-x-4 mt-0 px-3">
             <span className="text-sm text-white mr-2 hover:scale-105 transition-all duration-200 cursor-pointer">
               Stay in the <Link href='https://linktr.ee/Club_Asymmetric' target='_blank'>
                 <span className='hover:text-gray-300 transition-all duration-200'>Loop</span>
