@@ -29,41 +29,41 @@ export default function AboutUs() {
     { text: "Asymmetric" }
   ];
 
-  const handleSectionChange = (section: keyof typeof contentData) => {
-    setActiveSection(section);
+  const handleSectionChange = (text: string) => {
+    setActiveSection(text as keyof typeof contentData);
   };
 
   const currentContent = contentData[activeSection];
 
   return (
     <div>
-      <div className="font-bold text-4xl flex justify-center mb-8 hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300">
-        <h1>About Us</h1>
+      <div className="font-bold text-4xl flex justify-center my-8">
+        <h1 className='hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300'>About Us</h1>
       </div>
       <section className="h-fit w-fit mx-auto bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 text-white p-16 rounded-2xl flex items-center">
         <div className="max-w-6xl mx-auto">
           <div className="space-y-10">
             {/* Clickable Typing Header */}
-            <div className="flex space-x-4 justify-center">
-              {heading.map((item) => (
-                <div 
-                  key={item.text}
-                  onClick={() => handleSectionChange(item.text)}
-                >
-                  <TypingHeader 
-                    items={[{ text: item.text, showLine: item.showLine }]} 
-                    delay={500} 
-                    duration={300}
-                  />
-                </div>
-              ))}
-            </div>
+            <TypingHeader 
+              items={heading} 
+              delay={500} 
+              duration={300} 
+              onClick={handleSectionChange} // Pass the handler here
+            />
 
             {/* Subtitle */}
-            <motion.div 
-            className="text-xl transition-all duration-200 font-nicoMoji text-center">
-              <ColorText text={currentContent.subtitle} interval={100}/>
-            </motion.div>
+            <AnimatePresence mode='wait'>
+              <motion.div 
+              key={currentContent.subtitle}
+                className="text-xl font-nicoMoji text-center"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ColorText text={currentContent.subtitle} interval={100} />
+              </motion.div>
+            </AnimatePresence>
 
             {/* Animated Main Content */}
             <AnimatePresence mode="wait">

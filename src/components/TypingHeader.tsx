@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface TextItem {
   text: string;
@@ -9,47 +12,47 @@ interface TypingHeaderProps {
   items: TextItem[];
   delay?: number;
   duration?: number;
+  onClick?: (text: string) => void;
 }
 
 const TypingHeader: React.FC<TypingHeaderProps> = ({ 
   items, 
-  delay = 300, // Delay between each item in ms
-  duration = 200 // Animation duration in ms (faster fade)
+  delay = 500, 
+  duration = 300, 
+  onClick 
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  
-  useEffect(() => {
-    setIsVisible(true);
-    
-    const timer = setInterval(() => {
-      setCurrentStep(prev => prev < items.length ? prev + 1 : prev);
-    }, delay);
-    
-    return () => clearInterval(timer);
-  }, [items.length, delay]);
-
   return (
-      <div className={`flex flex-row items-center justify-center gap-2 transition-opacity duration-200
-        ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        {items.map((item, index) => (
-          <div 
-            key={index}
-            className={`flex items-center gap-4 transition-opacity`}
-            style={{
-              transitionDuration: `${duration}ms`,
-              opacity: currentStep >= index + 1 ? 1 : 0
-            }}
-          >
-            <h2 className={`p-2 text-3xl font-bold cursor-pointer transition-all hover:scale-95 ease-in-out duration-300 border border-transparent hover:border-white rounded-full hover:animate-pulse`}>
-              {item.text}
-            </h2>
-            {item.showLine && (
-              <div className="h-[1px] w-40 bg-white"></div>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-row items-center justify-center gap-2">
+      {items.map((item, index) => (
+        <motion.div
+          key={index}
+          className="flex items-center gap-4 cursor-pointer"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            delay: index * (delay / 1000), 
+            duration: duration / 1000 
+          }}
+          onClick={() => onClick?.(item.text)}
+        >
+          <h2 className="p-2 text-3xl font-bold transition-all hover:scale-95 ease-in-out duration-300 border border-transparent hover:border-white rounded-full hover:animate-pulse">
+            {item.text}
+          </h2>
+          {item.showLine && (
+            <motion.div
+              className="h-[1px] w-40 bg-white"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ 
+                delay: index * (delay / 1000) + duration / 1000, 
+                duration: duration / 1000 
+              }}
+              style={{ transformOrigin: 'left' }}
+            />
+          )}
+        </motion.div>
+      ))}
+    </div>
   );
 };
 
