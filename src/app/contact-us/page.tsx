@@ -51,6 +51,7 @@ const adjustTextareaHeight = () => {
         Got queries about our events or podcasts? Need help with event registrations? Your questions are safe with us—secured and encrypted, always!
       </h1>
       <div className="py-8 w-1/2 inset-x-0 bg-gradient-to-b from-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
+        {/* <div className="absolute w-[50%] h-[50%] bg-gradient-radial from-blue-950/0 to-white blur-[1000px]"></div> */}
             <Image 
             src={'/ass.png'} 
             alt="Registration" 
