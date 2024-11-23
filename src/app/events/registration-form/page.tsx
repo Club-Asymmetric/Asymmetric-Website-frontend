@@ -14,8 +14,9 @@ const EVENTS = [
   'AI Conference'
 ];
 
-// Maximum number of team members
+// Team member constraints
 const MAX_TEAM_MEMBERS = 4;
+const MIN_TEAM_MEMBERS = 2;
 
 interface TeamMember {
   name: string;
@@ -40,7 +41,7 @@ const EventRegistrationForm = () => {
     collegeName: '',
     mailId: '',
     mobileNumber: '',
-    event: '' // New event field
+    event: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -75,7 +76,7 @@ const EventRegistrationForm = () => {
   };
 
   const removeTeamMember = (indexToRemove: number) => {
-    if (formData.teamMembers.length > 1) {
+    if (formData.teamMembers.length > MIN_TEAM_MEMBERS) {
       setFormData(prev => ({
         ...prev,
         teamMembers: prev.teamMembers.filter((_, index) => index !== indexToRemove)
@@ -85,6 +86,11 @@ const EventRegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Validate minimum team members
+    if (formData.teamMembers.length < MIN_TEAM_MEMBERS) {
+      alert(`Minimum ${MIN_TEAM_MEMBERS} team members required`);
+      return;
+    }
     console.log('Form submitted:', formData);
   };
 
@@ -136,6 +142,11 @@ const EventRegistrationForm = () => {
               Team Name
             </label>
           </div>
+          {/* Team size indicator */}
+          <div className="text-sm text-gray-300">
+            <span>Require Team: Min: {MIN_TEAM_MEMBERS}, Max: {MAX_TEAM_MEMBERS}</span>
+            <span className='absolute right-10'>Your Team: {formData.teamMembers.length}</span>
+          </div>
           <div className="space-y-4">
             {formData.teamMembers.map((member, index) => (
               <div key={index} className="flex gap-2 items-center">
@@ -175,7 +186,7 @@ const EventRegistrationForm = () => {
                   </label>
                 </div>
 
-                {index > 0 && (
+                {formData.teamMembers.length > MIN_TEAM_MEMBERS && (
                   <button
                     type="button"
                     onClick={() => removeTeamMember(index)}
@@ -196,11 +207,6 @@ const EventRegistrationForm = () => {
               >
                 + Add Another
               </button>
-            )}
-            {formData.teamMembers.length === MAX_TEAM_MEMBERS && (
-              <p className="text-red-300 text-sm">
-                Maximum team size of {MAX_TEAM_MEMBERS} members reached
-              </p>
             )}
           </div>
           <div className="relative">
