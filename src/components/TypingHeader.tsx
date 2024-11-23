@@ -27,8 +27,8 @@ const TypingHeader: React.FC<TypingHeaderProps> = ({
         <motion.div
           key={index}
           className="flex items-center gap-4 cursor-pointer"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ 
             delay: index * (delay / 1000), 
             duration: duration / 1000 

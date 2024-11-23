@@ -48,7 +48,7 @@ export default function AboutUs() {
               items={heading} 
               delay={500} 
               duration={300} 
-              onClick={handleSectionChange} // Pass the handler here
+              onClick={handleSectionChange}
             />
 
             {/* Subtitle */}
