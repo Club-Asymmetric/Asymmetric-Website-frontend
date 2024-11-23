@@ -86,11 +86,23 @@ const EventRegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     // Validate minimum team members
     if (formData.teamMembers.length < MIN_TEAM_MEMBERS) {
       alert(`Minimum ${MIN_TEAM_MEMBERS} team members required`);
       return;
     }
+    
+    // Validate that all team members have data
+    const hasEmptyFields = formData.teamMembers.some(
+      member => !member.name || !member.department
+    );
+    
+    if (hasEmptyFields) {
+      alert('Please fill in all team member details');
+      return;
+    }
+
     console.log('Form submitted:', formData);
   };
 
@@ -100,9 +112,7 @@ const EventRegistrationForm = () => {
             REGISTRATION FORM
         </h1>
     <div className="py-8 w-1/2 inset-x-0 bg-gradient-to-b from-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
-      <div className=''
-      // use this for the radial gradient
-      >
+      {/* <div className="absolute w-[50%] h-[50%] bg-gradient-radial from-blue-950/0 to-white blur-[1000px]"></div> */}
         <Image src={'/ass.png'} alt="Registration" className='mx-auto z-10 absolute inset-0 w-fit h-fit object-cover opacity-5' width={500} height={500} />
       <div className="w-full max-w-2xl p-10 relative z-10 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-7">
@@ -319,7 +329,6 @@ const EventRegistrationForm = () => {
         </form>
       </div>
       </div>
-    </div>
     </div>
   );
 };
