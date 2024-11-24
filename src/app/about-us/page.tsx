@@ -36,13 +36,15 @@ export default function AboutUs() {
   const currentContent = contentData[activeSection];
 
   return (
-    <div>
-      <div className="font-bold text-4xl flex justify-center my-8">
-        <h1 className='hover:animate-pulse hover:scale-x-125 cursor-pointer transition-all duration-300'>About Us</h1>
+    <div className="min-h-fit w-full px-4 py-8 md:px-8">
+      <div className="font-bold text-2xl sm:text-3xl md:text-4xl flex justify-center mb-6 sm:mb-8">
+        <h1 className="hover:animate-pulse hover:scale-x-110 sm:hover:scale-x-125 cursor-pointer transition-all duration-300 text-center">
+          About Us
+        </h1>
       </div>
-      <section className="h-fit w-fit mx-auto bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 text-white p-16 rounded-2xl flex items-center">
-        <div className="max-w-6xl mx-auto">
-          <div className="space-y-10">
+      <section className="w-full max-w-[95vw] sm:max-w-[90vw] md:max-w-[85vw] mx-auto bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 text-white p-4 sm:p-8 md:p-12 lg:p-16 rounded-xl sm:rounded-2xl">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="space-y-6 sm:space-y-8 md:space-y-10">
             {/* Clickable Typing Header */}
             <TypingHeader 
               items={heading} 
@@ -54,8 +56,8 @@ export default function AboutUs() {
             {/* Subtitle */}
             <AnimatePresence mode='wait'>
               <motion.div 
-              key={currentContent.subtitle}
-                className="text-xl font-nicoMoji text-center"
+                key={currentContent.subtitle}
+                className="text-lg sm:text-xl font-nicoMoji text-center px-2 sm:px-4"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 50 }}
@@ -73,7 +75,7 @@ export default function AboutUs() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="max-w-4xl text-white leading-relaxed text-center"
+                className="max-w-4xl mx-auto text-sm sm:text-base md:text-lg text-white leading-relaxed text-center px-2 sm:px-4"
               >
                 {currentContent.content}
               </motion.div>
