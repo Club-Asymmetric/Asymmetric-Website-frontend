@@ -1,5 +1,12 @@
 'use client';
 
+interface PodcastCardProps {
+  title: string;
+  author: string;
+  description: string;
+  imageUrl: string;
+}
+
 import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import PodcastCard from '@/components/PodcastCard';
@@ -49,35 +56,55 @@ export default function Home() {
     e.stopPropagation();
   };
 
+  const podcasts: PodcastCardProps[] = [
+    {
+      title: "Morning Tech Talk",
+      author: "Jessica Page",
+      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      imageUrl: "/PodcastFace.png"
+    },
+    {
+      title: "Morning Tech Talk",
+      author: "Jessica Page",
+      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      imageUrl: "/PodcastFace.png"
+    },
+    {
+      title: "Morning Tech Talk",
+      author: "Jessica Page",
+      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      imageUrl: "/PodcastFace.png"
+    }
+  ];
+
   return (
     <>
-      <div>
         {/* AboutUs Section */}
         <div className="flex items-center justify-center my-4 md:my-10 px-4 md:px-6">
-      <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-blue-950 w-full gap-6 lg:gap-10">
-        <div className="flex-1 text-center lg:text-left lg:ml-10">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            <ColorText text="Welcome to Asymmetric!" />
-          </h1>
-          <p className="mt-4 text-sm md:text-base">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
-            Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
-          </p>
-          <Link href='/about-us'>
-            <button className="mt-6 bg-cyan-500 text-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-300">
-              Dive Deeper
-            </button>
-          </Link>
+          <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-blue-950 w-full gap-6 lg:gap-10">
+            <div className="flex-1 text-center lg:text-left lg:ml-10">
+              <h1 className="text-3xl md:text-4xl font-bold">
+                <ColorText text="Welcome to Asymmetric!" />
+              </h1>
+              <p className="mt-4 text-sm md:text-base">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
+                Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
+              </p>
+              <Link href='/about-us'>
+                <button className="mt-6 bg-cyan-500 text-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-300">
+                  Dive Deeper
+                </button>
+              </Link>
+            </div>
+            <div className="hidden lg:flex lg:justify-end lg:items-center">
+              <img 
+                src="Aboutus_Placeholder.png" 
+                alt="AboutUs" 
+                className="w-64 md:w-80 lg:w-96 h-auto"
+              />
+            </div>
+          </div>
         </div>
-        <div className="hidden lg:flex lg:justify-end lg:items-center">
-          <img 
-            src="Aboutus_Placeholder.png" 
-            alt="AboutUs" 
-            className="w-64 md:w-80 lg:w-96 h-auto"
-          />
-        </div>
-      </div>
-    </div>
         {/* Events Section */}
         <div className='flex flex-col w-fit rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
         <Event 
@@ -101,7 +128,6 @@ export default function Home() {
             openPopup={openPopup}
           />
         </div>
-      </div>
       {/* Global Popup for Events */}
       {/* Popup */}
       {isOpen && (
@@ -149,27 +175,22 @@ export default function Home() {
         </div>
       )}
       {/*Podcast Section*/}
-      <div className='flex flex-row justify-evenly items-center -space-x-40'>
-      <PodcastCard
-        title="Morning Tech Talk"
-        author="Jessica Page"
-        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        imageUrl="/PodcastFace.png"
-      />
-      <PodcastCard
-        title="Morning Tech Talk"
-        author="Jessica Page"
-        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        imageUrl="/PodcastFace.png"
-      />
-      <PodcastCard
-        title="Morning Tech Talk"
-        author="Jessica Page"
-        description="Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        imageUrl="/PodcastFace.png"
-      />
+      <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+        {podcasts.map((podcast, index) => (
+          // On mobile, show only first podcast
+          // On tablet, show first two podcasts
+          // On desktop, show all three podcasts
+          <div key={index} className={`
+            ${index === 0 ? 'block' : 'hidden lg:block'} 
+            ${index === 1 ? 'hidden md:block' : ''} 
+            ${index === 2 ? 'hidden lg:block' : ''}
+          `}>
+            <PodcastCard {...podcast} />
+          </div>
+        ))}
       </div>
-      
+    </div>
     </>
   );
 }
