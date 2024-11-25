@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import GlowyShit from '@/components/GlowyShit';
 import Image from 'next/image';
 
 interface FormData {
@@ -51,8 +52,8 @@ const ContactUsFrom = () => {
         Got queries about our events or podcasts? Need help with event registrations? Your questions are safe with us—secured and encrypted, always!
       </h1>
       
-      <div className="w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 to-blue-900 mx-auto p-4 md:p-6 rounded-xl relative">
-      {/* <div className="absolute w-[50%] h-[50%] bg-gradient-radial from-blue-950/0 to-white blur-[1000px]"></div> */}
+      <div className="w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 via-blue-950 to-blue-900 mx-auto p-4 md:p-6 rounded-xl relative">
+        <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
           src={'/ass.png'} 
           alt="Registration" 

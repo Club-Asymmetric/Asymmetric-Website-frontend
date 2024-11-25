@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
+import GlowyShit from '@/components/GlowyShit';
 
 const EVENTS = [
   'Technical Symposium',
@@ -107,8 +108,8 @@ const EventRegistrationForm = () => {
       <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-6 md:mb-8">
         REGISTRATION FORM
       </h1>
-      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
-      {/* <div className="absolute w-[50%] h-[50%] bg-gradient-radial from-blue-950/0 to-white blur-[1000px]"></div> */}
+      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 via-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
+        <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
           src={'/ass.png'} 
           alt="Registration" 
@@ -132,7 +133,7 @@ const EventRegistrationForm = () => {
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >
@@ -162,7 +163,7 @@ const EventRegistrationForm = () => {
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`name-${index}`}
                     >
                       Team Member Name
@@ -180,7 +181,7 @@ const EventRegistrationForm = () => {
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`department-${index}`}
                     >
                       Department
@@ -255,7 +256,7 @@ const EventRegistrationForm = () => {
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-blue-950/90 px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >
