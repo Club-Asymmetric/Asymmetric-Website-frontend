@@ -12,37 +12,58 @@ export default {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       keyframes: {
-          zoomIn: {
-            '0%':{
-              transform: 'scale(0)',
-              opacity: '0',
-            },'100%':{
-              transform: 'scale(1)',
-              opacity: '1',
-            },
+        zoomIn: {
+          '0%': {
+            transform: 'scale(0)',
+            opacity: '0',
           },
-          fadeIn:{
-            '0%':{
-                opacity: '0',
-            },'100%':{
-                opacity:'1',
-            },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '1',
           },
         },
-        fontFamily: {
-          outfit: ['var(--font-outfit)', 'sans-serif'],
-          oswald: ['var(--font-oswald)', 'sans-serif'],
-          aBeeZee: ['var(--font-ABeeZee)', 'sans-serif'],
-          parisienne: ['var(--font-parisienne)', 'sans-serif'],
-          nicoMoji: ['var(--font-nicomoji)', 'sans-serif'],
-          metal: ['var(--font-metal)', 'sans-serif'],
-          imprintMTShadow: ['var(--font-imprintMTShadow)', 'sans-serif'],
-          'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
+          },
         },
-        animation: {
-          zoomIn: "zoomIn 1s ease-in-out forwards",
-          fadeIn: "fadeIn 2s ease-in-out forwards"
+        skewIn: {
+          '0%': {
+            transform: 'skewY(0deg)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'skewY(20deg)',
+            opacity: '1',
+          },
         },
+        tilt: {
+          '0%': {
+            transform: 'perspective(1000px) rotateY(0deg)',
+          },
+          '100%': {
+            transform: 'perspective(1000px) rotateY(10deg)',
+          },
+        },
+      },
+      fontFamily: {
+        outfit: ['var(--font-outfit)', 'sans-serif'],
+        oswald: ['var(--font-oswald)', 'sans-serif'],
+        aBeeZee: ['var(--font-ABeeZee)', 'sans-serif'],
+        parisienne: ['var(--font-parisienne)', 'sans-serif'],
+        nicoMoji: ['var(--font-nicomoji)', 'sans-serif'],
+        metal: ['var(--font-metal)', 'sans-serif'],
+        imprintMTShadow: ['var(--font-imprintMTShadow)', 'sans-serif'],
+        'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+      },
+      animation: {
+        zoomIn: "zoomIn 1s ease-in-out forwards",
+        fadeIn: "fadeIn 2s ease-in-out forwards",
+        tilt: "tilt 1s ease-in-out forwards",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

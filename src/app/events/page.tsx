@@ -4,7 +4,6 @@ import Event from '@/components/Event';
 
 const Events = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
@@ -16,24 +15,25 @@ const Events = () => {
     name: "Title",
     synopsis: "synopsis"
   });
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
 
-  // Save scroll position and lock scroll when popup opens
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      setScrollPosition(scrollY);
       document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollPosition);
     }
-  }, [isOpen, scrollPosition]);
+  }, [isOpen]);
 
   const openPopup = (content: { desc: string; img: string; name: string; synopsis: string }) => {
     setPopupContent(content);
@@ -108,35 +108,36 @@ const Events = () => {
       {/* Popup */}
       {isOpen && (
         <div 
-          className="fixed inset-0 w-full h-full bg-[#000000b8] flex justify-center items-center z-50 animate-fadeIn" 
-          style={{animationDuration: '1s'}} 
+          className="fixed bg-[#000000b8] flex justify-center items-center z-50 animate-fadeIn overflow-hidde" 
+          style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
           onClick={closePopup}
         >
           <div 
-            className="relative flex flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg"
+            className="relative flex flex-col lg:flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
+            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
             onClick={handlePopupContentClick}
           >
             <img 
               src={popupContent.img} 
               alt="Event" 
-              className="w-[35%] object-cover rounded-l-lg py-12 px-12" 
+              className="xl:w-[35%] md:w-[50%] md:h-full object-cover place-self-center rounded-l-lg py-12 px-12" 
             />
             
-            <div className="flex flex-col flex-1 py-12 pr-12">
+            <div className="flex flex-col flex-1 py-12 pr-12 lg:ml-0 ml-8">
               <p className="text-2xl font-medium font-oswald leading-tight mb-3">
-                {popupContent.synopsis}
+          {popupContent.synopsis}
               </p>
               <p className="text-5xl font-extrabold font-outfit mb-8">
-                {popupContent.name}
+          {popupContent.name}
               </p>
               <p className="text-white text-2xl font-normal font-outfit leading-7">
-                {popupContent.desc}
+          {popupContent.desc}
               </p>
               <button 
-                onClick={openRegistrationPage}
-                className="px-20 py-2 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline hover:outline-2"
+          onClick={openRegistrationPage}
+          className="px-20 py-2 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline hover:outline-2"
               >
-                Register
+          Register
               </button>
             </div>
             

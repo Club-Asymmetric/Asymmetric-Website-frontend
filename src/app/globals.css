@@ -35,3 +35,32 @@ body {
 html.grayscale-active {
   --grayscale-amount: 100%;
 }
+.minimal-scrollbar {
+  /* Enable scrolling */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Webkit-based browsers (Chrome, Edge, Safari) */
+.minimal-scrollbar::-webkit-scrollbar {
+  width: 1px; /* Very thin scrollbar */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1); /* Super transparent thumb */
+  border-radius: 1px; /* Subtle rounded edges */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2); /* Slightly darker on hover */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Fully transparent track */
+}
+
+/* Firefox styling */
+.minimal-scrollbar {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent; /* Transparent track with a faint thumb */
+}

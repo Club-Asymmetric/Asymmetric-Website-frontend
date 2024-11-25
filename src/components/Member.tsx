@@ -1,9 +1,9 @@
 export default function Member() {
     return (
         <>
-            <div className="px-[15rem]">
-                <div className="grid grid-flow-col grid-cols-3 gap-8">
-                    <div className="col-span-2 flex xl:flex-row p-4 bg-[#15144D] rounded-xl md:flex-col">
+            <div className="2xl:px-[15rem] xl:px-[10rem] lg:px-[5rem] md:px-[3rem]">
+                <div className="grid grid-flow-col grid-cols-3  gap-8">
+                    <div className="col-span-2 flex lg:flex-row p-4 bg-[#15144D] rounded-xl md:flex-col relative hover:scale-95 hover:shadow-2xl transition-all duration-500 ease-in-out ">
                         <img src="Events_Placeholder.png" alt="Placeholder" className="w-60 h-60 rounded-full md:place-self-center" />
                         <div className="grid grid-flow-row ml-[2px]">
                             <h1 className="text-4xl font-bold font-outfit place-self-center">HEMANTH RAJ</h1>
@@ -15,7 +15,7 @@ export default function Member() {
                         </div>
                     </div>
 
-                    <div className="col-span-1 bg-[#15144D] rounded-xl flex flex-col">
+                    <div className="col-span-1  bg-[#15144D] rounded-xl flex flex-col hover:scale-95 hover:shadow-2xl transition-all duration-500 ease-in-out ">
                         <div className="bg-gradient-to-br from-[#17193F] via-[#191B4480] to-[#3C41A5B2] rounded-t-xl h-10 pl-3 pt-2">
                             <p className="text-xl font-outfit">Info</p>
                         </div>
