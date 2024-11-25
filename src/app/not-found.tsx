@@ -10,6 +10,7 @@ const Custom404: FC = () => {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [showFinalMessage, setShowFinalMessage] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   const messages = [
     "You seem to be lost in the digital void...",
@@ -26,6 +27,8 @@ const Custom404: FC = () => {
   ];
 
   const calculateCoordinates = (x: number, y: number) => {
+    if (typeof window === 'undefined') return { latitude: '0.000000', longitude: '0.000000' };
+    
     const lat = (y / window.innerHeight) * 180 - 90;
     const long = (x / window.innerWidth) * 360 - 180;
     return {
@@ -35,6 +38,8 @@ const Custom404: FC = () => {
   };
 
   useEffect(() => {
+    setMounted(true);
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -60,7 +65,6 @@ const Custom404: FC = () => {
     
     if (countdown === 0) {
       setShowFinalMessage(true);
-      // Redirect after showing the message for 2 seconds
       setTimeout(() => {
         router.push('/');
       }, 2000);
@@ -73,6 +77,13 @@ const Custom404: FC = () => {
 
     return () => clearInterval(timer);
   }, [countdown, router]);
+
+  // Don't render anything until client-side hydration is complete
+  if (!mounted) {
+    return (
+      <div className="min-h-screen w-[85%] mx-auto my-10 rounded-3xl px-4 py-8 md:px-8 bg-gradient-to-br from-blue-950 via-blue-950 to-blue-900" />
+    );
+  }
 
   const coordinates = calculateCoordinates(mousePosition.x, mousePosition.y);
 
@@ -203,17 +214,68 @@ const Custom404: FC = () => {
                 {countdown}
               </motion.div>
             )}
-
-            {showFinalMessage && (
-              <motion.div
-                key="final-message"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-2xl font-bold text-red-500 text-center"
-              >
-                You will be entering reality...
-              </motion.div>
-            )}
+            {/* Final Message Overlay */}
+            <AnimatePresence mode="wait">
+              {showFinalMessage && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="bg-transparent z-50 flex items-center justify-center"
+                >
+                  <motion.div
+                    initial={{ 
+                      scale: 0,
+                      rotate: -180,
+                      opacity: 0
+                    }}
+                    animate={{ 
+                      scale: 1,
+                      rotate: 0,
+                      opacity: 1
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    className="relative"
+                  >
+                    {/* Pulse effect behind text */}
+                    <motion.div
+                      className="bg-red-600/80 rounded-2xl blur-xl"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    
+                    <motion.h2
+                      className="text-4xl md:text-6xl font-bold text-red-500 text-center p-8 relative"
+                      animate={{
+                        textShadow: [
+                          "0 0 20px rgba(239, 68, 68, 0.7)",
+                          "0 0 40px rgba(239, 68, 68, 0.7)",
+                          "0 0 20px rgba(239, 68, 68, 0.7)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      You will be entering reality...
+                    </motion.h2>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </AnimatePresence>
         </div>
       </div>
