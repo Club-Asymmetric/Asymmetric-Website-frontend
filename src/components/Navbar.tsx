@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [hoverLogo, setHoverLogo] = useState<boolean>(false);
   const [shouldDissolve, setShouldDissolve] = useState(false);
@@ -74,7 +75,7 @@ const Navbar = () => {
           </Link>
 
           {/* Navigation */}
-          <nav className="bg-blue-950/70 backdrop-blur-md rounded-full min-w-max">
+          <nav className="bg-blue-950/70 backdrop-blur-md rounded-full min-w-max hidden lg:block">
             <div className="flex items-center justify-center p-4 rounded-full px-10">
               <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-14 xl:space-x-20">
                 {navItems.map((item) => (
@@ -105,7 +106,54 @@ const Navbar = () => {
               </ul>
             </div>
           </nav>
+
+          {/* Hamburger Menu */}
+          <div className="lg:hidden">
+            <button
+              className="focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-5 0 100 50" fill="none"
+              className={`h-8 w-8 ${isMenuOpen ? "hidden" : "block"} `}
+              >
+                <rect x="10" y="20" width="60" height="10" rx="5" fill="white" />
+                <rect x="10" y="40" width="40" height="10" rx="5" fill="white" />
+                <rect x="10" y="60" width="30" height="10" rx="5" fill="white" />
+              </svg>
+              <svg
+                className={`h-6 w-6 ${isMenuOpen ? 'block' : 'hidden'}`}
+                fill="none"
+                viewBox="1 0 24 15"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="bg-blue-950/70 backdrop-blur-md rounded-bl-full rounded-tl-full py-4 px-5 text-right mx-10 lg:hidden">
+            <ul>
+              {navItems.map((item) => (
+                <li key={item.name} className="py-2">
+                  <Link
+                    href={item.href}
+                    className="transition-all duration-200 text-base text-white hover:rounded-2xl hover:bg-white hover:text-black hover:py-2 hover:px-4"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
