@@ -1,9 +1,11 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Event from '@/components/Event';
+import { motion } from 'framer-motion';
 
 const Events = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
@@ -35,7 +37,20 @@ const Events = () => {
     }
   }, [isOpen]);
 
-  const openPopup = (content: { desc: string; img: string; name: string; synopsis: string }) => {
+  interface PopupContent {
+    desc: string;
+    img: string;
+    name: string;
+    synopsis: string;
+  }
+
+  interface PopupLocation {
+    x: number;
+    y: number;
+  }
+
+  const openPopup = (content: PopupContent, e: React.MouseEvent) => {
+    setPopupLocation({ x: e.clientX, y: e.clientY });
     setPopupContent(content);
     setIsOpen(true);
   };
@@ -107,15 +122,21 @@ const Events = () => {
 
       {/* Popup */}
       {isOpen && (
-        <div 
-          className="fixed bg-[#000000b8] flex justify-center items-center z-50 animate-fadeIn overflow-hidde" 
+        <motion.div 
+          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
           style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
           onClick={closePopup}
+          // initial={{ opacity: 0 , scale: 0}}
+          // animate={{ opacity: 1 , scale: 1}}
+          // exit={{ opacity: 0 , scale: 0}}
         >
-          <div 
-            className="relative flex flex-col lg:flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
+          <motion.div 
+            className="relative flex flex-col lg:flex-row bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
             to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
             onClick={handlePopupContentClick}
+            initial={{ opacity: 0 , scale: 0 , y:popupLocation.y-400  , x: popupLocation.x-800}}
+            animate={{ opacity: 1 , scale: 1 , y: 0 , x: 0}}
+            transition={{ duration: 0.7}}
           >
             <img 
               src={popupContent.img} 
@@ -148,8 +169,8 @@ const Events = () => {
             >
               ✕
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </>
   );

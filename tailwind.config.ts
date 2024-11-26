@@ -1,3 +1,4 @@
+import test from "node:test";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -30,6 +31,14 @@ export default {
             opacity: '1',
           },
         },
+        fadeOut:{
+          '0%': {
+            opacity: '1',
+          },
+          '100%': {
+            opacity: '0',
+          },
+        },
         skewIn: {
           '0%': {
             transform: 'skewY(0deg)',
@@ -48,6 +57,38 @@ export default {
             transform: 'perspective(1000px) rotateY(10deg)',
           },
         },
+        slideRight: {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        slideLeft:{
+          '0%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        rotateIn : {
+          '0%': {
+            transform: 'rotate(0deg) translateY(-100%)',
+          },
+          '100%': {
+            transform: 'rotate(720deg) translateY(0)',
+          },
+        },
+        slideup:{
+          '0%': {
+            transform: 'translateY(100%)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
       },
       fontFamily: {
         outfit: ['var(--font-outfit)', 'sans-serif'],
@@ -63,6 +104,11 @@ export default {
         zoomIn: "zoomIn 1s ease-in-out forwards",
         fadeIn: "fadeIn 2s ease-in-out forwards",
         tilt: "tilt 1s ease-in-out forwards",
+        slideRight: "slideRight 1s ease-in-out",
+        slideLeft: "slideLeft 1s ease-in-out",
+        rotateIn: "rotateIn 2s ease-in-out forwards",
+        fadeOut: "fadeOut 1s ease-in-out forwards",
+        slideup: "slideup 3s ease-in-out forwards",
       },
       colors: {
         background: "var(--background)",
