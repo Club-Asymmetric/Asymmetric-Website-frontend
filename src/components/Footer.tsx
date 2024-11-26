@@ -65,7 +65,7 @@ const Footer = () => {
           <h2 className="text-base mb-4">Created by Students, for Students</h2>
           <div className='border-white border-t'/>
         </div>
-        <div className="flex flex-row justify-center md:justify-evenly items-center border-white px-3">
+        <div className="flex flex-row justify-center md:justify-evenly items-center border-white px-3 py-4">
           <div>
             <Link href='/'>
               <div className="md:w-[255px] md:h-[94px] relative py-7 md:py-0">
