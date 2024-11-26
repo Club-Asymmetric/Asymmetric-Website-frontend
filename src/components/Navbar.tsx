@@ -38,12 +38,12 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'About-Us', href: '/about-us' },
+    { name: 'About Us', href: '/about-us' },
     { name: 'Events', href: '/events' },
     { name: 'Podcasts', href: '/podcast' },
     { name: 'Members', href: '/members' },
     { name: 'Team', href: '/team' },
-    { name: 'Contact-Us', href: '/contact-us' }
+    { name: 'Contact Us', href: '/contact-us' }
   ];
 
   return (
