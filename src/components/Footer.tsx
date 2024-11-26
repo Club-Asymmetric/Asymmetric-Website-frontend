@@ -18,8 +18,6 @@ interface FooterLink {
 
 const Footer = () => {
   const [scale, setScale] = useState(1);
-  const [hoveredPrimary, setHoveredPrimary] = useState<string | null>(null);
-  const [hoveredSecondary, setHoveredSecondary] = useState<string | null>(null);
 
   const handleEasterEggHover = (isHovering: boolean) => {
     document.documentElement.classList.toggle('grayscale-active', isHovering);
@@ -49,30 +47,6 @@ const Footer = () => {
       document.documentElement.classList.remove('grayscale-active');
     };
   }, []);
-
-  const primaryLinks: FooterLink[] = [
-    { text: 'Home', href: '/' },
-    { text: 'Events', href: '/events' },
-    { text: 'Podcasts', href: '/podcasts' },
-  ];
-
-  const secondaryLinks: FooterLink[] = [
-    { text: 'Meet the Minds', href: '/members' },
-    { text: 'Faces of Asymmetric', href: '/team' },
-    { text: 'Contact Us', href: '/contact-us' },
-  ];
-
-  const events: FooterLink[] = [
-    { text: 'Event 1', href: '/events' },
-    { text: 'Event 2', href: '/events' },
-    { text: 'Event 3', href: '/events' },
-  ];
-
-  const podcasts: FooterLink[] = [
-    { text: 'Podcast 1', href: '/podcasts' },
-    { text: 'Podcast 2', href: '/podcasts' },
-    { text: 'Podcast 3', href: '/podcasts' },
-  ];
 
   const year = new Date().getFullYear();
 
