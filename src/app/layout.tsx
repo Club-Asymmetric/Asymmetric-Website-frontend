@@ -64,7 +64,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Club Asymmetric",
-  description: "A club for the weird and wonderful.",
+  description: "A club for the weird and wonderful && Made by Linngeshwaran B",
 };
 
 export default function RootLayout({
