@@ -36,7 +36,7 @@ const Footer = () => {
       
       // Start scaling when within 20% of bottom
       if (scrollProgress > 0.8) {
-        const newScale = 1 - ((scrollProgress - 0.7) * 0.25);
+        const newScale = 1 - ((scrollProgress - 0.7) * 0.3);
         setScale(Math.min(newScale, 1));
       } else {
         setScale(1);
@@ -77,90 +77,24 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <div className='min-w-max'>
+    <div className=''>
     <footer 
-      className="relative bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-16 pt-8 pb-1 rounded-3xl mb-10 min-w-max"
+      className="relative bg-gradient-to-br from-blue-900 to-blue-200 text-white mx-auto pt-8 pb-1 rounded-xl mb-10 max-w-6xl"
       style={{
         transform: `scale(${scale})`,
         transformOrigin: 'bottom',
         transition: 'transform 0.3s ease-out'
       }}
     >
-      <div className="max-w-7xl mx-auto py-4 border-white border-t">
-        <div className="text-center mb-7">
+      <div className="max-w-5xl mx-auto py-4 border-white border-t">
+        <div className="text-center">
           <h2 className="text-base mb-4">Created by Students, for Students</h2>
           <div className='border-white border-t'/>
         </div>
-
-        <div className="grid grid-cols-4 gap-8 mb-8 text-center min-w-max">
-          <div className="space-y-5 font-semibold">
-            {primaryLinks.map((link) => (
-              <div key={link.text} className="whitespace-nowrap">
-                <Link href={link.href} className={`transition-all duration-75 text-base ${hoveredPrimary!==null && hoveredPrimary!==link.text ? 'text-gray-300': 'text-white'}`}
-                onMouseEnter={() => setHoveredPrimary(link.text)}
-                onMouseLeave={() => setHoveredPrimary(null)}
-                >
-                  <div className='transition-all duration-200 hover:scale-110'>{link.text}</div>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="space-y-5 font-semibold">
-            {secondaryLinks.map((link) => (
-              <div key={link.text} className="whitespace-nowrap">
-                <Link href={link.href} className={`transition-all duration-75 text-base ${hoveredSecondary!==null && hoveredSecondary!==link.text ? 'text-gray-300': 'text-white'}`}
-                onMouseEnter={() => setHoveredSecondary(link.text)}
-                onMouseLeave={() => setHoveredSecondary(null)}
-                >
-                  <div className='transition-all duration-200 hover:scale-110'>{link.text}</div>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-base mb-2">Events</h3>
-            <div className="space-y-1">
-              {events.map((event) => (
-                <div key={event.text} className="whitespace-nowrap">
-                  <Link href={event.href} className="text-base hover:text-gray-300 transition-colors">
-                    {event.text}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-base mb-2">Podcasts</h3>
-            <div className="space-y-1">
-              {podcasts.map((podcast) => (
-                <div key={podcast.text} className="whitespace-nowrap">
-                  <Link href={podcast.href} className="text-base hover:text-gray-300 transition-colors">
-                    {podcast.text}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-between items-center px-4 py-4 border-t border-white">
-          <div className="text-sm">
-            <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
-          </div>
-          <div>
-            <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer text-base'
-            onMouseEnter={() => handleEasterEggHover(true)}
-            onMouseLeave={() => handleEasterEggHover(false)}
-            >WOW YOU FOUND A ORGANIC ESTER EGG MF</p>
-          </div>
-        </div>
-        <div className="flex flex-row justify-between items-center pt-6 border-t border-white px-3">
+        <div className="flex flex-row justify-center md:justify-evenly items-center border-white px-3">
           <div>
             <Link href='/'>
-              <div className="w-44 h-16 relative">
+              <div className="md:w-[255px] md:h-[94px] relative py-7 md:py-0">
                 <Image 
                   src="/logo.png" 
                   alt="Logo" 
@@ -189,6 +123,17 @@ const Footer = () => {
             <Link href='https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C' target='_blank' className="transition-colors">
               <FaSpotify className="transition-all duration-300 w-5 h-5 hover:bg-green-400 rounded-lg" />
             </Link>
+          </div>
+        </div>
+        <div className="flex flex-row justify-between items-center px-4 py-4 border-t border-white border-b">
+          <div className="text-sm">
+            <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
+          </div>
+          <div>
+            <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer text-base'
+            onMouseEnter={() => handleEasterEggHover(true)}
+            onMouseLeave={() => handleEasterEggHover(false)}
+            >WOW YOU FOUND A ORGANIC ESTER EGG MF</p>
           </div>
         </div>
       </div>
