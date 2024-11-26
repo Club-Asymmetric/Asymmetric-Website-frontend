@@ -154,7 +154,7 @@ const Footer = () => {
             <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer text-base'
             onMouseEnter={() => handleEasterEggHover(true)}
             onMouseLeave={() => handleEasterEggHover(false)}
-            >WOW YOU FOUND A ESTER'S EGG MF</p>
+            >WOW YOU FOUND A ORGANIC ESTER EGG MF</p>
           </div>
         </div>
         <div className="flex flex-row justify-between items-center pt-6 border-t border-white px-3">
