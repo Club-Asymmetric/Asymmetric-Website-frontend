@@ -83,15 +83,16 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
   };
 
   return (
-    <div className="flex items-center justify-between text-white py-4 rounded-lg gap-4">
+<div className="flex flex-col xl:flex-row items-center justify-between text-white py-4 rounded-lg gap-4 px-4 w-full">
       <audio
         ref={audioRef}
-        src="/song.mp3" // Replace with your audio file
+        src="/song.mp3"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
 
-      <div className="flex items-center gap-2">
+      {/* Playback Controls */}
+      <div className="flex items-center gap-2 w-full xl:w-auto justify-center">
         <button onClick={handleRewind} className="p-2 rounded-full hover:bg-gray-600">
           <FaBackward />
         </button>
@@ -106,8 +107,9 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
         </button>
       </div>
 
-      <div className="flex items-center gap-2 mx-4 flex-grow">
-        <span className="text-sm">{formatTime(currentTime)}</span>
+      {/* Progress Bar */}
+      <div className="flex items-center gap-2 mx-4 w-full xl:flex-grow">
+        <span className="text-lg min-w-[40px]">{formatTime(currentTime)}</span>
         <input
           type="range"
           min="0"
@@ -118,30 +120,33 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
               audioRef.current.currentTime = Number(e.target.value);
             }
           }}
-          className="w-40 h-1 rounded-full bg-gray-300 accent-blue-500 flex-grow"
+          className="w-full h-1 rounded-full bg-gray-300 accent-blue-500"
         />
-        <span className="text-sm">{formatTime(duration)}</span>
+        <span className="text-lg min-w-[40px]">{formatTime(duration)}</span>
       </div>
 
-      <div className="flex items-center gap-2">
-        <FaVolumeUp />
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          value={volume}
-          onChange={handleVolumeChange}
-          className="w-20 h-1 rounded-full bg-gray-300 accent-blue-500"
-        />
+      {/* Volume and Additional Controls */}
+      <div className="flex items-center gap-4 w-full xl:w-auto justify-center xl:justify-end">
+        <div className="hidden xl:flex items-center gap-2">
+          <FaVolumeUp />
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-20 h-1 rounded-full bg-gray-300 accent-blue-500"
+          />
+        </div>
+        <button onClick={handlePlaybackSpeed} className="flex items-center space-x-1">
+          <FaClock />
+          <span>{playbackSpeed}x</span>
+        </button>
+        <button className="p-2 rounded-full hover:bg-gray-600">
+          <FaShare />
+        </button>
       </div>
-      <button onClick={handlePlaybackSpeed} className="flex-none flex items-center space-x-1">
-        <FaClock />
-        <span>{playbackSpeed}x</span>
-      </button>
-      <button className="p-2 ml-2 rounded-full hover:bg-gray-600">
-        <FaShare />
-      </button>
     </div>
   );
 };

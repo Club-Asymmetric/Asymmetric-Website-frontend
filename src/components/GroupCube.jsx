@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback, useMemo } from "react";
 import Spline from "@splinetool/react-spline";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from 'next/link';
 
 const CONTENT_SECTIONS = [
   {
@@ -113,7 +114,8 @@ export default function GroupCube() {
           className="p-6 bg-blue-900/10 rounded-lg"
         >
           <h2 className="text-2xl font-bold mb-4 text-white">Group Photo</h2>
-          <p className="text-white">Click on the cube to explore more about us!</p>
+          <p className="text-white">Click on the Cube to explore more about us!</p>
+          <p className="flex justify-between">Rotate the Cube <span className="text-transparent transition-all transform duration-300 hover:cursor-wait hover:text-white"><Link href='www.youtube.com' target='_blank' className="cursor-wait">You DUMB (Fake Cursor)</Link></span></p>
         </motion.div>
       );
     }
