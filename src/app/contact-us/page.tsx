@@ -55,7 +55,7 @@ const ContactUsFrom = () => {
       <div className="w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 via-blue-950 to-blue-900 mx-auto p-4 md:p-6 rounded-xl relative">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
-          src={'/ass.png'} 
+          src={'/logo/ass.png'} 
           alt="Registration" 
           className='mx-auto z-10 absolute -inset-0 md:-inset-10 w-fit h-fit object-cover opacity-5' 
           width={500} 

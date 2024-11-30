@@ -185,7 +185,7 @@ export default function GroupCube() {
         >
           <div className="max-w-[500px] w-full aspect-square">
             <Spline
-              scene="./scene.splinecode"
+              scene="/3d-models/scene.splinecode"
               onMouseDown={handleSplineEvent}
               ref={splineRef}
               className="w-full h-full"

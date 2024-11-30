@@ -86,7 +86,7 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
 <div className="flex flex-col xl:flex-row items-center justify-between text-white py-4 rounded-lg gap-4 px-4 w-full">
       <audio
         ref={audioRef}
-        src="/song.mp3"
+        src="/songs/song.mp3"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />

@@ -13,7 +13,7 @@ const Events = () => {
     synopsis: string;
   }>({
     desc: "",
-    img: "/Events_Placeholder.png",
+    img: "/placeholders/Events_Placeholder.png",
     name: "Title",
     synopsis: "synopsis"
   });
@@ -68,7 +68,7 @@ const Events = () => {
   const dataFromDB = {
     events: [
       {
-        imageSrc: "/Events_Placeholder.png",
+        imageSrc: "/placeholders/Events_Placeholder.png",
         synopsis: "Event description goes here",
         name: "EVENT NAME GOES HERE",
         type: "Team",
@@ -77,7 +77,7 @@ const Events = () => {
         location: "CIT Chennai, Kundrathur"
       },
       {
-        imageSrc: "/Events_Placeholder.png",
+        imageSrc: "/placeholders/Events_Placeholder.png",
         synopsis: "Birthday Party",
         name: "Hemanth Bday",
         type: "Individual",
@@ -86,7 +86,7 @@ const Events = () => {
         location: "Hemanth House"
       },
       {
-        imageSrc: "/Events_Placeholder.png",
+        imageSrc: "/placeholders/Events_Placeholder.png",
         synopsis: "The day when the legend started",
         name: "Birth Date Of Legendary AK",
         type: "Individual/Team",

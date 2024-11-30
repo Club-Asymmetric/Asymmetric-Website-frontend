@@ -11,11 +11,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-interface FooterLink {
-  text: string;
-  href: string;
-}
-
 const Footer = () => {
   const [scale, setScale] = useState(1);
 
@@ -70,7 +65,7 @@ const Footer = () => {
             <Link href='/'>
               <div className="md:w-[255px] md:h-[94px] relative py-7 md:py-0">
                 <Image 
-                  src="/logo.png" 
+                  src="/logo/logo.png" 
                   alt="Logo" 
                   fill
                   style={{ objectFit: 'contain' }}

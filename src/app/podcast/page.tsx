@@ -96,7 +96,7 @@ export default function Podcasts(){
     <h1 className="text-2xl lg:text-3xl font-bold">
       Podcasts
     </h1>
-    <Podcast title='Asymmetric Podcast' hosts={hosts} links={links} description={description} sourcefile='/song.mp3' img='/ass.png' />
-    <Podcast title='Asymmetric Podcast' hosts={hosts} links={links} description={description} sourcefile='/song.mp3' img='/ass.png' />
+    <Podcast title='Asymmetric Podcast' hosts={hosts} links={links} description={description} sourcefile='/songs/song.mp3' img='/logo/ass.png' />
+    <Podcast title='Asymmetric Podcast' hosts={hosts} links={links} description={description} sourcefile='/songs/song.mp3' img='/logo/ass.png' />
   </div>)
 };

@@ -55,7 +55,7 @@ const Navbar = () => {
           <Link href="/">
             <div className="w-64 h-24 relative">
               <Image
-                src="/logo.png"
+                src="/logo/logo.png"
                 alt="Logo"
                 className={`z-50 transition-all duration-300 cursor-pointer ${
                   shouldDissolveLogo ? 'opacity-0' : 'opacity-100'

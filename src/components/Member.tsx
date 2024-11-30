@@ -70,7 +70,7 @@ const ImagePopup: React.FC = () => {
             className="animate-rotateIn"
           >
             <Image 
-              src="/stop.png" 
+              src="/elements/stop.png" 
               alt="Popup Image" 
               width={300} 
               height={300} 
@@ -87,7 +87,7 @@ const ImagePopup: React.FC = () => {
             className="animate-slideup"
           >
             <Image 
-              src="/perv.png" 
+              src="/elements/perv.png" 
               alt="Popup Image" 
               width={300} 
               height={300} 

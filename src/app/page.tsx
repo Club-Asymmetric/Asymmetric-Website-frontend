@@ -19,7 +19,7 @@ export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [popupContent, setPopupContent] = useState({
     desc : "",
-    img : "/Events_Placeholder.png",
+    img : "/placeholders/Events_Placeholder.png",
     name : "Title",
     synopsis : "synopsis"
     });
@@ -61,19 +61,19 @@ export default function Home() {
       title: "Morning Tech Talk",
       author: "Jessica Page",
       description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/PodcastFace.png"
+      imageUrl: "/placeholders/PodcastFace.png"
     },
     {
       title: "Morning Tech Talk",
       author: "Jessica Page",
       description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/PodcastFace.png"
+      imageUrl: "/placeholders/PodcastFace.png"
     },
     {
       title: "Morning Tech Talk",
       author: "Jessica Page",
       description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/PodcastFace.png"
+      imageUrl: "/placeholders/PodcastFace.png"
     }
   ];
 
@@ -98,7 +98,7 @@ export default function Home() {
             </div>
             <div className="hidden lg:flex lg:justify-end lg:items-center">
               <img 
-                src="Aboutus_Placeholder.png" 
+                src="/placeholders/Aboutus_Placeholder.png" 
                 alt="AboutUs" 
                 className="w-64 md:w-80 lg:w-96 h-auto"
               />
@@ -108,7 +108,7 @@ export default function Home() {
         {/* Events Section */}
         <div className='flex flex-col w-fit rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
         <Event 
-            imageSrc="/Events_Placeholder.png"
+            imageSrc="/placeholders/Events_Placeholder.png"
             synopsis="Event description goes here"
             name="EVENT NAME GOES HERE"
             type="Team"
@@ -118,7 +118,7 @@ export default function Home() {
             openPopup={openPopup}
           />
           <Event 
-            imageSrc="/Events_Placeholder.png"
+            imageSrc="/placeholders/Events_Placeholder.png"
             synopsis="Event description goes here"
             name="EVENT NAME GOES HERE"
             type="Team"
