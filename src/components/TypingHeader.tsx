@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 interface TextItem {
   text: string;
   showLine?: boolean;
+  active?: boolean;
 }
 
 interface TypingHeaderProps {
@@ -33,7 +34,16 @@ const TypingHeader: React.FC<TypingHeaderProps> = ({
           }}
           onClick={() => onClick?.(item.text)}
         >
-          <h2 className="p-2 text-xl md:text-2xl font-bold transition-all hover:scale-95 ease-in-out duration-300 border border-transparent hover:border-white rounded-full hover:animate-pulse text-center w-fit md:w-auto">
+          <h2 
+            className={`
+              p-2 text-xl md:text-2xl font-bold transition-all hover:scale-95 ease-in-out duration-300 
+              border rounded-full hover:animate-pulse text-center w-fit md:w-auto
+              ${item.active 
+                ? 'border-white bg-white/10 text-white' 
+                : 'border-transparent hover:border-white text-white/70 hover:text-white'
+              }
+            `}
+          >
             {item.text}
           </h2>
           {item.showLine && (

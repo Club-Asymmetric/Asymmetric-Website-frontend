@@ -47,7 +47,11 @@ export default function AboutUs() {
           <div className="space-y-6 sm:space-y-8 md:space-y-10">
             {/* Clickable Typing Header */}
             <TypingHeader 
-              items={heading} 
+              items={heading.map(item => ({
+                ...item,
+                text: item.text,
+                active: item.text === activeSection
+              }))} 
               delay={500} 
               duration={300} 
               onClick={handleSectionChange}
