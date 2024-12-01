@@ -158,7 +158,7 @@ const ContactUsFrom = () => {
                 <span className="cursor-help">
                   {formData.message.length}/500
                 </span>
-                <div className="absolute bottom-full -right-[35%] bg-blue-900 text-white text-xs p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none mb-2 w-48 text-center">
+                <div className="absolute bottom-full right-[0%] md:-right-[25%] lg:-right-[35%] bg-blue-900 text-white text-xs p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none mb-2 w-48 text-center">
                   Are you really going to write over 500 words?
                 </div>
               </div>

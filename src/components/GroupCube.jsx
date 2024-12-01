@@ -166,7 +166,7 @@ export default function GroupCube() {
       transition={{ duration: 0.5 }}
       className="w-full px-4" // Remove mx-auto from container
     >
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6 py-10">
+      <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6 py-10">
         {/* Desktop Content */}
         <div className="hidden md:block w-1/2 text-white">
           {renderContent()}
@@ -187,6 +187,7 @@ export default function GroupCube() {
             <Spline
               scene="/3d-models/scene.splinecode"
               onMouseDown={handleSplineEvent}
+              onTouchStart={handleSplineEvent}
               ref={splineRef}
               className="w-full h-full"
             />
