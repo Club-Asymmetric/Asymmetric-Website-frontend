@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlowyThing from "@/components/Glowything";
+import CookieSweet from "@/components/CookieSweet";
 
 //Configure the fonts
 const outfit = Outfit({
@@ -90,6 +91,7 @@ export default function RootLayout({
           <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
             {children}
           </main>
+          <CookieSweet />
           <Footer />
         </div>
       </body>
