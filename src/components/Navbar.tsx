@@ -109,7 +109,7 @@ const Navbar = () => {
                         transition-all duration-200 text-base
                         ${
                           pathname === item.href
-                            ? 'text-cyan-400 hover:rounded-2xl hover:bg-black hover:text-white hover:py-2 hover:px-4 lg:hover:px-8'
+                            ? `text-cyan-400 hover:rounded-2xl hover:bg-black hover:text-white hover:py-2 hover:px-4 lg:hover:px-8 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
                             :
                           hoveredItem !== null && hoveredItem !== item.name
                             ? `text-gray-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`

@@ -93,7 +93,7 @@ const CookieSweet: React.FC = () => {
               </span> Cookies We Love it!
             </h3>
             <p className="text-xs sm:text-sm text-gray-400 px-2 sm:px-0">
-              We use cookies to make your experience sweeter. Care for a bite? Trust us bro we are not spying on you and selling your data.
+              We use cookies to make your experience sweeter. Care for a bite? Trust us bro we are not spying you and selling your data.
             </p>
           </div>
           
