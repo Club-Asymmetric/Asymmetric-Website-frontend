@@ -57,13 +57,13 @@ const Footer = () => {
     >
       <div className="max-w-5xl mx-auto py-4 border-white border-t">
         <div className="text-center">
-          <h2 className="text-base mb-4">Created by Students, for Students</h2>
+          <h2 className="md:text-lg text-base mb-4">Created by Students, for Students</h2>
           <div className='border-white border-t'/>
         </div>
         <div className="flex flex-row justify-center md:justify-evenly items-center border-white px-3 py-4">
           <div>
             <Link href='/'>
-              <div className="md:w-[255px] md:h-[94px] relative py-7 md:py-0">
+              <div className="md:w-72 md:h-28 relative py-7 md:py-0">
                 <Image 
                   src="/logo/logo.png" 
                   alt="Logo" 
@@ -75,27 +75,27 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-4 mt-0 px-3">
-            <span className="text-sm text-white mr-2 hover:scale-105 transition-all duration-200 cursor-pointer">
+            <span className="md:text-base text-sm text-white mr-2 hover:scale-105 transition-all duration-200 cursor-pointer">
               Stay in the <Link href='https://linktr.ee/Club_Asymmetric' target='_blank'>
                 <span className='hover:text-gray-300 transition-all duration-200'>Loop</span>
               </Link>?
             </span>
             <Link href="https://www.instagram.com/clubasymmetric/" target='_blank' className="transition-colors">
-              <FaInstagram className="transition-all duration-300 w-5 h-5 hover:bg-red-500 rounded-md" />
+              <FaInstagram className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-red-500 rounded-md" />
             </Link>
             <Link href="https://discord.gg/pswGgSt3rR" target='_blank' className="transition-colors">
-              <FaDiscord className="transition-all duration-300 w-5 h-5 hover:bg-blue-500 rounded-lg" />
+              <FaDiscord className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-blue-500 rounded-lg" />
             </Link>
             <Link href="https://www.linkedin.com/company/club-asymmetric/" target='_blank' className="transition-colors">
-              <FaLinkedinIn className="transition-all duration-300 w-5 h-5 hover:bg-blue-600 rounded-md" />
+              <FaLinkedinIn className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-blue-600 rounded-md" />
             </Link>
             <Link href='https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C' target='_blank' className="transition-colors">
-              <FaSpotify className="transition-all duration-300 w-5 h-5 hover:bg-green-400 rounded-lg" />
+              <FaSpotify className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-green-400 rounded-lg" />
             </Link>
           </div>
         </div>
         <div className="flex flex-row justify-between items-center px-4 py-4 border-t border-white border-b">
-          <div className="text-sm">
+          <div className="md:text-base text-sm">
             <p>Copyright © <span>{year}</span> ASYMMETRIC All Rights Reserved</p>
           </div>
           <div>

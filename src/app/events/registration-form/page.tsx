@@ -127,13 +127,13 @@ const EventRegistrationForm = () => {
                   name={field}
                   value={formData[field as keyof FormData] as string}
                   onChange={handleInputChange}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
                   placeholder=" "
                   id={field}
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >
@@ -158,12 +158,12 @@ const EventRegistrationForm = () => {
                       placeholder=" "
                       value={member.name}
                       onChange={(e) => handleTeamMemberChange(index, 'name', e.target.value)}
-                      className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
+                      className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
                       id={`name-${index}`}
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`name-${index}`}
                     >
                       Team Member Name
@@ -176,12 +176,12 @@ const EventRegistrationForm = () => {
                       placeholder=" "
                       value={member.department}
                       onChange={(e) => handleTeamMemberChange(index, 'department', e.target.value)}
-                      className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
+                      className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
                       id={`department-${index}`}
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`department-${index}`}
                     >
                       Department
@@ -218,7 +218,7 @@ const EventRegistrationForm = () => {
                 name="event"
                 value={formData.event}
                 onChange={handleInputChange}
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white 
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white 
                   focus:outline-none focus:ring-1 focus:ring-white appearance-none text-sm md:text-base"
                 required
               >
@@ -250,13 +250,13 @@ const EventRegistrationForm = () => {
                   onChange={handleInputChange}
                   pattern={field === 'mobileNumber' ? '[0-9]*' : undefined}
                   inputMode={field === 'mobileNumber' ? 'numeric' : undefined}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base"
                   placeholder=" "
                   id={field}
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >

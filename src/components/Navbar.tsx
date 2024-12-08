@@ -73,10 +73,10 @@ const Navbar = () => {
   return (
     <div className="top-0 w-full min-w-max">
       <div className="container mx-auto min-w-max">
-        <div className="flex items-center justify-center space-x-5 mt-6">
+        <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 mt-6">
           {/* Logo */}
           <Link href="/">
-            <div className="w-64 h-24 relative">
+            <div className="w-72 h-28 relative">
               <Image
                 src="/logo/logo.png"
                 alt="Logo"
@@ -109,7 +109,9 @@ const Navbar = () => {
                         transition-all duration-200 text-base
                         ${
                           pathname === item.href
-                            ? `text-cyan-400 hover:rounded-2xl hover:bg-black hover:text-white hover:py-2 hover:px-4 lg:hover:px-8 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
+                            ? `text-cyan-400 hover:rounded-2xl hover:bg-black hover:text-white hover:py-2 hover:px-4 lg:hover:px-8 
+                            ${hoveredItem!==null && hoveredItem !== item.name ? `${shouldDissolve ? 'opacity-0' : 'opacity-75'}` : 'opacity-100'}
+                            `
                             :
                           hoveredItem !== null && hoveredItem !== item.name
                             ? `text-gray-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
@@ -134,7 +136,7 @@ const Navbar = () => {
           </nav>
 
           {/* Hamburger Menu */}
-          <div className="lg:hidden">
+          <div className="lg:hidden relative -left-7">
             <button
               className="focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

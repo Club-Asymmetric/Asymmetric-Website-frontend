@@ -71,7 +71,7 @@ const ContactUsFrom = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
                 placeholder="What should we call you?"
                 id='name'
                 required
@@ -92,7 +92,7 @@ const ContactUsFrom = () => {
                 name="mailId"
                 value={formData.mailId}
                 onChange={handleInputChange}
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
                 placeholder="name@gmail.com"
                 id='mailId'
                 required
@@ -115,7 +115,7 @@ const ContactUsFrom = () => {
                 onChange={handleInputChange}
                 pattern="[0-9]*"
                 inputMode="numeric"
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white peer placeholder:text-white/70 text-sm md:text-base"
                 placeholder="digits, please! No prank calls, we promise"
                 id='mobileNumber'
                 required
@@ -141,7 +141,7 @@ const ContactUsFrom = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/90 border border-blue-500/10 text-white peer placeholder:text-white/70 resize-none overflow-hidden min-h-[120px] md:min-h-[150px] max-h-[200px] text-sm md:text-base"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white peer placeholder:text-white/70 resize-none overflow-hidden min-h-[120px] md:min-h-[150px] max-h-[200px] text-sm md:text-base"
                 placeholder="Your message here..."
                 id='message'
                 maxLength={500}

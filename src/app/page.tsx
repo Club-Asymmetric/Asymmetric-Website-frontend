@@ -74,13 +74,19 @@ export default function Home() {
       author: "Jessica Page",
       description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       imageUrl: "/placeholders/PodcastFace.png"
+    },
+    {
+      title: "Morning Tech Talk",
+      author: "Jessica Page",
+      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      imageUrl: "/placeholders/PodcastFace.png"
     }
   ];
 
   return (
     <>
         {/* AboutUs Section */}
-        <div className="flex items-center justify-center my-4 md:my-10 px-4 md:px-6">
+        <div className="flex items-center justify-center my-5 px-6 md:px-0 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-blue-950 w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
@@ -176,18 +182,15 @@ export default function Home() {
       )}
       {/*Podcast Section*/}
       <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-        {podcasts.map((podcast, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-44 justify-items-center">
+        {podcasts.slice(0,2).map((podcast, index) => (
           // On mobile, show only first podcast
-          // On tablet, show first two podcasts
-          // On desktop, show all three podcasts
-          <div key={index} className={`
-            ${index === 0 ? 'block' : 'hidden lg:block'} 
-            ${index === 1 ? 'hidden md:block' : ''} 
-            ${index === 2 ? 'hidden lg:block' : ''}
-          `}>
+          // On others, show first two podcasts
+            <div key={index} className={`
+            ${index === 0 ? 'block' : 'hidden md:block'}
+            `}>
             <PodcastCard {...podcast} />
-          </div>
+            </div>
         ))}
       </div>
     </div>
