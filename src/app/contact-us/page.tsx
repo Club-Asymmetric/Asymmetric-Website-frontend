@@ -47,7 +47,7 @@ const ContactUsFrom = () => {
   };
 
   return (
-    <div className="px-4 md:px-6 lg:px-8">
+    <div className="px-4 md:px-6 lg:px-8 space-y-12">
       <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-6 md:mb-8 w-full md:w-3/4 my-6 md:my-10 mx-auto">
         Got queries about our events or podcasts? Need help with event registrations? Your questions are safe with us—secured and encrypted, always!
       </h1>
@@ -168,7 +168,7 @@ const ContactUsFrom = () => {
             <div className='flex justify-center'>
               <button
                 type="submit"
-                className="w-full md:w-1/2 bg-cyan-600 hover:bg-gray-300 duration-200 hover:text-black text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-md transition-colors"
+                className="w-1/2 sm:w-1/3 xl:w-1/4 bg-ass-button hover:bg-gray-300 duration-200 hover:text-black text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md transition-colors"
               >
                 SUBMIT
               </button>

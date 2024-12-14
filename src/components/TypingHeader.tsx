@@ -36,7 +36,7 @@ const TypingHeader: React.FC<TypingHeaderProps> = ({
         >
           <h2 
             className={`
-              p-2 text-xl md:text-2xl font-bold transition-all hover:scale-95 ease-in-out duration-300 
+              p-2 px-5 text-xl md:text-2xl lg:text-4xl font-bold transition-all hover:scale-95 ease-in-out duration-300 
               border rounded-full hover:animate-pulse text-center w-fit md:w-auto cursor-pointer
               ${item.active 
                 ? 'border-white bg-white/10 text-white' 

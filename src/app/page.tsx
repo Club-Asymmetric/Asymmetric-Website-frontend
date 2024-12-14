@@ -87,7 +87,7 @@ export default function Home() {
     <>
         {/* AboutUs Section */}
         <div className="flex items-center justify-center my-5 px-6 md:px-0 w-full">
-          <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-blue-950 w-full gap-6 lg:gap-10">
+          <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
                 <ColorText text="Welcome to Asymmetric!" />
@@ -97,7 +97,7 @@ export default function Home() {
                 Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
               </p>
               <Link href='/about-us'>
-                <button className="mt-6 bg-cyan-500 text-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-300">
+                <button className="mt-6 bg-ass-button text-white hover:bg-white hover:text-black px-4 py-2 rounded-md transition-all duration-300">
                   Dive Deeper
                 </button>
               </Link>

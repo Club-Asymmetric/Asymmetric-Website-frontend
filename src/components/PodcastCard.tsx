@@ -71,7 +71,7 @@ const PodcastCard: React.FC<PodcastCardProps> = ({
   imageUrl = '/PodcastFace.png',
 }) => {
   return (
-    <div className="w-full max-w-[320px] bg-blue-950 rounded-2xl p-4 sm:p-6 my-8 md:my-10 relative">
+    <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 my-8 md:my-10 relative">
       {/* Image */}
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
         <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden">
@@ -99,7 +99,7 @@ const PodcastCard: React.FC<PodcastCardProps> = ({
         </p>
         <button
           onClick={() => window.location.href = '/podcast'}
-          className="bg-cyan-500 text-white px-4 sm:px-8 md:px-12 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 mt-4"
+          className="bg-ass-button text-white px-4 sm:px-8 md:px-12 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 mt-4"
         >
           Listen
         </button>

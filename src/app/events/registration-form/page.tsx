@@ -104,11 +104,11 @@ const EventRegistrationForm = () => {
   };
 
   return (
-    <div className="px-4 md:px-6 lg:px-8">
+    <div className="px-4 py-8 md:px-8 space-y-12">
       <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-6 md:mb-8">
         REGISTRATION FORM
       </h1>
-      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-gradient-to-b from-blue-950 via-blue-950 to-blue-900 mx-auto p-4 rounded-xl relative">
+      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
           src={'/logo/ass.png'} 
@@ -276,7 +276,7 @@ const EventRegistrationForm = () => {
             <div className='flex justify-center'>
               <button
                 type="submit"
-                className="w-full md:w-1/2 bg-cyan-600 hover:bg-gray-300 duration-200 hover:text-black text-white py-3 md:py-4 font-semibold rounded-md transition-colors text-sm md:text-base"
+                className="w-1/2 sm:w-1/3 xl:w-1/4 bg-ass-button hover:bg-gray-300 duration-200 hover:text-black text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md transition-colors"
               >
                 SUBMIT
               </button>

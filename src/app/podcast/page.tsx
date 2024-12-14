@@ -151,7 +151,7 @@ const Podcast: React.FC<PropType> = ({ title, hosts, description, links, sourcef
 
   return (
     <div
-      className={`w-full my-10 bg-gradient-to-br from-blue-950 via-blue-950 to-blue-800 
+      className={`w-full my-10 bg-ass-gradient 
         grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 px-5 sm:px-8 py-10 rounded-xl`}
     >
       <div className="flex justify-center lg:place-items-center mb-6 lg:mb-0">

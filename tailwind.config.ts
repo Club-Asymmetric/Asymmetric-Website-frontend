@@ -11,6 +11,10 @@ export default {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'ass-gradient': 'linear-gradient(138deg, #17193F 26.48%, rgba(25, 27, 68, 0.50) 48.68%, rgba(60, 65, 165, 0.70) 81.92%)'
+      },
+      backgroundColor: {
+        'ass-button': '#88D0D1'
       },
       keyframes: {
         zoomIn: {
