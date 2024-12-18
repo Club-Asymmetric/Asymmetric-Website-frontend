@@ -119,7 +119,9 @@ export default function Home() {
             name="EVENT NAME GOES HERE"
             type="Team"
             date="Jan 24, 2025"
-            desc="lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactum est in alienum sensum omne quicquid est, ut non intellegamus, sic omne quod est in nostris sensibus, ut non videamus, nec audiamus, nec gustemus, nec concipiamus, sensibile est."
+            desc="lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactum est in alienum sensum omne quicquid est, ut non intellegamus, sic omne quod est in nostris sensibus, ut non videamus, nec audiamus, nec gustemus, nec concipiamus, sensibile est.
+            CONTENT TEAM IS LAZY AF TO WRITE A DESCRIPTION
+            "
             location="CIT Chennai, Kundrathur"
             openPopup={openPopup}
           />
@@ -186,6 +188,8 @@ export default function Home() {
         {podcasts.slice(0,2).map((podcast, index) => (
           // On mobile, show only first podcast
           // On others, show first two podcasts
+
+          //ADD 3
             <div key={index} className={`
             ${index === 0 ? 'block' : 'hidden md:block'}
             `}>

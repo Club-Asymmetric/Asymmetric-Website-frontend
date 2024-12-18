@@ -145,7 +145,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
 
   return (
     <motion.div
-    className="absolute inset-0 flex flex-col md:flex-row items-center justify-center"
+    className="absolute md:inset-0 flex flex-col md:flex-row items-center justify-center"
     style={{
         opacity: animationProgress,
         scale,
@@ -153,7 +153,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
     }}
     >
     <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-8">
-        {/* Image Container */}
+        {/* Image Container REDUCE THE SIZE AND WIDTH*/}
+
         <motion.div
         className={`w-full md:w-1/2 h-[300px] md:h-[600px] relative ${
             index % 2 === 0 ? 'md:order-1' : 'md:order-2'

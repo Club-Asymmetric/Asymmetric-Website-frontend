@@ -13,6 +13,18 @@ import { useState, useEffect } from 'react';
 
 const Footer = () => {
   const [scale, setScale] = useState(1);
+  const [buttonText, setButtonText] = useState('Copy');
+
+  const handleCopy = (): void => {
+    const textElement = document.getElementById('tooltipText');
+    if (textElement) {
+      const textToCopy = textElement.textContent || ''; // Get the text content safely
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        setButtonText('Copied');
+        setTimeout(() => setButtonText('Copy'), 2000); // Reset the button text after 2 seconds
+      });
+    }
+  };
 
   const handleEasterEggHover = (isHovering: boolean) => {
     document.documentElement.classList.toggle('grayscale-active', isHovering);
@@ -76,9 +88,33 @@ const Footer = () => {
           </div>
           <div className="flex items-center space-x-4 mt-0 px-3">
             <span className="md:text-base text-sm text-white mr-2 hover:scale-105 transition-all duration-200 cursor-pointer">
-              Stay in the <Link href='https://linktr.ee/Club_Asymmetric' target='_blank'>
-                <span className='hover:text-gray-300 transition-all duration-200'>Loop</span>
+              Stay in the
+              <Link href='https://linktr.ee/Club_Asymmetric' target='_blank'>
+                <span className='hover:text-gray-300 transition-all duration-200'> Loop</span>
               </Link>?
+              <div className="relative inline-block group">
+                <Image
+                  src="/elements/breakingconnect.png"
+                  alt="Breaking-Connect"
+                  width={35}
+                  height={35}
+                  className="inline-block mb-1 ml-2 cursor-pointer"
+                />
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-blue-200/90 text-black text-xs sm:text-sm lg:text-base p-2 rounded-md opacity-0 group-hover:opacity-100 active:opacity-100 transition-all duration-300 mb-1 w-64 sm:w-80 lg:w-96 text-center"
+                >
+                  <span id="tooltipText">
+                    -... .-. . .- -.- .. -. --. / -.-. .. - / -.-. --- -. -. . -.-. - ... / -.--. ... .. -... .. --..-- / .. / .- -- / - .- .-. --. . - .. -. --. / -.-- --- ..- -.--.- 
+                  </span>
+                  <button
+                    className="bg-gray-900 hover:bg-gray-200 hover:text-black ml-5 text-white text-sm px-1 rounded-md transition-all z-10 duration-200"
+                    onClick={handleCopy}
+                    //Mobile onclick Issue
+                  >
+                    {buttonText}
+                  </button>
+                </div>
+              </div>
             </span>
             <Link href="https://www.instagram.com/clubasymmetric/" target='_blank' className="transition-colors">
               <FaInstagram className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-red-500 rounded-md" />
@@ -102,7 +138,11 @@ const Footer = () => {
             <p className='text-transparent hover:text-black hover:border rounded-md hover:bg-white transition-all duration-200 cursor-pointer text-base'
             onMouseEnter={() => handleEasterEggHover(true)}
             onMouseLeave={() => handleEasterEggHover(false)}
-            >WOW YOU FOUND A ORGANIC ESTER EGG MF</p>
+            >
+              <Link href='https://youtu.be/Od6Vug4MDxA' target='_blank'>
+              WOW YOU FOUND A ORGANIC ESTER EGG MF
+              </Link>
+              </p>
           </div>
         </div>
       </div>
