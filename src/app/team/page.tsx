@@ -1,13 +1,13 @@
 'use client';
 
 import React from "react";
-import GroupCube from "@/components/GroupCube";
+import GroupPhoto from "@/components/GroupPhoto";
 
 const Page = () => {
 
   return (
       <div>
-        <GroupCube />
+        <GroupPhoto />
       </div>
   );
 };
