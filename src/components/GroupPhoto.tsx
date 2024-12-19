@@ -57,15 +57,22 @@ const sectionsData: SectionData[] = [
     image: '/group-photo/OnamEthnic.jpg',
     title: 'Seventh Section Title',
     description:
-      'Another detailed description for the sixth section. Provide compelling information that captures the reader’s attention.',
+      'Another detailed description for the seventh section. Provide compelling information that captures the reader’s attention.',
   },
   {
     id: 8,
     image: '/group-photo/ShootingVideo.jpg',
     title: 'Eighth Section Title',
     description:
-      'Another detailed description for the sixth section. Provide compelling information that captures the reader’s attention.',
+      'Another detailed description for the eighth section. Provide compelling information that captures the reader’s attention.',
   },
+  {
+    id: 9,
+    image: '/group-photo/HappyJK.jpg',
+    title: 'Ninth Section Title',
+    description:
+      'Another detailed description for the ninth section. Provide compelling information that captures the reader’s attention.',
+  }
 ];
 
 const GroupPhoto: React.FC = () => {
@@ -76,7 +83,8 @@ const GroupPhoto: React.FC = () => {
   });
 
   return (
-    <div ref={containerRef} className="h-[300vh] w-full relative">
+    //Change the Height for Longer or Smaller Scroll
+    <div ref={containerRef} className="h-[600vh] w-full relative">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {sectionsData.map((section, index) => (
           <SectionContent
@@ -144,8 +152,9 @@ const SectionContent: React.FC<SectionContentProps> = ({
   );
 
   return (
+    //CHECK THE TOP PROPERTY BECAUSE INSET IS BETTER || top-[60px] md:insert-0 
     <motion.div
-    className="absolute md:inset-0 flex flex-col md:flex-row items-center justify-center"
+    className="absolute inset-0 flex flex-col md:flex-row items-center justify-center"
     style={{
         opacity: animationProgress,
         scale,
@@ -153,7 +162,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
     }}
     >
     <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-8">
-        {/* Image Container REDUCE THE SIZE AND WIDTH*/}
+        {/* Image Container */}
 
         <motion.div
         className={`w-full md:w-1/2 h-[300px] md:h-[600px] relative ${
@@ -167,7 +176,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
             src={section.image}
             alt={section.title}
             fill
-            className="object-cover rounded-lg"
+            //or change to object-cover
+            className="object-contain rounded-lg"
             priority={index === 0}
         />
         </motion.div>

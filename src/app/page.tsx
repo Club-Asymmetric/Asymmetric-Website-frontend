@@ -184,16 +184,17 @@ export default function Home() {
       )}
       {/*Podcast Section*/}
       <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-44 justify-items-center">
-        {podcasts.slice(0,2).map((podcast, index) => (
-          // On mobile, show only first podcast
-          // On others, show first two podcasts
-
-          //ADD 3
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+        {podcasts.slice(0,3).map((podcast, index) => (
+            // On mobile, show only first podcast
+            // On tablet, show first two podcasts
+            // On desktop, show all three podcasts
             <div key={index} className={`
-            ${index === 0 ? 'block' : 'hidden md:block'}
-            `}>
-            <PodcastCard {...podcast} />
+                ${index === 0 ? 'block' : 'hidden lg:block'} 
+                ${index === 1 ? 'hidden md:block' : ''} 
+                ${index === 2 ? 'hidden lg:block' : ''}
+              `}>
+                  <PodcastCard {...podcast} />
             </div>
         ))}
       </div>
