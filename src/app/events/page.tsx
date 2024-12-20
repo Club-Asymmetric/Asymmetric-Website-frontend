@@ -100,7 +100,7 @@ const Events = () => {
   return (
     <>
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col bg-ass-gradient w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
+        <div className="flex flex-col bg-ass-gradient max-w-full mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
           {dataFromDB.events.map((event, index) => (
             <Event
               key={index}
@@ -138,22 +138,22 @@ const Events = () => {
             <img 
               src={popupContent.img} 
               alt="Event" 
-              className="xl:w-[35%] md:w-[50%] md:h-full object-cover place-self-center rounded-l-lg py-12 px-12" 
+              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
             />
             
-            <div className="flex flex-col flex-1 py-12 pr-12 lg:ml-0 ml-8">
-              <p className="text-2xl font-medium font-oswald leading-tight mb-3">
+            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8">
+              <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
           {popupContent.synopsis}
               </p>
-              <p className="text-5xl font-extrabold font-outfit mb-8">
+              <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
           {popupContent.name}
               </p>
-              <p className="text-white text-2xl font-normal font-outfit leading-7">
+              <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
           {popupContent.desc}
               </p>
               <button 
           onClick={openRegistrationPage}
-          className="px-20 py-2 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline hover:outline-2"
+          className="px-20 py-1 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 mb-4 hover:bg-white hover:text-black"
               >
           Register
               </button>
