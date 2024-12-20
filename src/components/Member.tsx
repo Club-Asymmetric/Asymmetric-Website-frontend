@@ -145,31 +145,31 @@ const ImagePopup: React.FC = () => {
                         </div>
                         <div className="p-2">
                             <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
                                 {props.energySource}
                             </div>
                         </div>
                         <div className="p-2">
                             <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Dimension</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
                                 {props.dimension}
                             </div>
                         </div>
                         <div className="p-2">
                             <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Type</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
                                 {props.type}
                             </div>
                         </div>
                         <div className="p-2">
                             <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Hobbies installed</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
                                 {props.hobbiesInstalled}
                             </div>
                         </div>
                         <div className="p-2">
                             <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Special features</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
                                 {props.specialFeatures}
                             </div>
                         </div>

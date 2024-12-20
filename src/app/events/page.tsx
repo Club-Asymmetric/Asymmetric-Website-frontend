@@ -100,10 +100,7 @@ const Events = () => {
   return (
     <>
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col items-start justify-center w-[80%] mb-16 ml-1">
-          <h1 className="font-outfit text-4xl font-bold animate-fadeIn">Events</h1>
-        </div>
-        <div className="flex flex-col bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,0.5)] to-[rgba(60,65,165,0.7)] w-[80vw] pt-8 rounded-[20px] animate-zoomIn">
+        <div className="flex flex-col bg-ass-gradient w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
           {dataFromDB.events.map((event, index) => (
             <Event
               key={index}
