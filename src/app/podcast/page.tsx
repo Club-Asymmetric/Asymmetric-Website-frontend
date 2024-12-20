@@ -174,13 +174,13 @@ const Podcast: React.FC<PropType> = ({ title, hosts, description, links, sourcef
         </h2>
         <div className="icons flex flex-cols gap-4 items-center">
           <Link href={spotifyLink} target="_blank" className="transition-colors">
-            <FaSpotify className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-green-400 rounded-lg" />
+            <FaSpotify className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-green-800 rounded-lg" />
           </Link>
           <Link href={youTubeLink} target="_blank" className="transition-colors">
             <FaYoutube className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-red-600 rounded-lg" />
           </Link>
           <Link href={appleLink} target="_blank" className="transition-colors">
-            <FaApple className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-gray-400 rounded-lg" />
+            <FaApple className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-gray-500 rounded-lg" />
           </Link>
         </div>
         <MusicPlayer sourceFile={sourcefile} />

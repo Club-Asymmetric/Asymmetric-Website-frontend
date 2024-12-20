@@ -89,7 +89,7 @@ const CookieSweet: React.FC = () => {
           <div className="flex-grow text-center sm:text-left w-full sm:w-auto">
             <h3 className="font-bold text-base sm:text-lg mb-1">
               <span className='hover:text-pink-500 transition-all transform duration-300'>
-                <Link href='https://youtube.com/' target='_blank'>Mmm...</Link>
+                <Link href='https://youtu.be/Kyol_PgSVfM' target='_blank'>Mmm...</Link>
               </span> Cookies We Love it!
             </h3>
             <p className="text-xs sm:text-sm text-gray-400 px-2 sm:px-0">
