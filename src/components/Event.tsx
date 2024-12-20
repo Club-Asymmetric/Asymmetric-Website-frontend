@@ -27,7 +27,7 @@ export default function Event(
                     <p className="text-2xl font-medium font-oswald leading-[25px] w-full md:w-[90%] self-start">{props.synopsis}</p>
                     <p className="text-sm font-normal font-aBeeZee leading-[10px] self-start mt-2 md:mt-0">{props.type}</p>
                     </div>
-                    <p className="place-self-start text-white text-5xl font-extrabold mt-4 ml-0 lg:ml-[2rem] pb-3 bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text hover:text-transparent cursor-pointer transition-all duration-300 ease-in-out" 
+                    <p className="place-self-start text-white lg:text-5xl md:text-4xl text-4xl font-extrabold mt-4 ml-0 lg:ml-[2rem] pb-3 bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text hover:text-transparent cursor-pointer transition-all duration-300 ease-in-out" 
                     onClick={(e) => props.openPopup({
                         desc : props.desc,
                         img : props.imageSrc,

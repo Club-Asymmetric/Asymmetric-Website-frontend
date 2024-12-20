@@ -113,7 +113,7 @@ const ImagePopup: React.FC = () => {
     return (
         <>
             {showImage && <ImagePopup/>}
-            <div className="2xl:px-[15rem] xl:px-[10rem] lg:px-[5rem] md:px-[3rem]">
+            <div className="2xl:px-[15rem] xl:px-[10rem] lg:px-[5rem] md:px-[3rem] overflow-x-hidden">
                 <div className="grid grid-flow-col grid-cols-3  gap-8">
                     <div 
                         className="col-span-2 flex lg:flex-row p-4 bg-[#15144D] rounded-xl flex-col relative hover:scale-95 hover:shadow-2xl transition-all duration-500 ease-in-out animate-slideRight"
@@ -144,32 +144,32 @@ const ImagePopup: React.FC = () => {
                             <p className="text-xl font-outfit">Info</p>
                         </div>
                         <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit">Energy Source</span>
-                            <div className="w-full mt-3 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
                                 {props.energySource}
                             </div>
                         </div>
                         <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit">Dimension</span>
-                            <div className="w-full mt-3 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Dimension</span>
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
                                 {props.dimension}
                             </div>
                         </div>
                         <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit">Type</span>
-                            <div className="w-full mt-3 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Type</span>
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
                                 {props.type}
                             </div>
                         </div>
                         <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit">Hobbies installed</span>
-                            <div className="w-full mt-3 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Hobbies installed</span>
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
                                 {props.hobbiesInstalled}
                             </div>
                         </div>
                         <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit">Special features</span>
-                            <div className="w-full mt-3 bg-[#17193F] text-white p-2 outline-none cursor-auto">
+                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Special features</span>
+                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 outline-none cursor-auto">
                                 {props.specialFeatures}
                             </div>
                         </div>

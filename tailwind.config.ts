@@ -82,7 +82,7 @@ export default {
             transform: 'rotate(0deg) translateY(-100%)',
           },
           '100%': {
-            transform: 'rotate(720deg) translateY(0)',
+            transform: 'rotate(360deg) translateY(0)',
           },
         },
         slideup:{
@@ -112,7 +112,7 @@ export default {
         slideLeft: "slideLeft 1s ease-in-out",
         rotateIn: "rotateIn 2s ease-in-out forwards",
         fadeOut: "fadeOut 1s ease-in-out forwards",
-        slideup: "slideup 3s ease-in-out forwards",
+        slideup: "slideup 1s ease-in-out forwards",
       },
       colors: {
         background: "var(--background)",
