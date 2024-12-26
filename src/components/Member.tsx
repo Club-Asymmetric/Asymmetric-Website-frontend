@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useState } from "react";
 import { useEffect } from "react";
+import { motion,AnimatePresence } from "framer-motion";
 
 export default function Member(props: {
     name: string,
@@ -20,10 +21,59 @@ export default function Member(props: {
       document.body.classList.add('no-scroll');
     };
   
-    const handleClose = () => {
+    const handleClose = () => {   
       setShowImage(false);
       document.body.classList.remove('no-scroll');
     };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragDirection, setDragDirection] = useState(0);
+
+  interface DragEventInfo {
+    offset: {
+      x: number;
+    };
+    velocity: {
+      x: number;
+    };
+  }
+
+  const handleDragEnd = (event: any, info: DragEventInfo) => {
+    const threshold = 50; // minimum distance for swipe
+    const velocity = 0.5; // minimum velocity for swipe
+
+    if (info.offset.x < -threshold && info.velocity.x < -velocity && currentIndex === 0) {
+      setCurrentIndex(1);
+    } else if (info.offset.x > threshold && info.velocity.x > velocity && currentIndex === 1) {
+      setCurrentIndex(0);
+    }
+  };
+
+  const handleDrag = (event: any, info: DragEventInfo) => {
+    setDragDirection(info.velocity.x);
+  };
+
+  interface Variants {
+    [key: string]: any;
+    enter: (direction: number) => { x: number; opacity: number };
+    center: { x: number; opacity: number };
+    exit: (direction: number) => { x: number; opacity: number };
+  }
+
+  const variants: Variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? -100 : 100,
+      opacity: 0
+    })
+  };
 
 const ImagePopup: React.FC = () => {
   const [currentPopup, setCurrentPopup] = useState<'stop' | 'perv'>('stop');
@@ -109,74 +159,217 @@ const ImagePopup: React.FC = () => {
   );
 };
 
-    
+const MainView = () => (
+  <motion.div 
+    key="main"
+    className="col-span-2 flex lg:flex-row p-4 bg-[#15144D] rounded-xl flex-col relative hover:shadow-2xl"
+    initial={{ opacity: 0 ,x: -100 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -1000 }}
+    transition={{ duration: 0.5 }}
+  >
+      <Image 
+          src={props.imgSrc} 
+          alt="Placeholder" 
+          width={250} 
+          height={250} 
+          className="rounded-full place-self-center select-none md:min-w-[250px] md:min-h-[250px] w-[200px] h-[200px]"
+          onContextMenu={(e) => {
+              e.preventDefault();
+              handleOpen();
+              return false;
+          }}
+          draggable={false}
+      />
+      <div className="grid grid-flow-row ml-[2px]">
+          <h1 className="text-4xl font-bold font-outfit place-self-center">{props.name}</h1>
+          <p className="text-md place-self-center">{props.description}</p>
+      </div>
+  </motion.div>
+);
+
+const InfoView = () => (
+  <motion.div 
+    key="info"
+    className="col-span-1 bg-[#15144D] rounded-xl flex flex-col hover:shadow-2xl"
+    initial={{ opacity: 0 ,x: 100 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 100 }}
+    transition={{ duration: 0.5 }}
+  >
+      <div className="bg-gradient-to-br from-[#17193F] via-[#191B4480] to-[#3C41A5B2] rounded-t-xl h-10 pl-3 pt-2">
+          <p className="text-xl font-outfit">Info</p>
+      </div>
+      <div className="p-2">
+          <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
+          <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
+              {props.energySource}
+          </div>
+      </div>
+      <div className="p-2">
+          <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Dimension</span>
+          <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+              {props.dimension}
+          </div>
+      </div>
+      <div className="p-2">
+          <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Type</span>
+          <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+              {props.type}
+          </div>
+      </div>
+      <div className="p-2">
+          <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Hobbies installed</span>
+          <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+              {props.hobbiesInstalled}
+          </div>
+      </div>
+      <div className="p-2">
+          <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Special features</span>
+          <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+              {props.specialFeatures}
+          </div>
+      </div>
+  </motion.div>
+);
+ 
     return (
         <>
             {showImage && <ImagePopup/>}
-            <div className="2xl:px-[15rem] xl:px-[10rem] lg:px-[5rem] md:px-[3rem] overflow-x-hidden">
-                <div className="grid grid-flow-col grid-cols-3  gap-8">
-                    <div 
-                        className="col-span-2 flex lg:flex-row p-4 bg-[#15144D] rounded-xl flex-col relative hover:scale-95 hover:shadow-2xl transition-all duration-500 ease-in-out animate-slideRight"
+            <div className="2xl:px-[15rem] xl:px-[10rem] lg:px-[5rem] md:px-[3rem] overflow-x-hidden mt-8">
+                <div className="hidden md:grid md:grid-flow-col md:grid-cols-3 md:gap-8">
+                  <AnimatePresence>
+                    <MainView key="main-view"/>
+                    <InfoView key="info-view"/>
+                  </AnimatePresence>
+                </div>
+            </div>
+
+            <div className="md:hidden flex flex-row m w-full min-h-[80vh] overflow-hidden justify-center relative">
+              <AnimatePresence initial={false} custom={dragDirection}>
+                {currentIndex === 0 ? (
+                  <motion.div
+                    key="white-div"
+                    className="absolute w-[95vw] min-h-[70vh] px-2 rounded-xl place-self-center"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={handleDragEnd}
+                    onDragStart={handleDrag}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    custom={dragDirection}
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.5 }
+                    }}
+                  >
+                    <motion.div 
+                      key="main"
+                      className="col-span-2 flex lg:flex-row p-4 bg-[#15144D] rounded-xl flex-col relative hover:shadow-2xl"
                     >
                         <Image 
                             src={props.imgSrc} 
                             alt="Placeholder" 
                             width={250} 
                             height={250} 
-                            className="rounded-full md:place-self-center select-none"
+                            className="rounded-full place-self-center select-none md:min-w-[250px] md:min-h-[250px] w-[200px] h-[200px]"
                             onContextMenu={(e) => {
                                 e.preventDefault();
                                 handleOpen();
                                 return false;
                             }}
                             draggable={false}
-                            />
+                        />
                         <div className="grid grid-flow-row ml-[2px]">
                             <h1 className="text-4xl font-bold font-outfit place-self-center">{props.name}</h1>
-                            <p className="text-md place-self-center">
-                                {props.description}
-                            </p>
+                            <p className="text-md place-self-center">{props.description}</p>
                         </div>
-                    </div>
+                    </motion.div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="black-div"
+                    className="absolute w-[95vw] min-h-[70vh] px-2 rounded-xl place-self-center justify-normal"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={handleDragEnd}
+                    onDrag={handleDrag}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    custom={dragDirection}
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.5 }
+                    }}
+                  >
+                    <motion.div 
+                        key="info"
+                        className="bg-[#15144D] rounded-xl flex flex-col hover:shadow-2xl place-self-"
+                      >
+                          <div className="bg-gradient-to-br from-[#17193F] via-[#191B4480] to-[#3C41A5B2] rounded-t-xl h-10 pl-3 pt-2">
+                              <p className="text-xl font-outfit">Info</p>
+                          </div>
+                          <div className="p-2">
+                              <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
+                              <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
+                                  {props.energySource}
+                              </div>
+                          </div>
+                          <div className="p-2">
+                              <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Dimension</span>
+                              <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+                                  {props.dimension}
+                              </div>
+                          </div>
+                          <div className="p-2">
+                              <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Type</span>
+                              <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+                                  {props.type}
+                              </div>
+                          </div>
+                          <div className="p-2">
+                              <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Hobbies installed</span>
+                              <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+                                  {props.hobbiesInstalled}
+                              </div>
+                          </div>
+                          <div className="p-2">
+                              <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Special features</span>
+                              <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
+                                  {props.specialFeatures}
+                              </div>
+                          </div>
+                      </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-                    <div className="col-span-1  bg-[#15144D] rounded-xl flex flex-col hover:scale-95 hover:shadow-2xl transition-all duration-500 ease-in-out animate-slideLeft">
-                        <div className="bg-gradient-to-br from-[#17193F] via-[#191B4480] to-[#3C41A5B2] rounded-t-xl h-10 pl-3 pt-2">
-                            <p className="text-xl font-outfit">Info</p>
-                        </div>
-                        <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
-                                {props.energySource}
-                            </div>
-                        </div>
-                        <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Dimension</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
-                                {props.dimension}
-                            </div>
-                        </div>
-                        <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Type</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
-                                {props.type}
-                            </div>
-                        </div>
-                        <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Hobbies installed</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
-                                {props.hobbiesInstalled}
-                            </div>
-                        </div>
-                        <div className="p-2">
-                            <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Special features</span>
-                            <div className="w-full mt-3 pl-6 bg-[#17193F] text-white p-2 text-sm outline-none cursor-auto">
-                                {props.specialFeatures}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              {/* Pagination dots */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                <div
+                  key={0}
+                  className={`h-2 w-2 rounded-full cursor-pointer transition-colors ${
+                    currentIndex === 0 ? 'bg-white' : 'bg-gray-500'
+                  }`}
+                  onClick={() => setCurrentIndex(0)}
+                />
+                <div
+                  key={1}
+                  className={`h-2 w-2 rounded-full cursor-pointer transition-colors ${
+                    currentIndex === 1 ? 'bg-white' : 'bg-gray-500'
+                  }`}
+                  onClick={() => setCurrentIndex(1)}
+                />
+              </div>
             </div>
-
         </>
     );
 }
+
+// 
