@@ -73,10 +73,10 @@ const Navbar = () => {
   return (
     <div className="top-0 w-full min-w-max">
       <div className="container mx-auto min-w-max">
-        <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 mt-6">
+        <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 lg:mt-5 mt-0">
           {/* Logo */}
           <Link href="/">
-            <div className="w-72 h-28 relative">
+            <div className="w-72 h-28 relative lg:scale-125">
               <Image
                 src="/logo/logo.png"
                 alt="Logo"

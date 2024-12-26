@@ -90,14 +90,14 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
-                <ColorText text="Welcome to Asymmetric!" />
+                <ColorText text="Welcome to Asymmetric !" />
               </h1>
               <p className="mt-4 text-sm md:text-base">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
                 Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
               </p>
               <Link href='/about-us'>
-                <button className="mt-6 bg-ass-button text-white hover:bg-white hover:text-black px-4 py-2 rounded-md transition-all duration-300">
+                <button className="mt-6 bg-ass-button hover:bg-white hover:text-black px-4 py-1 hover:scale-105 rounded-md transition-all duration-300">
                   Dive Deeper
                 </button>
               </Link>
@@ -112,7 +112,7 @@ export default function Home() {
           </div>
         </div>
         {/* Events Section */}
-        <div className='flex flex-col w-fit rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
+        <div className='flex flex-col max-w-6xl rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
         <Event 
             imageSrc="/placeholders/Events_Placeholder.png"
             synopsis="Event description goes here"
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
       )}
       {/*Podcast Section*/}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto xl:px-40 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         {podcasts.slice(0,3).map((podcast, index) => (
             // On mobile, show only first podcast

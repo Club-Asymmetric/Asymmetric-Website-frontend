@@ -152,7 +152,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
   );
 
   return (
-    //CHECK THE TOP PROPERTY BECAUSE INSET IS BETTER || top-[60px] md:insert-0 
+    //CHECK THE TOP PROPERTY BECAUSE INSET IS BETTER || top-[60px] md:inset-0 
     <motion.div
     className="absolute inset-0 flex flex-col md:flex-row items-center justify-center"
     style={{

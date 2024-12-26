@@ -36,14 +36,9 @@ export default function AboutUs() {
   const currentContent = contentData[activeSection];
 
   return (
-    <div className="min-h-fit w-[95%] lg:w-[85%] mx-auto px-4 py-8 md:px-8 space-y-12">
-      <div className="font-bold text-2xl sm:text-3xl md:text-4xl flex justify-start mb-6 sm:mb-8">
-        <h1 className="hover:animate-pulse hover:scale-95 cursor-pointer transition-all duration-300 text-center text-white">
-          About Us
-        </h1>
-      </div>
+    <div className="min-h-fit w-[95%] lg:w-[85%] mx-auto px-4 py-9 md:px-8 space-y-12">
       <div>
-      <section className="w-full sm:max-w-[80vw] mx-auto bg-ass-gradient text-white p-4 sm:p-8 md:p-12 lg:p-16 rounded-xl sm:rounded-2xl">
+      <section className="w-full sm:max-w-[80vw] mx-auto bg-ass-gradient text-white p-8 sm:p-8 md:p-12 lg:p-16 rounded-2xl sm:rounded-2xl">
         <div className="w-full max-w-6xl mx-auto">
           <div className="space-y-6 sm:space-y-8 md:space-y-10">
             {/* Clickable Typing Header */}

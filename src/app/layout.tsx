@@ -84,7 +84,7 @@ export default function RootLayout({
         <div className="flex flex-col flex-grow relative over">
             <div className="absolute inset-0 w-full pointer-events-none overflow-hidden" style={{ bottom: 'auto', height: '100%' }}>
               <GlowyThing color="#88D0D1" left="-25vw" top="-120vh"/>
-              <GlowyThing color="#6F6F9A" left="80vw" top="60vh"/>
+              <GlowyThing color="#00FFFF" left="80vw" top="60vh"/>
               <GlowyThing color="#E0C585" left="-35vw" top="350vh"/>  
             </div>
           <Navbar />
