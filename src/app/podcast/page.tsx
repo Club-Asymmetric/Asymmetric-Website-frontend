@@ -1,10 +1,11 @@
 "use client";
-// import Image from 'next/image';
+
 import MusicPlayer from "@/components/MusicPlayer";
 import { FaYoutube, FaSpotify, FaApple } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import PodcastSkeleton from "../../components/PodcastSkeleton";
 
 interface PodcastData {
   id: string;
@@ -15,9 +16,12 @@ interface PodcastData {
   mime: string;
 }
 
-const Podcast: React.FC<PodcastData> = ({ name, guests, description, image, mime }) => {
+const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, mime }) => {
+
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
   const guestNames = guests.join(", ");
-  const sourceFile = `http://localhost:3001/api/podcasts/000000000000000roger/stream`;
+  const sourceFile = `${localhost}/api/podcasts/${id}/stream`;
   const spotifyLink = `https://open.spotify.com/show/${name}`;
   const youTubeLink = `https://youtube.com/${name}`;
   const appleLink = `https://apple.com/${name}`;
@@ -33,7 +37,7 @@ const Podcast: React.FC<PodcastData> = ({ name, guests, description, image, mime
           alt={`${name} logo`}
           width={250}
           height={100}
-          className="w-[120px] sm:w-[150px] lg:w-[250px] hover:scale-105 transition-all duration-300 hover:animate-pulse"
+          className="w-full sm:w-1/2 lg:w-full rounded-xl hover:scale-105 transition-all duration-300 hover:animate-pulse"
         />
       </div>
       <div className="flex flex-col gap-4 px-2 lg:px-10">
@@ -52,7 +56,7 @@ const Podcast: React.FC<PodcastData> = ({ name, guests, description, image, mime
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <MusicPlayer sourceFile={mime} />
+          <MusicPlayer sourceFile={sourceFile} />
         </div>
       </div>
     </div>
@@ -63,11 +67,12 @@ export default function Podcasts() {
   const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
 
-  
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/podcasts');
+        const response = await fetch(`${localhost}/api/podcasts`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -84,7 +89,9 @@ export default function Podcasts() {
     fetchPodcasts();
   }, []);
   if (loading) {
-    return <div className="text-center py-10">Loading podcasts...</div>;
+    return <div className="w-[95%] lg:w-[80%] mx-auto">
+      <PodcastSkeleton />
+    </div>;
   }
 
   return (
@@ -94,12 +101,12 @@ export default function Podcasts() {
           // console.log(podcast.mime)
           <Podcast
             key={podcast.id}
+            id={podcast.id}
             name={podcast.name}
             guests={podcast.guests}
             description={podcast.description}
-            image={`http://localhost:3001/images/are/not/here/${podcast.image}`}
-            mime={`http://localhost:3001/api/podcasts/000000000000000roger/stream`} 
-            id={""}
+            image={`${localhost}/images/are/not/here/${podcast.image}`}
+            mime={`${localhost}/api/podcasts/${podcast.id}/stream`} 
           />
         ))
       ) : (
