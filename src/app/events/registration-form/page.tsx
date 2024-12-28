@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
 import GlowyShit from '@/components/GlowyShit';
 
-const EVENTS = [
-  'Technical Symposium',
-  'Coding Competition',
-  'Robotics Workshop',
-  'Hackathon',
-  'Data Science Summit',
-  'AI Conference'
-];
-
-const MAX_TEAM_MEMBERS = 4;
-const MIN_TEAM_MEMBERS = 2;
+interface Event {
+  id: string;
+  name: string;
+  participants: number;
+  date: string;
+  photos: string[];
+  registration_start: string;
+  location: string;
+  min_team_size: number;
+  max_team_size: number;
+  description: string;
+}
 
 interface TeamMember {
   name: string;
@@ -33,6 +34,8 @@ interface FormData {
 }
 
 const EventRegistrationForm = () => {
+  const [events, setEvents] = useState<Record<string, Event>>({});
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     teamName: '',
@@ -43,12 +46,44 @@ const EventRegistrationForm = () => {
     event: ''
   });
 
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${localhost}/api/events`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error('Failed to fetch events:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    if (name === 'event') {
+      const selectedEventData = events[value];
+      setSelectedEvent(selectedEventData);
+      
+      // Adjust team members array based on min_team_size
+      const initialTeamMembers = Array(selectedEventData.min_team_size)
+        .fill(null)
+        .map(() => ({ name: '', department: '' }));
+      
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+        teamMembers: initialTeamMembers
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleTeamMemberChange = (index: number, field: keyof TeamMember, value: string) => {
@@ -66,7 +101,7 @@ const EventRegistrationForm = () => {
   };
 
   const addTeamMember = () => {
-    if (formData.teamMembers.length < MAX_TEAM_MEMBERS) {
+    if (selectedEvent && formData.teamMembers.length < selectedEvent.max_team_size) {
       setFormData(prev => ({
         ...prev,
         teamMembers: [...prev.teamMembers, { name: '', department: '' }]
@@ -75,7 +110,7 @@ const EventRegistrationForm = () => {
   };
 
   const removeTeamMember = (indexToRemove: number) => {
-    if (formData.teamMembers.length > MIN_TEAM_MEMBERS) {
+    if (selectedEvent && formData.teamMembers.length > selectedEvent.min_team_size) {
       setFormData(prev => ({
         ...prev,
         teamMembers: prev.teamMembers.filter((_, index) => index !== indexToRemove)
@@ -86,8 +121,13 @@ const EventRegistrationForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (formData.teamMembers.length < MIN_TEAM_MEMBERS) {
-      alert(`Minimum ${MIN_TEAM_MEMBERS} team members required`);
+    if (!selectedEvent) {
+      alert('Please select an event');
+      return;
+    }
+    
+    if (formData.teamMembers.length < selectedEvent.min_team_size) {
+      alert(`Minimum ${selectedEvent.min_team_size} team members required`);
       return;
     }
     
@@ -142,11 +182,41 @@ const EventRegistrationForm = () => {
               </div>
             ))}
 
-            {/* Team size indicator */}
-            <div className="text-xs md:text-sm text-gray-300 flex flex-col md:flex-row md:justify-between gap-2 md:gap-0">
-              <span>Require Team: Min: {MIN_TEAM_MEMBERS}, Max: {MAX_TEAM_MEMBERS}</span>
-              <span>Your Team: {formData.teamMembers.length}</span>
+            {/* Event Selection */}
+            <div className="relative">
+              <select
+                name="event"
+                value={formData.event}
+                onChange={handleInputChange}
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white 
+                  focus:outline-none focus:ring-1 focus:ring-white appearance-none text-sm md:text-base"
+                required
+              >
+                <option value="" disabled className="text-gray-500">Select an Event</option>
+                {Object.entries(events).map(([id, event]) => (
+                  <option 
+                    key={id} 
+                    value={id}
+                    className="bg-blue-950 text-white hover:bg-blue-900"
+                  >
+                    {event.name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
             </div>
+
+            {/* Team size indicator */}
+            {selectedEvent && (
+              <div className="text-xs md:text-sm text-gray-300 flex flex-col md:flex-row md:justify-between gap-2 md:gap-0">
+                <span>Required Team: Min: {selectedEvent.min_team_size}, Max: {selectedEvent.max_team_size}</span>
+                <span>Your Team: {formData.teamMembers.length}</span>
+              </div>
+            )}
 
             {/* Team Members Section */}
             <div className="space-y-4">
@@ -188,7 +258,7 @@ const EventRegistrationForm = () => {
                     </label>
                   </div>
 
-                  {formData.teamMembers.length > MIN_TEAM_MEMBERS && (
+                  {selectedEvent && formData.teamMembers.length > selectedEvent.min_team_size && (
                     <button
                       type="button"
                       onClick={() => removeTeamMember(index)}
@@ -201,7 +271,7 @@ const EventRegistrationForm = () => {
                 </div>
               ))}
 
-              {formData.teamMembers.length < MAX_TEAM_MEMBERS && (
+              {selectedEvent && formData.teamMembers.length < selectedEvent.max_team_size && (
                 <button
                   type="button"
                   onClick={addTeamMember}
@@ -210,34 +280,6 @@ const EventRegistrationForm = () => {
                   + Add Another
                 </button>
               )}
-            </div>
-
-            {/* Event Selection */}
-            <div className="relative">
-              <select
-                name="event"
-                value={formData.event}
-                onChange={handleInputChange}
-                className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white 
-                  focus:outline-none focus:ring-1 focus:ring-white appearance-none text-sm md:text-base"
-                required
-              >
-                <option value="" disabled className="text-gray-500">Select an Event</option>
-                {EVENTS.map((event, index) => (
-                  <option 
-                    key={index} 
-                    value={event}
-                    className="bg-blue-950 text-white hover:bg-blue-900"
-                  >
-                    {event}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
             </div>
 
             {/* Contact Information Fields */}

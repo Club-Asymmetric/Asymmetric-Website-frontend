@@ -32,6 +32,9 @@ const Events = () => {
     name: "Title",
     synopsis: "synopsis"
   });
+
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
@@ -84,7 +87,7 @@ const Events = () => {
     const fetchEvents = async () => {
       try {
         const api = axios.create({
-          baseURL: 'http://localhost:3001/api',
+          baseURL: `${localhost}/api`,
         });
         const response = await api.get('/events');
         if (response.status !== 200) {
@@ -109,7 +112,7 @@ const Events = () => {
           {
             events.map((event) => (
               <Event
-                imageSrc={`http://localhost:3001/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                 key={event.id}
                 desc={event.description}
                 synopsis="It is missing in the db"

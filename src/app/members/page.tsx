@@ -44,9 +44,11 @@ interface MemberData {
 const Page = () => {
     const [members, setMembers] = useState<MemberData[]>([]);
 
+    const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
     useEffect(() => {
         const api = Axios.create({
-            baseURL: "http://localhost:3001/api",
+            baseURL: `${localhost}/api`,
         });
         const fetchData = async () => {
             try {
@@ -77,7 +79,7 @@ const Page = () => {
                                 energySource={member.energySource}
                                 dimension={member.dimension}
                                 type={member.type}
-                                imgSrc={`http://localhost:3001/images/are/not/here/${member.photos[0]}`}
+                                imgSrc={`${localhost}/images/are/not/here/${member.photos[0]}`}
                                 hobbiesInstalled={member.hobbiesInstalled}
                                 specialFeatures={member.specialFeatures}
                             />

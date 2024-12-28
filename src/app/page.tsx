@@ -1,14 +1,17 @@
 'use client';
 
-interface PodcastCardProps {
-  title: string;
-  author: string;
+interface PodcastData {
+  id: string;
+  name: string;
+  guests: string[];
   description: string;
-  imageUrl: string;
+  image: string;
+  mime: string;
 }
 
 import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
 import Link from 'next/link';
 import { useState,useEffect } from 'react';
@@ -56,32 +59,31 @@ export default function Home() {
     e.stopPropagation();
   };
 
-  const podcasts: PodcastCardProps[] = [
-    {
-      title: "Morning Tech Talk",
-      author: "Jessica Page",
-      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/placeholders/PodcastFace.png"
-    },
-    {
-      title: "Morning Tech Talk",
-      author: "Jessica Page",
-      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/placeholders/PodcastFace.png"
-    },
-    {
-      title: "Morning Tech Talk",
-      author: "Jessica Page",
-      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/placeholders/PodcastFace.png"
-    },
-    {
-      title: "Morning Tech Talk",
-      author: "Jessica Page",
-      description: "Daily insights into the latest technology trends and innovations. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageUrl: "/placeholders/PodcastFace.png"
-    }
-  ];
+  const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
+  useEffect(() => {
+    const fetchPodcasts = async () => {
+      try {
+        const response = await fetch(`${localhost}/api/podcasts`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        setPodcasts(Object.values(data));
+      } catch (error) {
+        console.error('Failed to fetch podcasts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPodcasts();
+  }, []);
+
+  if (loading) 
+    return (
+      <LoadingSpinner />
+    )
 
   return (
     <>
@@ -185,17 +187,17 @@ export default function Home() {
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-        {podcasts.slice(0,3).map((podcast, index) => (
-            // On mobile, show only first podcast
-            // On tablet, show first two podcasts
-            // On desktop, show all three podcasts
-            <div key={index} className={`
-                ${index === 0 ? 'block' : 'hidden lg:block'} 
-                ${index === 1 ? 'hidden md:block' : ''} 
-                ${index === 2 ? 'hidden lg:block' : ''}
-              `}>
-                  <PodcastCard {...podcast} />
-            </div>
+        {podcasts.slice(0, 3).map((podcast, index) => (
+          <div
+            key={index}
+            className={`
+              ${index === 0 ? 'block' : 'hidden lg:block'} 
+              ${index === 1 ? 'hidden md:block' : ''} 
+              ${index === 2 ? 'hidden lg:block' : ''}
+            `}
+          >
+            <PodcastCard {...podcast} />
+          </div>
         ))}
       </div>
     </div>
