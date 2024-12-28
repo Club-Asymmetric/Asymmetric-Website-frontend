@@ -1,5 +1,6 @@
 // src/components/MusicPlayer.tsx
 "use client";
+import { source } from "framer-motion/client";
 import React, { useRef, useState, useEffect } from "react";
 import { FaPlay, FaPause, FaForward, FaBackward, FaVolumeUp, FaShare, FaClock } from "react-icons/fa";
 
@@ -14,7 +15,7 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [playbackSpeed, setPlaybackSpeed] = useState(1); // Default playback speed is 1x
-
+  // console.log(typeof sourceFile.sourceFile)
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
@@ -36,16 +37,16 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
     handleLoadedMetadata();
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
-      console.log(audioRef.current.currentTime);
+      // console.log(audioRef.current.currentTime);
     }
   };
 
   const handleLoadedMetadata = () => {
-    console.log('hello')
-    console.log(audioRef.current);
+    // console.log('hello')
+    // console.log(audioRef.current);
     if (audioRef.current) {
       setDuration(audioRef.current.duration);
-      console.log(audioRef.current.duration, "duration");
+      // console.log(audioRef.current.duration, "duration");
     }
   };
 
@@ -86,7 +87,7 @@ const MusicPlayer: React.FC<PropType> = (sourceFile) => {
 <div className="flex flex-col xl:flex-row items-center justify-between text-white py-4 rounded-lg gap-4 px-4 w-full">
       <audio
         ref={audioRef}
-        src="/songs/song.mp3"
+        src={sourceFile.sourceFile}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
