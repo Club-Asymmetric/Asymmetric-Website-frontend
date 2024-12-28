@@ -13,54 +13,6 @@ import { useState, useEffect } from 'react';
 
 const Footer = () => {
   const [scale, setScale] = useState(1);
-  const [buttonText, setButtonText] = useState('Click to COPY');
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        // Create a temporary span element
-        const span = document.createElement('span');
-        span.textContent = text;
-        span.style.position = 'absolute';
-        span.style.opacity = '0';
-        span.style.whiteSpace = 'pre'; // Preserve whitespace
-        document.body.appendChild(span);
-
-        // Create a selection range
-        const range = document.createRange();
-        range.selectNodeContents(span);
-        const selection = window.getSelection();
-        if (selection) {
-          selection.removeAllRanges();
-          selection.addRange(range);
-          document.execCommand('copy');
-          selection.removeAllRanges();
-        }
-        
-        // Clean up
-        document.body.removeChild(span);
-      }
-      
-      // Update button text in both cases
-      setButtonText('DUMB ASS (Check your ClipBoard)');
-      setTimeout(() => setButtonText('Click to COPY'), 2000);
-      
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      setButtonText('Failed to copy');
-      setTimeout(() => setButtonText('Click to COPY'), 2000);
-    }
-  };
-
-  const handleCopy = (): void => {
-    const textElement = document.getElementById('tooltipText');
-    if (textElement) {
-      const textToCopy = textElement.textContent || '';
-      copyToClipboard(textToCopy.trim());
-    }
-  };
 
   const handleEasterEggHover = (isHovering: boolean) => {
     document.documentElement.classList.toggle('grayscale-active', isHovering);
@@ -105,13 +57,13 @@ const Footer = () => {
     >
       <div className="max-w-5xl mx-auto py-4 border-white border-t">
         <div className="text-center">
-          <h2 className="md:text-lg text-base mb-4">Created by Students, for Students</h2>
+          <h2 className="md:text-lg text-base md:font-normal font-bold mb-4">Created by Students, for Students</h2>
           <div className='border-white border-t'/>
         </div>
         <div className="flex flex-row justify-center md:justify-evenly items-center border-white px-3 py-4">
           <div>
             <Link href='/'>
-              <div className="md:w-72 md:h-28 relative py-7 md:py-0">
+              <div className="md:w-72 md:h-28 scale-110 relative py-7 md:py-0">
                 <Image 
                   src="/logo/logo.png" 
                   alt="Logo" 
@@ -123,35 +75,11 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-4 mt-0 px-3">
-            <span className="md:text-base text-sm text-white mr-2 transition-all duration-200 cursor-pointer">
+            <span className="md:text-lg text-sm text-white mr-2 transition-all duration-200 cursor-pointer">
               Stay in the
               <Link href='https://linktr.ee/Club_Asymmetric' target='_blank'>
                 <span className='hover:text-gray-300 transition-all duration-200'> Loop</span>
               </Link>?
-              <div className="relative inline-block">
-                <div className="peer">
-                  <Image
-                    src="/elements/breakingconnect.png"
-                    alt="Breaking-Connect"
-                    width={35}
-                    height={35}
-                    className="inline-block mb-1 ml-2 cursor-pointer"
-                    onClick={handleCopy}
-                  />
-                </div>
-                {/* Should I make it Transparent */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-blue-200/90 text-black text-xs sm:text-sm lg:text-base p-2 rounded-md opacity-0 peer-hover:opacity-0 transition-all duration-300 mb-1 w-64 sm:w-80 lg:w-96 text-center cursor-default">
-                  <span id="tooltipText">
-                    -... .-. . .- -.- .. -. --. / -.-. .. - / -.-. --- -. -. . -.-. - ... / -.--. ... .. -... .. --..-- / .. / .- -- / - .- .-. --. . - .. -. --. / -.-- --- ..- -.--.-
-                  </span>
-                </div>
-                <div className="absolute -bottom-[36px] sm:-bottom-[50px] md:-bottom-[55px] left-1/2 transform -translate-x-1/2 bg-blue-200/90 text-black text-xs sm:text-sm lg:text-base p-2 rounded-md opacity-0 peer-hover:opacity-100 transition-all duration-300 mb-1 w-52 sm:w-60 lg:w-72 text-center cursor-default">
-                  <span>
-                    {buttonText}
-                    <br />
-                  </span>
-                </div>
-              </div>
             </span>
             <Link href="https://www.instagram.com/clubasymmetric/" target='_blank' className="transition-colors">
               <FaInstagram className="transition-all duration-300 md:w-7 md:h-7 w-5 h-5 hover:bg-red-500 hover:scale-105 rounded-md" />
