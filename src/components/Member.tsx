@@ -106,12 +106,7 @@ const ImagePopup: React.FC = () => {
 
   return (
     <div 
-      className="fixed inset-0 top-0 left-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
-      style={{
-        top: `${typeof window !== 'undefined' ? window.scrollY : 0}px`, 
-        width: '100%', 
-        height: '100%'
-      }}
+      className="fixed top-0 left-0 inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
     >
       <div className="relative grid grid-flow-row">
         {currentPopup === 'stop' && (
@@ -167,13 +162,14 @@ const MainView = () => (
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: -1000 }}
     transition={{ duration: 0.5 }}
+    whileHover={{ scale: 0.95 }}
   >
       <Image 
           src={props.imgSrc} 
           alt="Placeholder" 
           width={250} 
           height={250} 
-          className="rounded-full place-self-center select-none md:min-w-[250px] md:min-h-[250px] w-[200px] h-[200px]"
+          className="rounded-full place-self-center select-none md:min-w-[250px] md:min-h-[250px] w-[200px] h-[200px] pr-2"
           onContextMenu={(e) => {
               e.preventDefault();
               handleOpen();
@@ -196,6 +192,7 @@ const InfoView = () => (
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: 100 }}
     transition={{ duration: 0.5 }}
+    whileHover={{ scale: 0.95 }}
   >
       <div className="bg-gradient-to-br from-[#17193F] via-[#191B4480] to-[#3C41A5B2] rounded-t-xl h-10 pl-3 pt-2">
           <p className="text-xl font-outfit">Info</p>
