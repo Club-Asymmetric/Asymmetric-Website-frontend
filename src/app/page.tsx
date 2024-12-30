@@ -9,46 +9,81 @@ interface PodcastData {
   mime: string;
 }
 
+interface EventData {
+  id: string;
+  name: string;
+  participants: number;
+  date: string;
+  registration_start: string;
+  location: string;
+  min_team_size: number;
+  max_team_size: number;
+  description: string;
+  synopsis: string;
+  photos: string[];
+}
+
 import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
+import axios from 'axios';
 
 export default function Home() {
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [popupContent, setPopupContent] = useState({
-    desc : "",
-    img : "/placeholders/Events_Placeholder.png",
-    name : "Title",
-    synopsis : "synopsis"
-    });
   
-  function openRegistrationPage() {
-    window.location.href="/events/registration-form"
-  }
+  const [isOpen, setIsOpen] = useState(false);
+  const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [popupContent, setPopupContent] = useState<{
+    desc: string;
+    img: string;
+    name: string;
+    synopsis: string;
+  }>({
+    desc: "",
+    img: "/placeholders/Events_Placeholder.png",
+    name: "Title",
+    synopsis: "synopsis"
+  });
+
 
   useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
+  useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      setScrollPosition(scrollY);
       document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollPosition);
     }
-  }, [isOpen, scrollPosition]);
+  }, [isOpen]);
 
-  const openPopup = (content: { desc: string; img: string; name: string; synopsis: string }) => {
+  interface PopupContent {
+    desc: string;
+    img: string;
+    name: string;
+    synopsis: string;
+  }
+
+  interface PopupLocation {
+    x: number;
+    y: number;
+  }
+
+  const openPopup = (content: PopupContent, e: React.MouseEvent) => {
+    setPopupLocation({ x: e.clientX, y: e.clientY });
     setPopupContent(content);
     setIsOpen(true);
   };
@@ -58,6 +93,34 @@ export default function Home() {
   const handlePopupContentClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
+
+  function openRegistrationPage() {
+    window.location.href = "/events/registration-form";
+  }
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const api = axios.create({
+          baseURL: `${localhost}/api`,
+        });
+        const response = await api.get('/events');
+        if (response.status !== 200) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data =  await response.data;
+        const eventsArray = Object.values(data) as EventData[];
+        setEvents(eventsArray);
+        eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        const limitedEventsArray = eventsArray.slice(0, 2);
+        setEvents(limitedEventsArray);
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      }
+    };
+  
+    fetchEvents();
+  }, []);
 
   const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -114,63 +177,62 @@ export default function Home() {
           </div>
         </div>
         {/* Events Section */}
-        <div className='flex flex-col max-w-6xl rounded-xl bg-blue-950 my-20 pt-10 mx-auto'>
-        <Event 
-            imageSrc="/placeholders/Events_Placeholder.png"
-            synopsis="Event description goes here"
-            name="EVENT NAME GOES HERE"
-            type="Team"
-            date="Jan 24, 2025"
-            desc="lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactum est in alienum sensum omne quicquid est, ut non intellegamus, sic omne quod est in nostris sensibus, ut non videamus, nec audiamus, nec gustemus, nec concipiamus, sensibile est.
-            CONTENT TEAM IS LAZY AF TO WRITE A DESCRIPTION
-            "
-            location="CIT Chennai, Kundrathur"
-            openPopup={openPopup}
-          />
-          <Event 
-            imageSrc="/placeholders/Events_Placeholder.png"
-            synopsis="Event description goes here"
-            name="EVENT NAME GOES HERE"
-            type="Team"
-            date="Jan 24, 2025"
-            desc="lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactum est in alienum sensum omne quicquid est, ut non intellegamus, sic omne quod est in nostris sensibus, ut non videamus, nec audiamus, nec gustemus, nec concipiamus, sensibile est."
-            location="CIT Chennai, Kundrathur"
-            openPopup={openPopup}
-          />
+        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col bg-ass-gradient max-w-6xl mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
+          {
+            events.map((event,index) => (
+              <Event
+                imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                key={event.id}
+                desc={event.description}
+                synopsis={event.synopsis}
+                name={event.name}
+                type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
+                date={event.date.slice(0,10)}
+                location={event.location}
+                openPopup={openPopup}
+              />
+            ))
+          }
         </div>
-      {/* Global Popup for Events */}
+      </div>
+
       {/* Popup */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 w-full h-full bg-[#000000b8] flex justify-center items-center z-50 animate-fadeIn" 
-          style={{animationDuration: '1s'}} 
+        <motion.div 
+          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
+          style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
           onClick={closePopup}
         >
-          <div 
-            className="relative flex flex-row bg-gradient-to-br animate-zoomIn from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg"
+          <motion.div 
+            className="relative flex flex-col lg:flex-row bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
+            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
             onClick={handlePopupContentClick}
+            initial={{ opacity: 0 , scale: 0 , y:popupLocation.y-400  , x: popupLocation.x-800}}
+            animate={{ opacity: 1 , scale: 1 , y: 0 , x: 0}}
+            transition={{ duration: 0.7}}
           >
             <img 
               src={popupContent.img} 
               alt="Event" 
-              className="w-[35%] object-cover rounded-l-lg py-12 px-12" 
+              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
             />
             
-            <div className="flex flex-col flex-1 py-12 pr-12">
-              <p className="text-2xl font-medium font-oswald leading-tight mb-3">
-                {popupContent.synopsis}
+            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8">
+              <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
+          {popupContent.synopsis}
               </p>
-              <p className="text-5xl font-extrabold font-outfit mb-8">
-                {popupContent.name}
+              <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
+          {popupContent.name}
               </p>
-              <p className="text-white text-2xl font-normal font-outfit leading-7">
-                {popupContent.desc}
+              <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
+          {popupContent.desc}
               </p>
               <button 
-                onClick={openRegistrationPage}
-                className="px-20 py-2 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-transparent hover:outline hover:outline-2"
+          onClick={openRegistrationPage}
+          className="px-20 py-1 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 mb-4 hover:bg-white hover:text-black"
               >
-                Register
+          Register
               </button>
             </div>
             
@@ -181,8 +243,8 @@ export default function Home() {
             >
               ✕
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-8">

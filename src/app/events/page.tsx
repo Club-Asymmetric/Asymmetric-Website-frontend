@@ -14,6 +14,7 @@ interface EventData {
   min_team_size: number;
   max_team_size: number;
   description: string;
+  synopsis: string;
   photos: string[];
 }
 
@@ -115,7 +116,7 @@ const Events = () => {
                 imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                 key={event.id}
                 desc={event.description}
-                synopsis="It is missing in the db"
+                synopsis={event.synopsis}
                 name={event.name}
                 type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
                 date={event.date.slice(0,10)}
