@@ -36,13 +36,13 @@ export default function Event(
                         }, e)}
                     >{props.name}</p>
                     <div className="flex flex-col md:flex-row mt-[1rem]">
-                        <div className="flex flex-row pr-0 md:pr-[5rem]">
-                            <IoCalendarOutline className="ml-0 lg:ml-[2rem] mr-[1rem] place-self-start w-[22px] h-[22px]" />
-                            <div className="text-white lg:text-lg text-md font-medium font-outfit leading-[25px]">{props.date}</div>
+                        <div className="flex flex-row items-center pr-0 md:pr-[5rem]">
+                            <IoCalendarOutline className="ml-0 lg:ml-[2rem] mr-[0.5rem] w-[20px] h-[20px]" />
+                            <div className="text-white lg:text-lg text-sm font-medium font-outfit leading-[25px]">{props.date}</div>
                         </div>
-                        <div className="flex flex-row mt-2 md:mt-0">
-                            <RiMapPinLine className="ml-0 lg:ml-[2rem] mr-[1rem] place-self-start h-[22px] w-[22px]" />
-                            <div className="text-white lg:text-lg text-md font-medium font-outfit leading-[25px]">{props.location}</div>
+                        <div className="flex flex-row items-center mt-2 md:mt-0">
+                            <RiMapPinLine className="ml-0 lg:ml-[2rem] mr-[0.5rem] h-[20px] w-[20px]" />
+                            <div className="text-white lg:text-lg text-sm font-medium font-outfit leading-[25px]">{props.location}</div>
                         </div>
                     </div>
                     <div className="flex flex-col justify-between lg:flex-row mt-[2rem]">
