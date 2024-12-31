@@ -98,6 +98,8 @@ export default function Home() {
     window.location.href = "/events/registration-form";
   }
 
+  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -124,7 +126,6 @@ export default function Home() {
 
   const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
 
   useEffect(() => {
     const fetchPodcasts = async () => {
@@ -149,9 +150,9 @@ export default function Home() {
     )
 
   return (
-    <>
+    <div className='space-y-16'>
         {/* AboutUs Section */}
-        <div className="flex items-center justify-center my-5 px-6 md:px-0 w-full">
+        <div className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
@@ -247,7 +248,7 @@ export default function Home() {
         </motion.div>
       )}
       {/*Podcast Section*/}
-      <div className="container mx-auto xl:px-40 py-8">
+      <div className="container mx-auto xl:px-40 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         {podcasts.slice(0, 3).map((podcast, index) => (
           <div
@@ -263,6 +264,6 @@ export default function Home() {
         ))}
       </div>
     </div>
-    </>
+    </div>
   );
 }
