@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Event from '@/components/Event';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { EventLoading } from '@/components/MemberLoading';
 
 interface EventData {
   id: string;
@@ -18,10 +19,23 @@ interface EventData {
   photos: string[];
 }
 
+interface PopupContent {
+  desc: string;
+  img: string;
+  name: string;
+  synopsis: string;
+}
+
+interface PopupLocation {
+  x: number;
+  y: number;
+}
+
 const Events = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [events, setEvents] = useState<EventData[]>([]);
+  const [loading , setLoading] = useState(true);
   const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
@@ -56,18 +70,6 @@ const Events = () => {
     }
   }, [isOpen]);
 
-  interface PopupContent {
-    desc: string;
-    img: string;
-    name: string;
-    synopsis: string;
-  }
-
-  interface PopupLocation {
-    x: number;
-    y: number;
-  }
-
   const openPopup = (content: PopupContent, e: React.MouseEvent) => {
     setPopupLocation({ x: e.clientX, y: e.clientY });
     setPopupContent(content);
@@ -100,17 +102,20 @@ const Events = () => {
         console.log(eventsArray);
       } catch (error) {
         console.error("Failed to fetch events:", error);
+      }finally{
+        setLoading(false);
       }
     };
   
     fetchEvents();
   }, []);
 
+  if(loading) return <EventLoading />
   return (
     <>
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col bg-ass-gradient max-w-full mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
-          {
+          {events.length > 0 ? (
             events.map((event) => (
               <Event
                 imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
@@ -124,6 +129,9 @@ const Events = () => {
                 openPopup={openPopup}
               />
             ))
+          ) : (
+            <div className="text-center py-10">No Events available.</div>
+          )
           }
         </div>
       </div>

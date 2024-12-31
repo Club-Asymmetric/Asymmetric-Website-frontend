@@ -198,7 +198,7 @@ const InfoView = () => (
           <p className="text-xl font-outfit">Info</p>
       </div>
       <div className="p-2">
-          <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
+          <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Energy Source</span>
           <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
               {props.energySource}
           </div>
@@ -313,7 +313,7 @@ const InfoView = () => (
                               <p className="text-xl font-outfit">Info</p>
                           </div>
                           <div className="p-2">
-                              <span className="fixed text-[#6a6fc1] w-full pl-3 font-outfit font-semibold">Energy Source</span>
+                              <span className="fixed text-[#6a6fc1] pl-3 font-outfit font-semibold">Energy Source</span>
                               <div className="w-full mt-3 pl-6 bg-[#17193F] text-white text-sm p-2 outline-none cursor-auto">
                                   {props.energySource}
                               </div>
