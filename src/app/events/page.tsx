@@ -139,7 +139,7 @@ const Events = () => {
       {/* Popup */}
       {isOpen && (
         <motion.div 
-          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
+          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden " 
           style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
           onClick={closePopup}
           // initial={{ opacity: 0 , scale: 0}}
@@ -148,7 +148,7 @@ const Events = () => {
         >
           <motion.div 
             className="relative flex flex-col lg:flex-row bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
-            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
+            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] min-h-[50vh] overflow-y-auto rounded-lg minimal-scrollbar "
             onClick={handlePopupContentClick}
             initial={{ opacity: 0 , scale: 0 , y:popupLocation.y-400  , x: popupLocation.x-800}}
             animate={{ opacity: 1 , scale: 1 , y: 0 , x: 0}}
@@ -160,7 +160,7 @@ const Events = () => {
               className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
             />
             
-            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8">
+            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8 place-self-center justify-between">
               <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
           {popupContent.synopsis}
               </p>
