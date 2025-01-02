@@ -173,7 +173,7 @@ const EventRegistrationForm = () => {
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-6 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >
@@ -221,7 +221,7 @@ const EventRegistrationForm = () => {
             {/* Team Members Section */}
             <div className="space-y-4">
               {formData.teamMembers.map((member, index) => (
-                <div key={index} className="flex flex-col md:flex-row gap-2 md:items-center">
+                <div key={index} className="flex flex-col space-y-[0.6rem] md:space-y-0 md:flex-row gap-2 md:items-center">
                   <div className="relative flex-1">
                     <input
                       type="text"
@@ -233,7 +233,7 @@ const EventRegistrationForm = () => {
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-6 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`name-${index}`}
                     >
                       Team Member Name
@@ -251,7 +251,7 @@ const EventRegistrationForm = () => {
                       required
                     />
                     <label 
-                      className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
+                      className="absolute text-gray-300 duration-200 transform -translate-y-6 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                       htmlFor={`department-${index}`}
                     >
                       Department
@@ -298,7 +298,7 @@ const EventRegistrationForm = () => {
                   required
                 />
                 <label 
-                  className="absolute text-gray-300 duration-200 transform -translate-y-8 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
+                  className="absolute text-gray-300 duration-200 transform -translate-y-6 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base"
                   htmlFor={field}
                 >
@@ -315,7 +315,7 @@ const EventRegistrationForm = () => {
             )}
 
             {/* Submit Button */}
-            <div className='flex justify-center'>
+            <div className='flex justify-center py-3'>
               <button
                 type="submit"
                 className="w-1/2 sm:w-1/3 xl:w-1/4 bg-ass-button hover:bg-gray-300 duration-200 hover:text-black text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md transition-colors"
