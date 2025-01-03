@@ -31,7 +31,7 @@ const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, 
       className={`w-full my-10 bg-ass-gradient 
         grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 px-5 sm:px-8 py-6 sm:py-10 rounded-xl`}
     >
-      <div className="flex justify-center lg:place-items-center mb-4 lg:mb-0">
+      <div className="flex justify-center lg:place-items-center mb-4 lg:mb-0 animate-zoomIn">
         <Image
           src={`${image}`} // Assume the image is served from the /images folder
           alt={`${name} logo`}
@@ -95,7 +95,7 @@ export default function Podcasts() {
   }
 
   return (
-    <div className="w-[95%] lg:w-[80%] mx-auto">
+    <div className="w-[95%] lg:w-[80%] mx-auto animate-zoomIn">
       {podcasts.length > 0 ? (
         podcasts.map((podcast) => (
           // console.log(podcast.mime)

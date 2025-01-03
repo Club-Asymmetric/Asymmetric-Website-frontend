@@ -13,7 +13,7 @@ const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }
   const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
 
   return (
-    <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 relative">
+    <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 relative animate-zoomIn">
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
         <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden relative">
           <Image

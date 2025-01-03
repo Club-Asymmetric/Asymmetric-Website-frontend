@@ -249,7 +249,7 @@ export default function Home() {
       )}
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">
         {podcasts.slice(0, 3).map((podcast, index) => (
           <div
             key={index}
