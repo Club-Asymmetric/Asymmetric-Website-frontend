@@ -47,7 +47,7 @@ const imprintMTShadow = localFont({
 });
 
 const nicoMoji = localFont({
-  src: "./fonts/Nicomoji-Regular.ttf",
+  src: "./fonts/NicoMoji-Regular.ttf",
   variable: "--font-nicomoji",
 });
 
