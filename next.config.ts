@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'mm86ln1b-3001.inc1.devtunnels.ms',
+        hostname: 'ass-dummy-backend.onrender.com',
         pathname: '/images/**', // Allow all paths under /images/
       },
     ],
