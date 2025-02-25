@@ -181,7 +181,7 @@ const ContactUsFrom = () => {
                   className="text-white/70 text-sm md:text-base italic"
                   variants={itemVariants}
                 >
-                  &quot;We'll add a database... eventually. Right after this coffee break that started 3 weeks ago.&quot;
+                  &quot;We&apos;ll add a database... eventually. Right after this coffee break that started 3 weeks ago.&quot;
                 </motion.p>
                 <motion.div 
                   className="mt-4 flex space-x-4"
