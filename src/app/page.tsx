@@ -82,10 +82,8 @@ export default function Home() {
     y: number;
   }
 
-  const openPopup = (content: PopupContent, e: React.MouseEvent) => {
-    setPopupLocation({ x: e.clientX, y: e.clientY });
-    setPopupContent(content);
-    setIsOpen(true);
+  const openPopup = () => {
+    window.location.href = "/events";
   };
 
   const closePopup = () => setIsOpen(false);
@@ -159,8 +157,12 @@ export default function Home() {
                 <ColorText text="Welcome to Asymmetric !" />
               </h1>
               <p className="mt-4 text-sm md:text-base">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
-                Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
+                <br/>
+                Asymmetric Club is a technical community founded by students of the 2027 batch. We endeavour to build a team dedicated to organising workshops, hackathons, webinars, and technical events, creating projects and hosting competitions. We provide a supportive space for learning and personal growth.
+                <br/><br/>
+                Our goal is to empower ourselves in the fields such as cybersecurity and AI/ML and to share this knowledge with others. That is to be aware and raise awareness. 
+                <br/><br/>
+                Whether a seasoned tech enthusiast or just starting, Asymmetric Club offers versatile plans to help everyone and support them to enhance their technical skills.
               </p>
               <Link href='/about-us'>
                 <button className="mt-6 bg-ass-button hover:bg-white hover:text-black px-4 py-1 hover:scale-105 rounded-md transition-all duration-300">
@@ -198,55 +200,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Popup */}
-      {isOpen && (
-        <motion.div 
-          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
-          style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
-          onClick={closePopup}
-        >
-          <motion.div 
-            className="relative flex flex-col lg:flex-row bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
-            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
-            onClick={handlePopupContentClick}
-            initial={{ opacity: 0 , scale: 0 , y:popupLocation.y-400  , x: popupLocation.x-800}}
-            animate={{ opacity: 1 , scale: 1 , y: 0 , x: 0}}
-            transition={{ duration: 0.7}}
-          >
-            <img 
-              src={popupContent.img} 
-              alt="Event" 
-              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
-            />
-            
-            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8">
-              <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
-          {popupContent.synopsis}
-              </p>
-              <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
-          {popupContent.name}
-              </p>
-              <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
-          {popupContent.desc}
-              </p>
-              <button 
-          onClick={openRegistrationPage}
-          className="px-20 py-1 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 mb-4 hover:bg-white hover:text-black"
-              >
-          Register
-              </button>
-            </div>
-            
-            <button 
-              className="absolute top-4 right-4 text-white hover:scale-110 transition-transform duration-100 ease-linear p-4"
-              onClick={closePopup}
-              aria-label="Close popup"
-            >
-              ✕
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">

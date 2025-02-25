@@ -15,16 +15,14 @@ interface PodcastData {
   description: string;
   image: string;
   mime: string;
+  spotify: string;
 }
 
-const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, mime }) => {
+const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, mime, spotify }) => {
   const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
 
   const guestNames = guests.join(", ");
   const sourceFile = `${localhost}/api/podcasts/${id}/stream`;
-  const spotifyLink = `https://open.spotify.com/show/${name}`;
-  const youTubeLink = `https://youtube.com/${name}`;
-  const appleLink = `https://apple.com/${name}`;
 
   return (
     <motion.div
@@ -47,23 +45,15 @@ const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, 
         <h2 className="font-imprintMTShadow text-xs sm:text-sm lg:text-base">{guestNames}</h2>
         <p className="text-xs sm:text-sm lg:text-base">{description}</p>
         <div className="icons flex flex-cols gap-4 items-center">
-          <Link href={spotifyLink} target="_blank" className="transition-colors">
+          <Link href={spotify} target="_blank" className="transition-colors">
             <FaSpotify className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-green-800 rounded-lg" />
-          </Link>
-          <Link href={youTubeLink} target="_blank" className="transition-colors">
-            <FaYoutube className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-red-600 rounded-lg" />
-          </Link>
-          <Link href={appleLink} target="_blank" className="transition-colors">
-            <FaApple className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-gray-500 rounded-lg" />
           </Link>
         </div>
         <div className="flex items-center gap-4 relative">
           <MusicPlayer 
           sourceFile={sourceFile} 
           podcastName={name}
-          spotifyLink={spotifyLink}
-          youtubeLink={youTubeLink}
-          appleLink={appleLink}
+          spotifyLink={spotify}
           />
         </div>
       </div>
@@ -117,7 +107,8 @@ export default function Podcasts() {
             guests={podcast.guests}
             description={podcast.description}
             image={`${localhost}/images/are/not/here/${podcast.image}`}
-            mime={`${localhost}/api/podcasts/${podcast.id}/stream`} 
+            mime={`${localhost}/api/podcasts/${podcast.id}/stream`}
+            spotify={podcast.spotify}
           />
         ))
       ) : (

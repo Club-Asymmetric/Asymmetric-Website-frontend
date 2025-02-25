@@ -13,65 +13,65 @@ const sectionsData: SectionData[] = [
   {
     id: 1,
     image: '/group-photo/AndroidEspion.jpg',
-    title: 'First Section Title',
+    title: 'Android Espion Workshop',
     description:
-      'Detailed description for the first section goes here. This can be multiple lines of engaging content about your topic.',
+      'An interactive workshop where participants explored the intricacies of Android security, ethical hacking, and app vulnerabilities, gaining hands-on experience in mobile cybersecurity.',
   },
   {
     id: 2,
     image: '/group-photo/CatapultProgram.jpg',
-    title: 'Second Section Title',
+    title: 'Pitching Session',
     description:
-      'Another detailed description for the second section. Provide compelling information that captures the reader’s attention.',
+      'An exciting platform where aspiring entrepreneurs pitched their innovative ideas, received expert feedback, and refined their business strategies for real-world impact.',
   },
   {
     id: 3,
     image: '/group-photo/CatapultProgram2.jpg',
-    title: 'Third Section Title',
+    title: 'Catapult Program',
     description:
-      'A third section with its own unique description. Continue to provide valuable and interesting content.',
+      'A mentorship-driven program designed to accelerate tech-driven ideas, providing guidance, resources, and networking opportunities to aspiring developers and entrepreneurs.',
   },
   {
     id: 4,
     image: '/group-photo/CatapultProgram3.jpg',
-    title: 'Fourth Section Title',
+    title: 'Trinity Trios',
     description:
-      'A fourth section with its own unique description. Continue to provide valuable and interesting content.',
+      'A thrilling team-based competition where participants put their problem-solving, coding, and strategic thinking skills to the test in a high-energy environment.',
   },
   {
     id: 5,
     image: '/group-photo/FirstMeet.jpg',
-    title: 'Fifth Section Title',
+    title: "The Beginning: Club's First Meetup",
     description:
-      'Detailed description for the fifth section goes here. This can be multiple lines of engaging content about your topic.',
+      'A historic moment marking the foundation of Asymmetric Club, bringing together like-minded tech enthusiasts eager to build a strong and innovative community.',
   },
   {
     id: 6,
     image: '/group-photo/JuniorMeet.jpg',
-    title: 'Sixth Section Title',
+    title: 'Welcoming the Juniors',
     description:
-      'Another detailed description for the sixth section. Provide compelling information that captures the reader’s attention.',
+      'An engaging introduction session where seniors guided juniors through the club’s vision, fostering mentorship and collaboration in tech-driven initiatives.',
   },
   {
     id: 7,
     image: '/group-photo/OnamEthnic.jpg',
-    title: 'Seventh Section Title',
+    title: 'Onam Special',
     description:
-      'Another detailed description for the seventh section. Provide compelling information that captures the reader’s attention.',
+      'A vibrant celebration of culture and tradition, where members came together to enjoy the festive spirit, strengthening bonds beyond the realm of technology.',
   },
   {
     id: 8,
     image: '/group-photo/ShootingVideo.jpg',
-    title: 'Eighth Section Title',
+    title: 'Behind the Scenes: Content Creation',
     description:
-      'Another detailed description for the eighth section. Provide compelling information that captures the reader’s attention.',
+      'A fun-filled day of brainstorming, scripting, and filming as the club worked on promotional videos, showcasing creativity and teamwork at its best.',
   },
   {
     id: 9,
     image: '/group-photo/HappyJK.jpg',
-    title: 'Ninth Section Title',
+    title: 'Life at Asymmetric',
     description:
-      'Another detailed description for the ninth section. Provide compelling information that captures the reader’s attention.',
+      'More than just a club—it’s a family! From late-night coding sessions to exciting events, Asymmetric Club provides an unforgettable experience filled with learning, laughter, and growth.',
   }
 ];
 
@@ -176,8 +176,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
             src={section.image}
             alt={section.title}
             fill
-            //or change to object-cover
-            className="object-contain rounded-lg"
+            //or change to object-cover or cover-fill
+            className="object-contain rounded-xl"
             priority={index === 0}
         />
         </motion.div>

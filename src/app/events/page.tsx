@@ -160,7 +160,7 @@ const Events = () => {
               className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
             />
             
-            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8 place-self-center justify-between">
+            <div className="flex flex-col flex-1 pr-12 mb-10 mt-7 lg:ml-0 ml-8 place-self-center justify-between">
               <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
           {popupContent.synopsis}
               </p>
@@ -170,12 +170,6 @@ const Events = () => {
               <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
           {popupContent.desc}
               </p>
-              <button 
-          onClick={openRegistrationPage}
-          className="px-20 py-1 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 mb-4 hover:bg-white hover:text-black"
-              >
-          Register
-              </button>
             </div>
             
             <button 

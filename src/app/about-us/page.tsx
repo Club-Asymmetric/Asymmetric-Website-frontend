@@ -7,16 +7,16 @@ import TypingHeader from "@/components/TypingHeader";
 
 const contentData = {
   Vision: {
-    subtitle: "Empowering Innovation Through Vision",
-    content: "Our vision is to revolutionize the way organizations approach development and collaboration. We see a future where technology seamlessly integrates with human creativity, breaking down barriers and enabling teams to achieve unprecedented levels of productivity and innovation. By providing cutting-edge tools and frameworks, we aim to transform complex challenges into opportunities for growth and breakthrough solutions."
+    subtitle: "Innovating Fearlessly, Securing the Future",
+    content: "To combine human creativity with technology and reach new heights of innovation while safeguarding the digital world. The club aims to strengthen excellence in emerging fields like cybersecurity and AI/ML, empowering students to become skilled and forward-thinking leaders in the tech industry."
   },
   Mission: {
-    subtitle: "Driving Collaborative Excellence",
-    content: "Our mission is to equip teams with powerful, intuitive tools that streamline development processes and enhance collaborative potential. We are committed to creating flexible, adaptable solutions that empower developers, designers, and innovators to work more efficiently, communicate more effectively, and bring their most ambitious ideas to life. Through our template and support, we enable organizations to build robust, scalable applications that stand out in today's competitive landscape."
+    subtitle: "Building a Stronger Tech Community",
+    content: "The club's mission is to unite a team of tech-minded people, empower them with cyber, AI/ML knowledge, and transform emerging cyber challenges into opportunities."
   },
   Asymmetric: {
-    subtitle: "Redefining Technological Boundaries",
-    content: "The asymmetric approach represents our unique methodology of tackling complex problems from multiple angles. We believe in breaking traditional development paradigms by offering solutions that are not just functional, but transformative. Our asymmetric strategy involves creating flexible, modular systems that can adapt to diverse challenges, ensuring that your technological infrastructure remains agile, resilient, and always ahead of the curve."
+    subtitle: "Unleashing Potential, One Innovation at a Time",
+    content: "Asymmetric Club is a technical community founded by students of the 2027 batch. We endeavour to build a team dedicated to organising workshops, hackathons, webinars, and technical events, creating projects and hosting competitions. We provide a supportive space for learning and personal growth.\n\nOur goal is to empower ourselves in the fields such as cybersecurity and AI/ML and to share this knowledge with others. That is to be aware and raise awareness. \n\nWhether a seasoned tech enthusiast or just starting, Asymmetric Club offers versatile plans to help everyone and support them to enhance their technical skills. \n(Sorry, the content is repeated `LAZY CONTENT TEAM`)"
   }
 };
 
@@ -76,6 +76,7 @@ export default function AboutUs() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
                 className="max-w-4xl mx-auto text-sm sm:text-base md:text-lg text-white leading-relaxed text-center px-2 sm:px-4"
+                style={{ whiteSpace: "pre-line" }}
               >
                 {currentContent.content}
               </motion.div>

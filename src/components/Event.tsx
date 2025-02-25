@@ -58,9 +58,9 @@ export default function Event(
                         </button>
                         <button
                         onClick={openRegistrationPage}
-                        className="px-6 py-1 md:ml-7 bg-[#88d0d1]/80 rounded-[5px] hover:scale-105 transition-transform ease-in-out duration-300 hover:bg-white hover:text-black mt-2 md:mt-0 w-auto min-w-[200px]"
+                        className="px-6 py-1 md:ml-7 bg-gray-500 rounded-[5px] transition-transform ease-in-out duration-300 mt-2 md:mt-0 w-auto min-w-[200px] pointer-events-none"
                         >
-                        Get Involved
+                        Get Involved (Soon)
                         </button>
                     </div>
                 </div>
