@@ -174,14 +174,14 @@ const ContactUsFrom = () => {
                   className="text-white/80 text-base md:text-lg"
                   variants={itemVariants}
                 >
-                  Your message was received but our backend developers are currently "debugging" 
+                  Your message was received but our backend developers are currently &quot;debugging&quot;
                   (which we all know means playing video games or watching hentai in the server room).
                 </motion.p>
                 <motion.p 
                   className="text-white/70 text-sm md:text-base italic"
                   variants={itemVariants}
                 >
-                  "We'll add a database... eventually. Right after this coffee break that started 3 weeks ago."
+                  &quot;We'll add a database... eventually. Right after this coffee break that started 3 weeks ago.&quot;
                 </motion.p>
                 <motion.div 
                   className="mt-4 flex space-x-4"

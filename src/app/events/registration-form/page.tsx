@@ -149,7 +149,7 @@ const EventRegistrationForm = () => {
         REGISTRATION FORM
         <br /><br />
         WoW you found the secret page! 🎉 <br />
-        But it won't work until the backend is ready 😅
+        But it won&apos;t work until the backend is ready 😅
       </h1>
       <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
