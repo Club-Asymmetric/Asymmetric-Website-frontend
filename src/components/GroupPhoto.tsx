@@ -12,63 +12,63 @@ interface SectionData {
 const sectionsData: SectionData[] = [
   {
     id: 1,
-    image: '/group-photo/AndroidEspion.jpg',
+    image: '/group-photo/AndroidEspion.png',
     title: 'Android Espion Workshop',
     description:
       'An interactive workshop where participants explored the intricacies of Android security, ethical hacking, and app vulnerabilities, gaining hands-on experience in mobile cybersecurity.',
   },
   {
     id: 2,
-    image: '/group-photo/CatapultProgram.jpg',
+    image: '/group-photo/CatapultProgram.png',
     title: 'Pitching Session',
     description:
       'An exciting platform where aspiring entrepreneurs pitched their innovative ideas, received expert feedback, and refined their business strategies for real-world impact.',
   },
   {
     id: 3,
-    image: '/group-photo/CatapultProgram2.jpg',
+    image: '/group-photo/CatapultProgram2.png',
     title: 'Catapult Program',
     description:
       'A mentorship-driven program designed to accelerate tech-driven ideas, providing guidance, resources, and networking opportunities to aspiring developers and entrepreneurs.',
   },
   {
     id: 4,
-    image: '/group-photo/CatapultProgram3.jpg',
+    image: '/group-photo/CatapultProgram3.png',
     title: 'Trinity Trios',
     description:
       'A thrilling team-based competition where participants put their problem-solving, coding, and strategic thinking skills to the test in a high-energy environment.',
   },
   {
     id: 5,
-    image: '/group-photo/FirstMeet.jpg',
+    image: '/group-photo/FirstMeet.png',
     title: "The Beginning: Club's First Meetup",
     description:
       'A historic moment marking the foundation of Asymmetric Club, bringing together like-minded tech enthusiasts eager to build a strong and innovative community.',
   },
   {
     id: 6,
-    image: '/group-photo/JuniorMeet.jpg',
+    image: '/group-photo/JuniorMeet.png',
     title: 'Welcoming the Juniors',
     description:
       'An engaging introduction session where seniors guided juniors through the club’s vision, fostering mentorship and collaboration in tech-driven initiatives.',
   },
   {
     id: 7,
-    image: '/group-photo/OnamEthnic.jpg',
+    image: '/group-photo/OnamEthnic.png',
     title: 'Onam Special',
     description:
       'A vibrant celebration of culture and tradition, where members came together to enjoy the festive spirit, strengthening bonds beyond the realm of technology.',
   },
   {
     id: 8,
-    image: '/group-photo/ShootingVideo.jpg',
+    image: '/group-photo/ShootingVideo.png',
     title: 'Behind the Scenes: Content Creation',
     description:
       'A fun-filled day of brainstorming, scripting, and filming as the club worked on promotional videos, showcasing creativity and teamwork at its best.',
   },
   {
     id: 9,
-    image: '/group-photo/HappyJK.jpg',
+    image: '/group-photo/HappyJK.png',
     title: 'Life at Asymmetric',
     description:
       'More than just a club—it’s a family! From late-night coding sessions to exciting events, Asymmetric Club provides an unforgettable experience filled with learning, laughter, and growth.',

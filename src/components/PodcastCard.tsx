@@ -15,7 +15,7 @@ const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }
   return (
     <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 relative animate-zoomIn">
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden relative">
+        <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden relative">
           <Image
             src={`${localhost}/images/are/not/here/${image}`}
             alt={name}

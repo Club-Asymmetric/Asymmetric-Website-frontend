@@ -139,7 +139,7 @@ const Events = () => {
       {/* Popup */}
       {isOpen && (
         <motion.div 
-          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden " 
+          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
           style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
           onClick={closePopup}
           // initial={{ opacity: 0 , scale: 0}}

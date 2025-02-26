@@ -108,7 +108,7 @@ const Navbar = () => {
               <Image
                 src="/logo/logo.png"
                 alt="Logo"
-                className={`z-50 transition-all duration-300 cursor-pointer ${
+                className={`-z-10 transition-all duration-300 cursor-pointer ${
                   shouldDissolveLogo ? 'opacity-0' : 'opacity-100'
                 } hover:scale-105`}
                 fill
@@ -178,7 +178,7 @@ const Navbar = () => {
                 <rect x="10" y="60" width="30" height="10" rx="5" fill="white" />
               </svg>
               <svg
-                className={`h-10 w-10 ${isMenuOpen ? 'block' : 'hidden'}`}
+                className={`h-10 w-10 ${isMenuOpen ? 'block z-50' : 'hidden'}`}
                 fill="none"
                 viewBox="5 0 24 15"
                 stroke="currentColor"

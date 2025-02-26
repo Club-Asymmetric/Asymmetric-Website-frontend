@@ -242,7 +242,7 @@ const InfoView = () => (
                 </div>
             </div>
 
-            <div className="md:hidden flex flex-row m w-full min-h-[80vh] overflow-hidden justify-center relative">
+            <div className="md:hidden flex flex-row m w-full min-h-[100vh] overflow-hidden justify-center relative">
               <AnimatePresence initial={false} custom={dragDirection}>
                 {currentIndex === 0 ? (
                   <motion.div

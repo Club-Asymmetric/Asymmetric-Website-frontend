@@ -21,7 +21,7 @@ export default function Event(
     return (
         <>
             <div className="flex flex-col md:flex-row pb-[3rem] px-[2rem] animate-zoomIn">
-                <img src={props.imageSrc} className="place-self-center w-fit h-fit md:w-[250px] md:h-[250px]"/>
+                <img src={props.imageSrc} className="place-self-center w-fit h-auto md:w-[250px] md:h-[250px]"/>
                 <div className="flex flex-col place-self-center w-full md:max-w-[58vw]">
                     <div className="flex flex-col justify-between md:flex-row lg:justify-between ml-0 md:ml-[2rem] w-full ">
                         <p className="lg:text-xl font-medium font-oswald md:text-lg text-base leading-[25px] w-full md:w-[90%] self-start">{props.synopsis}</p>
