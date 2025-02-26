@@ -157,7 +157,7 @@ const Events = () => {
             <img 
               src={popupContent.img} 
               alt="Event" 
-              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
+              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center py-4 px-12 rounded-[80px]" 
             />
             
             <div className="flex flex-col flex-1 pr-12 mb-10 mt-7 lg:ml-0 ml-8 place-self-center justify-between">
