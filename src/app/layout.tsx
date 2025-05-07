@@ -91,6 +91,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
             {children}
+            <SpeedInsights />
           </main>
           <CookieSweet />
           <Footer />
