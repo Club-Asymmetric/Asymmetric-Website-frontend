@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlowyThing from "@/components/Glowything";
 import CookieSweet from "@/components/CookieSweet";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 //Configure the fonts
 const outfit = Outfit({
