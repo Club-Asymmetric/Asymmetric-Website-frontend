@@ -89,12 +89,12 @@ const FilteredGallery: React.FC = () => {
     if (selectedImage) {
       // Store current scroll position
       const currentScrollY = window.scrollY;
-        setScrollPosition(currentScrollY);
-        // TODO: Fix scroll position restoration (ISSUE: the scrollposition is not being restored correctly in useState)
+      setScrollPosition(currentScrollY);
+      // TODO: Fix scroll position restoration (ISSUE: the scrollposition is not being restored correctly in useState)
       
       // Lock body scroll and maintain position
       document.body.style.position = 'fixed';
-    //   document.body.style.top = `-${currentScrollY}px`;
+      // document.body.style.top = `-${currentScrollY}px`;
       document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
