@@ -93,7 +93,7 @@ export default function RootLayout({
             {children}
             <SpeedInsights />
           </main>
-          <CookieSweet />
+          {/* <CookieSweet /> */}
           <Footer />
         </div>
       </body>

@@ -156,13 +156,13 @@ export default function Home() {
               <h1 className="text-3xl md:text-4xl font-bold">
                 <ColorText text="Welcome to Asymmetric !" />
               </h1>
-              <p className="mt-4 text-sm md:text-base">
+              <p className="mt-4 text-sm">
                 <br/>
-                Asymmetric Club is a technical community founded by students of the 2027 batch. We endeavour to build a team dedicated to organising workshops, hackathons, webinars, and technical events, creating projects and hosting competitions. We provide a supportive space for learning and personal growth.
+                Asymmetric Club is a student-founded technical community driven by the passion to explore, build, and share. We are a dynamic team dedicated to organizing workshops, hackathons, webinars, technical events, and competitions while also working on innovative projects.
                 <br/><br/>
-                Our goal is to empower ourselves in the fields such as cybersecurity and AI/ML and to share this knowledge with others. That is to be aware and raise awareness. 
+                We provide a collaborative and supportive space that encourages continuous learning and personal growth across a wide range of tech domains. Our mission is to empower ourselves and others through knowledge-sharing and hands-on experiences—raising awareness while staying aware.
                 <br/><br/>
-                Whether a seasoned tech enthusiast or just starting, Asymmetric Club offers versatile plans to help everyone and support them to enhance their technical skills.
+                Whether you're a seasoned tech enthusiast or just beginning your journey, Asymmetric Club welcomes you with open arms and versatile initiatives to support and enhance your technical skills.
               </p>
               <Link href='/about-us'>
                 <button className="mt-6 bg-ass-button hover:bg-white hover:text-black px-4 py-1 hover:scale-105 rounded-md transition-all duration-300">
