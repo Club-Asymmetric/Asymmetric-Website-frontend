@@ -7,6 +7,7 @@
     "@next/next/no-img-element": "off",
     "react-hooks/exhaustive-deps": "off",
     "no-var": "off",
-    "jsx-a11y/alt-text": "off"
+    "jsx-a11y/alt-text": "off",
+    "react/no-unescaped-entities": "off"
   }
 }
