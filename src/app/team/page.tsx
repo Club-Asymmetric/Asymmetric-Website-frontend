@@ -18,10 +18,11 @@ const Page = () => {
     };
   }, []);
   return (
-    <div className="relative">      {/* Filter Toggle Button - Mobile Responsive Fixed Position */}
+    <div className="relative">      
+    {/* Filter Toggle Button - Mobile Responsive Fixed Position */}
       <motion.button
         onClick={() => setShowFilter(!showFilter)}
-        className={`fixed top-20 sm:top-24 md:top-28 lg:top-32 xl:top-36 
+        className={`fixed top-28 lg:top-32 xl:top-36 
           right-4 sm:right-6 md:right-10 lg:right-16 xl:right-20 
           z-50 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 
           rounded-full font-medium transition-all duration-300 backdrop-blur-md border 

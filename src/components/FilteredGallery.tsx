@@ -102,14 +102,16 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
     : sectionsData.filter(section => section.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-transparent text-white overflow-x-hidden w-full">      {/* Category Filter */}
-      <div className="sticky top-0 z-40">
+    <div className="min-h-screen bg-transparent text-white overflow-x-hidden w-full">      
+    {/* Category Filter */}
+      <div className="sticky top-20 my-10 lg:top-0 lg:my-0 z-40">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4">
           <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
             {categories.map((category) => (
               <motion.button
                 key={category}
-                onClick={() => setSelectedCategory(category)}                className={`px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
+                onClick={() => setSelectedCategory(category)}
+                className={`px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                   selectedCategory === category
                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
