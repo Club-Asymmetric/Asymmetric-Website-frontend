@@ -78,44 +78,22 @@ const sectionsData: SectionData[] = [
   }
 ];
 
-const FilteredGallery: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedImage, setSelectedImage] = useState<SectionData | null>(null);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Enhanced scroll locking with position preservation
+  // Simple overflow control like in events page
   React.useEffect(() => {
     if (selectedImage) {
-      // Store current scroll position
-      const currentScrollY = window.scrollY;
-      setScrollPosition(currentScrollY);
-      // TODO: Fix scroll position restoration (ISSUE: the scrollposition is not being restored correctly in useState)
-      
-      // Lock body scroll and maintain position
-      document.body.style.position = 'fixed';
-      // document.body.style.top = `-${currentScrollY}px`;
-      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
-      // Restore scroll position
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
       document.body.style.overflow = '';
-      
-      // Restore scroll position
-      window.scrollTo(0, scrollPosition);
     }
     
     // Cleanup on unmount
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
       document.body.style.overflow = '';
     };
-  }, [selectedImage, scrollPosition]);
+  }, [selectedImage]);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -219,12 +197,17 @@ const FilteredGallery: React.FC = () => {
 
       {/* Modal for enlarged image */}
       <AnimatePresence>
-        {selectedImage && (
-          <motion.div
+        {selectedImage && (          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-6"
+            className="fixed bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-4 md:p-6"
+            style={{
+              top: `${typeof window !== 'undefined' ? window.scrollY : 0}px`,
+              left: '0',
+              width: typeof window !== 'undefined' ? window.innerWidth + "px" : '100vw',
+              height: typeof window !== 'undefined' ? window.innerHeight + "px" : '100vh'
+            }}
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
