@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface SectionData {
@@ -80,7 +80,7 @@ const sectionsData: SectionData[] = [
 
 const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedImage, setSelectedImage] = useState<SectionData | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  
   // Simple overflow control like in events page
   React.useEffect(() => {
     if (selectedImage) {
@@ -95,13 +95,6 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
     };
   }, [selectedImage]);
   
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  
   const categories = ['All', ...Array.from(new Set(sectionsData.map(item => item.category)))];
   
   const filteredSections = selectedCategory === 'All' 
@@ -109,15 +102,14 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
     : sectionsData.filter(section => section.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-transparent text-white overflow-x-hidden w-full">
-      {/* Category Filter */}
+    <div className="min-h-screen bg-transparent text-white overflow-x-hidden w-full">      {/* Category Filter */}
       <div className="sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex flex-wrap gap-2 justify-center">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
             {categories.map((category) => (
               <motion.button
                 key={category}
-                onClick={() => setSelectedCategory(category)}                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                onClick={() => setSelectedCategory(category)}                className={`px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                   selectedCategory === category
                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
@@ -130,12 +122,10 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Gallery Section */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      </div>      {/* Gallery Section */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-8 sm:py-12 md:py-16">
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
           layout
         >
           <AnimatePresence>
@@ -150,15 +140,15 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
                 className="group cursor-pointer"
                 onClick={() => setSelectedImage(section)}
               >
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-blue-500 transition-all duration-300">
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-10">                    <span className="px-3 py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-xs font-medium">
+                  <div className="absolute top-2 sm:top-3 md:top-4 left-2 sm:left-3 md:left-4 z-10">                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-xs font-medium">
                       {section.category}
                     </span>
                   </div>
 
                   {/* Image */}
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                     <Image
                       src={section.image}
                       alt={section.title}
@@ -169,39 +159,37 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">                    <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors duration-200">
+                  <div className="p-3 sm:p-4 md:p-6">                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
                       {section.title}
                     </h3>
-                    <p className="text-gray-400 text-sm line-clamp-3 group-hover:text-gray-300 transition-colors duration-200 mb-4">
+                    <p className="text-gray-400 text-xs sm:text-sm line-clamp-3 group-hover:text-gray-300 transition-colors duration-200 mb-3 sm:mb-4">
                       {section.description}
                     </p>
                     
                     {/* View More Button */}
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <button className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-sm font-medium rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105">
+                      <button className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs sm:text-sm font-medium rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105">
                         <span>View More</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </button>
                     </div>
                   </div>
                     {/* Hover Effect Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl" />
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
-      </div>
-
-      {/* Modal for enlarged image */}
+      </div>      {/* Modal for enlarged image */}
       <AnimatePresence>
         {selectedImage && (          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-4 md:p-6"
+            className="fixed bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 md:p-6"
             style={{
               top: `${typeof window !== 'undefined' ? window.scrollY : 0}px`,
               left: '0',
@@ -215,10 +203,10 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl overflow-hidden border border-gray-700 flex flex-col shadow-2xl"
+              className="relative w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl max-h-[95vh] sm:max-h-[90vh] bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-700 flex flex-col shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-96">
+              <div className="relative flex-shrink-0 h-40 sm:h-48 md:h-64 lg:h-80 xl:h-96">
                 <Image
                   src={selectedImage.image}
                   alt={selectedImage.title}
@@ -227,21 +215,21 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
                 />
                 <button
                   onClick={() => setSelectedImage(null)}
-                  className="absolute top-4 right-4 w-10 h-10 bg-black/70 hover:bg-black/90 rounded-full flex items-center justify-center text-white transition-colors duration-200 z-10 backdrop-blur-sm"
+                  className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-black/70 hover:bg-black/90 rounded-full flex items-center justify-center text-white transition-colors duration-200 z-10 backdrop-blur-sm text-sm sm:text-base"
                 >
                   ✕
                 </button>
               </div>
               
-              <div className="p-4 md:p-6 lg:p-8 overflow-y-auto flex-1">                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm font-medium">
+              <div className="p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto flex-1">                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600 rounded-full text-xs sm:text-sm font-medium">
                     {selectedImage.category}
                   </span>
                 </div>
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-blue-400">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 text-blue-400">
                   {selectedImage.title}
                 </h2>
-                <p className="text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed">
+                <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                   {selectedImage.description}
                 </p>
               </div>

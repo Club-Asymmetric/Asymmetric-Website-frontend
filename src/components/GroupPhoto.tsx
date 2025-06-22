@@ -139,7 +139,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
 }) => {
   return (
     <motion.div
-      className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center px-4 md:px-8 h-full"
+      className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-4 sm:px-6 md:px-8 h-full"
       initial={{ opacity: 0, y: 50 }}
       // FUCKED FIX USING `whileInView` instead of actual positioning
       whileInView={{ opacity: 1, y: -50 }}
@@ -148,8 +148,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
     >
       {/* Image Container */}
       <motion.div
-        className={`w-full md:w-1/2 h-[300px] md:h-[500px] relative mb-6 md:mb-0 ${
-          index % 2 === 0 ? 'md:order-1' : 'md:order-2'
+        className={`w-full lg:w-1/2 h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] relative mb-4 sm:mb-6 lg:mb-0 ${
+          index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'
         }`}
         initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -167,8 +167,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
 
       {/* Content Container */}
       <motion.div
-        className={`w-full md:w-1/2 p-4 md:p-8 flex flex-col justify-center ${
-          index % 2 === 0 ? 'md:order-2' : 'md:order-1'
+        className={`w-full lg:w-1/2 p-2 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center ${
+          index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'
         }`}
         initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -176,7 +176,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
         <motion.h2
-          className="text-2xl md:text-4xl font-bold mb-6 text-center md:text-left"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 md:mb-6 text-center lg:text-left"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
@@ -185,7 +185,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
           {section.title}
         </motion.h2>
         <motion.p
-          className="text-lg md:text-xl text-gray-400 leading-relaxed text-center md:text-left"
+          className="text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed text-center lg:text-left"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
