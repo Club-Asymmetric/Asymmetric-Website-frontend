@@ -104,7 +104,8 @@ const Navbar = () => {
         <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 lg:mt-5 mt-0">
           {/* Logo */}
           <Link href="/">
-            <div className="w-72 h-28 relative lg:scale-125">
+          {/* Reduced the LOGO SIZE is this ok? or shouldn't I reduce logo size? */}
+            <div className={`w-72 lg:w-48 xl:w-72 h-28 relative lg:scale-125`}>
               <Image
                 src="/logo/logo.png"
                 alt="Logo"
@@ -128,7 +129,8 @@ const Navbar = () => {
           {/* Navigation */}
           <nav className="bg-blue-950/70 backdrop-blur-md rounded-full min-w-max hidden lg:block">
             <div className="flex items-center justify-center p-4 rounded-full px-10">
-              <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-14 xl:space-x-20">
+              {/* Also reduced the space for lg screens should I or shouldn't I? */}
+              <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-10 xl:space-x-20">
                 {navItems.map((item) => (
                   <li key={item.name} className="whitespace-nowrap">
                     <Link
