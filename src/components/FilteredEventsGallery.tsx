@@ -130,7 +130,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events, l
                   {/* Image */}
                   <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                     <Image
-                      src={event.photos[0] ? `${localhost}/images/are/not/here/${event.photos[0]}` : "/placeholders/Events_Placeholder.png"}
+                      src={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                       alt={event.name}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"

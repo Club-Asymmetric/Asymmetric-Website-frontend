@@ -25,7 +25,7 @@ const sectionsData: SectionData[] = [
     image: '/group-photo/CatapultProgram.png',
     title: 'Pitching Session',
     description: 'An exciting platform where aspiring entrepreneurs pitched their innovative ideas, received expert feedback, and refined their business strategies for real-world impact.',
-    category: 'Competition'
+    category: 'Program'
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const sectionsData: SectionData[] = [
     image: '/group-photo/CatapultProgram3.png',
     title: 'Trinity Trios',
     description: 'A thrilling team-based competition where participants put their problem-solving, coding, and strategic thinking skills to the test in a high-energy environment.',
-    category: 'Competition'
+    category: 'Program'
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ const sectionsData: SectionData[] = [
     image: '/group-photo/JuniorMeet.png',
     title: 'Welcoming the Juniors',
     description: "An engaging introduction session where seniors guided juniors through the club's vision, fostering mentorship and collaboration in tech-driven initiatives.",
-    category: 'Event'
+    category: 'Milestone'
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ const sectionsData: SectionData[] = [
     image: '/group-photo/ShootingVideo.png',
     title: 'Behind the Scenes: Content Creation',
     description: 'A fun-filled day of brainstorming, scripting, and filming as the club worked on promotional videos, showcasing creativity and teamwork at its best.',
-    category: 'Creative'
+    category: 'Culture'
   },
   {
     id: 9,
@@ -124,7 +124,8 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
             ))}
           </div>
         </div>
-      </div>      {/* Gallery Section */}
+      </div>      
+      {/* Gallery Section */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-8 sm:py-12 md:py-16">
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
@@ -144,7 +145,8 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
               >
                 <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-blue-500 transition-all duration-300">
                   {/* Category Badge */}
-                  <div className="absolute top-2 sm:top-3 md:top-4 left-2 sm:left-3 md:left-4 z-10">                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-xs font-medium">
+                  <div className="absolute top-2 sm:top-3 md:top-4 left-2 sm:left-3 md:left-4 z-10">                    
+                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-xs font-medium">
                       {section.category}
                     </span>
                   </div>
@@ -161,7 +163,8 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
                   </div>
 
                   {/* Content */}
-                  <div className="p-3 sm:p-4 md:p-6">                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
+                  <div className="p-3 sm:p-4 md:p-6">                    
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
                       {section.title}
                     </h3>
                     <p className="text-gray-400 text-xs sm:text-sm line-clamp-3 group-hover:text-gray-300 transition-colors duration-200 mb-3 sm:mb-4">
@@ -185,9 +188,11 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
             ))}
           </AnimatePresence>
         </motion.div>
-      </div>      {/* Modal for enlarged image */}
+      </div>      
+      {/* Modal for enlarged image */}
       <AnimatePresence>
-        {selectedImage && (          <motion.div
+        {selectedImage && (          
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -223,7 +228,8 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
                 </button>
               </div>
               
-              <div className="p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto flex-1">                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div className="p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto flex-1">                
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600 rounded-full text-xs sm:text-sm font-medium">
                     {selectedImage.category}
                   </span>
