@@ -10,14 +10,12 @@ interface PodcastData {
 }
 
 const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }) => {
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
   return (
     <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 relative animate-zoomIn">
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
         <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden relative">
           <Image
-            src={`${localhost}/images/are/not/here/${image}`}
+            src={`/images/${image}`}
             alt={name}
             width={96}
             height={96}

@@ -7,10 +7,12 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import PodcastSkeleton from "../../components/PodcastSkeleton";
 import { motion } from "framer-motion";
+import { podcasts } from "@/data/podcasts";
 
 interface PodcastData {
   id: string;
   name: string;
+  publish: boolean;
   guests: string[];
   description: string;
   image: string;
@@ -18,11 +20,9 @@ interface PodcastData {
   spotify: string;
 }
 
-const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, mime, spotify }) => {
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
+const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description, image, mime, spotify }) => {
   const guestNames = guests.join(", ");
-  const sourceFile = `${localhost}/api/podcasts/${id}/stream`;
+  const sourceFile = `/audio/${id}.mp3`;
 
   return (
     <motion.div
@@ -62,28 +62,16 @@ const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, 
 };
 
 export default function Podcasts() {
-  const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+  const [podcastsData, setPodcastsData] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await fetch(`${localhost}/api/podcasts`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPodcasts(Object.values(data));
-      } catch (error) {
-        console.error("Failed to fetch podcasts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPodcasts();
+    // Convert podcasts object to array and set loading to false
+    const podcastsArray = Object.values(podcasts) as PodcastData[];
+    // Filter only published podcasts
+    const publishedPodcasts = podcastsArray.filter(podcast => podcast.publish);
+    setPodcastsData(publishedPodcasts);
+    setLoading(false);
   }, []);
   if (loading) {
     return <div className="w-[95%] lg:w-[80%] mx-auto">
@@ -97,17 +85,17 @@ export default function Podcasts() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="w-[95%] lg:w-[80%] mx-auto"
-    >
-      {podcasts.length > 0 ? (
-        podcasts.map((podcast) => (
+    >      {podcastsData.length > 0 ? (
+        podcastsData.map((podcast) => (
           <Podcast
             key={podcast.id}
             id={podcast.id}
             name={podcast.name}
+            publish={podcast.publish}
             guests={podcast.guests}
             description={podcast.description}
-            image={`${localhost}/images/are/not/here/${podcast.image}`}
-            mime={`${localhost}/api/podcasts/${podcast.id}/stream`}
+            image={`/images/${podcast.image}`}
+            mime={`/audio/${podcast.id}.mp3`}
             spotify={podcast.spotify}
           />
         ))

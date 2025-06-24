@@ -10,7 +10,7 @@ interface EventData {
   name: string;
   participants: number;
   date: string;
-  registration_start: string;
+  registration_start: Date;
   location: string;
   min_team_size: number;
   max_team_size: number;
@@ -20,10 +20,9 @@ interface EventData {
 
 interface FilteredEventsGalleryProps {
   events: EventData[];
-  localhost: string;
 }
 
-const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events, localhost }) => {
+const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   
@@ -58,11 +57,10 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events, l
   const filteredEvents = selectedCategory === 'All' 
     ? events 
     : events.filter(event => getEventCategory(event) === selectedCategory);
-
   // Format date for display
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+  const formatDate = (date: string | Date) => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    return dateObj.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -130,7 +128,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events, l
                   {/* Image */}
                   <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                     <Image
-                      src={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                      src={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                       alt={event.name}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
@@ -217,7 +215,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events, l
             >
               <div className="relative flex-shrink-0 h-40 sm:h-48 md:h-64 lg:h-80 xl:h-96">
                 <Image
-                  src={`${localhost}/images/are/not/here/${selectedEvent.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                  src={`/images/${selectedEvent.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                   alt={selectedEvent.name}
                   fill
                   className="object-cover"

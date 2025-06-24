@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
 import GlowyShit from '@/components/GlowyShit';
+import { events as eventsData } from '@/data/events';
 
 interface Event {
   id: string;
@@ -44,22 +45,16 @@ const EventRegistrationForm = () => {
     mailId: '',
     mobileNumber: '',
     event: ''
-  });
-
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${localhost}/api/events`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        setEvents(data);
-      } catch (error) {
-        console.error('Failed to fetch events:', error);
-      }
-    };
-    fetchData();
+  });  useEffect(() => {
+    // Load events from local data and convert numeric keys to string keys
+    const stringKeyEvents: Record<string, Event> = {};
+    Object.entries(eventsData).forEach(([key, event]) => {
+      stringKeyEvents[key] = {
+        ...event,
+        registration_start: event.registration_start.toISOString()
+      };
+    });
+    setEvents(stringKeyEvents);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

@@ -3,6 +3,7 @@
 interface PodcastData {
   id: string;
   name: string;
+  publish: boolean;
   guests: string[];
   description: string;
   image: string;
@@ -14,12 +15,11 @@ interface EventData {
   name: string;
   participants: number;
   date: string;
-  registration_start: string;
+  registration_start: Date;
   location: string;
   min_team_size: number;
   max_team_size: number;
   description: string;
-  synopsis: string;
   photos: string[];
 }
 
@@ -30,23 +30,21 @@ import PodcastCard from '@/components/PodcastCard';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
-import axios from 'axios';
+import { events as eventsData } from '@/data/events';
+import { podcasts } from '@/data/podcasts';
 
 export default function Home() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
-  const [events, setEvents] = useState<EventData[]>([]);
-  const [popupContent, setPopupContent] = useState<{
+  const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
     name: string;
-    synopsis: string;
   }>({
     desc: "",
     img: "/placeholders/Events_Placeholder.png",
-    name: "Title",
-    synopsis: "synopsis"
+    name: "Title"
   });
 
 
@@ -69,12 +67,10 @@ export default function Home() {
       document.body.style.overflow = '';
     }
   }, [isOpen]);
-
   interface PopupContent {
     desc: string;
     img: string;
     name: string;
-    synopsis: string;
   }
 
   interface PopupLocation {
@@ -94,52 +90,23 @@ export default function Home() {
 
   function openRegistrationPage() {
     window.location.href = "/events/registration-form";
-  }
-
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const api = axios.create({
-          baseURL: `${localhost}/api`,
-        });
-        const response = await api.get('/events');
-        if (response.status !== 200) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data =  await response.data;
-        const eventsArray = Object.values(data) as EventData[];
-        setEvents(eventsArray);
-        eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        const limitedEventsArray = eventsArray.slice(0, 2);
-        setEvents(limitedEventsArray);
-      } catch (error) {
-        console.error("Failed to fetch events:", error);
-      }
-    };
-  
-    fetchEvents();
+  }  useEffect(() => {
+    // Load events from local data
+    const eventsArray = Object.values(eventsData) as EventData[];
+    eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const limitedEventsArray = eventsArray.slice(0, 2);
+    setEvents(limitedEventsArray);
   }, []);
 
-  const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+  const [podcastsData, setPodcastsData] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await fetch(`${localhost}/api/podcasts`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        setPodcasts(Object.values(data));
-      } catch (error) {
-        console.error('Failed to fetch podcasts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPodcasts();
+    // Load podcasts from local data
+    const podcastsArray = Object.values(podcasts) as PodcastData[];
+    // Filter only published podcasts
+    const publishedPodcasts = podcastsArray.filter(podcast => podcast.publish);
+    setPodcastsData(publishedPodcasts);
+    setLoading(false);
   }, []);
 
   if (loading) 
@@ -183,12 +150,11 @@ export default function Home() {
         <div className="flex flex-col items-center w-full">
         <div className="flex flex-col bg-ass-gradient max-w-6xl mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
           {
-            events.map((event,index) => (
+            events.map((event, index) => (
               <Event
-                imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                imageSrc={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                 key={event.id}
                 desc={event.description}
-                synopsis={event.synopsis}
                 name={event.name}
                 type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
                 date={event.date.slice(0,10)}
@@ -203,7 +169,7 @@ export default function Home() {
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">
-        {podcasts.slice(0, 3).map((podcast, index) => (
+        {podcastsData.slice(0, 3).map((podcast, index) => (
           <div
             key={index}
             className={`

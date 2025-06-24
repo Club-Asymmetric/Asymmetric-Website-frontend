@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Event from '@/components/Event';
 import FilteredEventsGallery from '@/components/FilteredEventsGallery';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
+import { events } from '@/data/events';
 import { EventLoading } from '@/components/MemberLoading';
 
 interface EventData {
@@ -11,12 +11,11 @@ interface EventData {
   name: string;
   participants: number;
   date: string;
-  registration_start: string;
+  registration_start: Date;
   location: string;
   min_team_size: number;
   max_team_size: number;
   description: string;
-  synopsis: string;
   photos: string[];
 }
 
@@ -24,7 +23,6 @@ interface PopupContent {
   desc: string;
   img: string;
   name: string;
-  synopsis: string;
 }
 
 interface PopupLocation {
@@ -35,22 +33,25 @@ interface PopupLocation {
 const Events = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
-  const [events, setEvents] = useState<EventData[]>([]);
+  const [eventsData, setEventsData] = useState<EventData[]>([]);
   const [loading , setLoading] = useState(true);
   const [showFilter, setShowFilter] = useState(false);
   const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
     name: string;
-    synopsis: string;
   }>({
     desc: "",
     img: "/placeholders/Events_Placeholder.png",
-    name: "Title",
-    synopsis: "synopsis"
+    name: "Title"
   });
 
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
+  useEffect(() => {
+    // Convert events object to array and set loading to false
+    const eventsArray = Object.values(events) as EventData[];
+    setEventsData(eventsArray);
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -87,30 +88,7 @@ const Events = () => {
   function openRegistrationPage() {
     window.location.href="/events/registration-form"
   }
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const api = axios.create({
-          baseURL: `${localhost}/api`,
-        });
-        const response = await api.get('/events');
-        if (response.status !== 200) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data =  await response.data;
-        const eventsArray = Object.values(data) as EventData[];
-        setEvents(eventsArray);
-        console.log(eventsArray);
-      } catch (error) {
-        console.error("Failed to fetch events:", error);
-      }finally{
-        setLoading(false);
-      }
-    };
-  
-    fetchEvents();
-  }, []);
+    
   if(loading) return <EventLoading />
   return (
     <div className="relative">
@@ -159,7 +137,7 @@ const Events = () => {
             exit={{ opacity: 0, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <FilteredEventsGallery events={events} localhost={localhost || ''} />
+            <FilteredEventsGallery events={eventsData} />
           </motion.div>
         ) : (
           <motion.div
@@ -171,14 +149,12 @@ const Events = () => {
           >
             <>
               <div className="flex flex-col items-center w-full">
-                <div className="flex flex-col bg-ass-gradient max-w-full mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
-                  {events.length > 0 ? (
-                    events.map((event) => (
+                <div className="flex flex-col bg-ass-gradient max-w-full mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">                  {eventsData.length > 0 ? (
+                    eventsData.map((event) => (
                       <Event
-                        imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                        imageSrc={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                         key={event.id}
                         desc={event.description}
-                        synopsis={event.synopsis}
                         name={event.name}
                         type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
                         date={event.date.slice(0,10)}
@@ -218,9 +194,6 @@ const Events = () => {
                     />
                     
                     <div className="flex flex-col flex-1 pr-12 mb-10 mt-7 lg:ml-0 ml-8 place-self-center justify-between">
-                      <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
-                  {popupContent.synopsis}
-                      </p>
                       <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
                   {popupContent.name}
                       </p>
