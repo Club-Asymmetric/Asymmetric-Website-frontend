@@ -80,7 +80,7 @@ export const members = {
     specialFeatures:
       "Ambivert switch ,masterful laugher (error rate: 10%) , a dependable listener, and excellent snack selection skills",
   },
-  5: {
+/*   5: {
     id: "5",
     name: "VANATHI",
     role: "Chief Coordinator",
@@ -92,19 +92,19 @@ export const members = {
     type: "${CONTENT?'':DEFAULT}",
     hobbiesInstalled: "${CONTENT?'':DEFAULT}",
     specialFeatures: "${CONTENT?'':DEFAULT}",
-  },
+  }, */
   6: {
     id: "6",
     name: "BINU",
     role: "Hiring Manager",
     photos: ["Binu.jpg"],
-    description: "${CONTENT?'':DEFAULT}",
+    description: "I’m the circuit whisperer and code conjurer, constantly toggling between “chill mode” and “project panic mode.” Whether it's securing the cloud, debugging with divine patience, or planning an entire startup mid-coffee, I run on ambition, ideas, and occasional existential crises. As the team’s official “does-it-all,” I’m known for managing tech, tasks, and tantrums—sometimes all at once. Organized chaos? Nah, just Jaison things.",
     portfolio: "I don't have one",
-    energySource: "${CONTENT?'':DEFAULT}",
-    dimension: "${CONTENT?'':DEFAULT}",
-    type: "${CONTENT?'':DEFAULT}",
-    hobbiesInstalled: "${CONTENT?'':DEFAULT}",
-    specialFeatures: "${CONTENT?'':DEFAULT}",
+    energySource: "Black coffee, late-night YouTube rabbit holes, and well-timed motivational quotes",
+    dimension: "EEE-core with a side quest in Cyber and UI (Extra Energy Everywhere)",
+    type: "The one who makes the “final version” file five more times",
+    hobbiesInstalled: "Tinkering with IoT, designing stuff that looks cooler than it functions (sometimes), automating the un-automatable, pretending to relax",
+    specialFeatures: "Leadership unlocked, multitasking buff +10, cloud guardian, low battery warning after 2 AM",
   },
   7: {
     id: "7",
@@ -170,7 +170,7 @@ export const members = {
     name: "VISHAL",
     role: "Project Lead",
     photos: ["Vishal.jpg"],
-    description: "NOT A GOOD WORKER AND A USELESS WASTE OF THE CLUB",
+    description: "A GOOD WORKER",
     portfolio: "https://cosmic-striker.github.io/",
     energySource: "WILL INFORM AFTER FINDING ",
     dimension: "3 DIMENISION IN SPACE AND 1 DIMENISION IN TIME ",
@@ -193,7 +193,7 @@ export const members = {
       'Playing Basketball (Indian Stephen Curry), Watching \\"Tamil\\" Movies (Anil mode activated)',
     specialFeatures: "Orator, Good listener, Punctual",
   },
-  13: {
+  /* 13: {
     id: "13",
     name: "DHANISH BALA",
     role: "Event Manager",
@@ -270,7 +270,7 @@ export const members = {
     type: "${CONTENT?'':DEFAULT}",
     hobbiesInstalled: "${CONTENT?'':DEFAULT}",
     specialFeatures: "${CONTENT?'':DEFAULT}",
-  },
+  }, */
 };
 
 export default members;

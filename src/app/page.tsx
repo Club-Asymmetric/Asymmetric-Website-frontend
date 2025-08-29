@@ -34,7 +34,7 @@ import { events as eventsData } from '@/data/events';
 import { podcasts } from '@/data/podcasts';
 
 export default function Home() {
-  
+  const [showApplyPopup, setShowApplyPopup] = useState(true); // show each refresh
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
@@ -61,12 +61,27 @@ export default function Home() {
     };
   }, [isOpen]);
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || showApplyPopup) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
     }
-  }, [isOpen]);
+    return () => { 
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isOpen, showApplyPopup]);
   interface PopupContent {
     desc: string;
     img: string;
@@ -116,6 +131,19 @@ export default function Home() {
 
   return (
     <div className='space-y-16'>
+        {showApplyPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <div className="bg-ass-gradient border border-white/10 rounded-xl p-6 w-11/12 max-w-md relative animate-zoomIn">
+              <button aria-label="Close" onClick={()=>setShowApplyPopup(false)} className="absolute top-2 right-2 text-white/60 hover:text-white">✕</button>
+              <h2 className="text-xl font-bold text-white mb-3 text-center">Become a Member</h2>
+              <p className="text-sm text-white/70 mb-6 text-center">We are now accepting new member applications. Join the squad and build cool stuff with us.</p>
+              <div className="flex justify-center gap-4">
+                <Link href="/member-application" className="bg-ass-button text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-black transition-colors" onClick={()=>setShowApplyPopup(false)}>Apply Now</Link>
+                <button onClick={()=>setShowApplyPopup(false)} className="px-5 py-2 rounded-md border border-white/20 text-white/80 text-sm hover:bg-white hover:text-black transition-colors">Maybe Later</button>
+              </div>
+            </div>
+          </div>
+        )}
         {/* AboutUs Section */}
         <div className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">

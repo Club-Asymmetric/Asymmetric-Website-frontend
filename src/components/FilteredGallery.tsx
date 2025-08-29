@@ -81,17 +81,41 @@ const sectionsData: SectionData[] = [
 const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedImage, setSelectedImage] = useState<SectionData | null>(null);
   
-  // Simple overflow control like in events page
+  // Mobile-friendly scroll lock like in home page
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (selectedImage) {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.touchAction = 'none';
+      document.body.style.overscrollBehavior = 'none';
+      document.documentElement.style.overscrollBehavior = 'none';
+      const prevent = (e: TouchEvent) => e.preventDefault();
+      window.addEventListener('touchmove', prevent, { passive: false });
+      (window as any).__modalPreventTouchTeam = prevent;
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overscrollBehavior = '';
+      const prevent = (window as any).__modalPreventTouchTeam as (e: TouchEvent)=>void;
+      if (prevent) window.removeEventListener('touchmove', prevent);
+      delete (window as any).__modalPreventTouchTeam;
     }
-    
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overscrollBehavior = '';
+      const prevent = (window as any).__modalPreventTouchTeam as (e: TouchEvent)=>void;
+      if (prevent) window.removeEventListener('touchmove', prevent);
+      delete (window as any).__modalPreventTouchTeam;
     };
   }, [selectedImage]);
   
@@ -196,13 +220,7 @@ const FilteredGallery: React.FC = () => {  const [selectedCategory, setSelectedC
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 md:p-6"
-            style={{
-              top: `${typeof window !== 'undefined' ? window.scrollY : 0}px`,
-              left: '0',
-              width: typeof window !== 'undefined' ? window.innerWidth + "px" : '100vw',
-              height: typeof window !== 'undefined' ? window.innerHeight + "px" : '100vh'
-            }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 md:p-6"
             onClick={() => setSelectedImage(null)}
           >
             <motion.div

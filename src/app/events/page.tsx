@@ -68,8 +68,14 @@ const Events = () => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      const prevent = (e: TouchEvent) => e.preventDefault();
+      window.addEventListener('touchmove', prevent, { passive: false });
+      (window as any).__modalPreventTouch = prevent;
     } else {
       document.body.style.overflow = '';
+      const prevent = (window as any).__modalPreventTouch as (e: TouchEvent)=>void;
+      if (prevent) window.removeEventListener('touchmove', prevent);
+      delete (window as any).__modalPreventTouch;
     }
   }, [isOpen]);
 
@@ -190,14 +196,14 @@ const Events = () => {
                     <img 
                       src={popupContent.img} 
                       alt="Event" 
-                      className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center py-4 px-12 rounded-[80px]" 
+                      className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[15rem] md:h-full object-cover place-self-center py-2 md:py-4 px-12 rounded-[80px]" 
                     />
                     
                     <div className="flex flex-col flex-1 pr-12 mb-10 mt-7 lg:ml-0 ml-8 place-self-center justify-between">
-                      <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
+                      <p className="lg:text-4xl md:text-3xl text-lg font-extrabold font-outfit md:mb-8 mb-0">
                   {popupContent.name}
                       </p>
-                      <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
+                      <p className="text-white lg:text-2xl md:text-xl text-xs font-normal font-outfit leading-7">
                   {popupContent.desc}
                       </p>
                     </div>

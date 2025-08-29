@@ -49,7 +49,9 @@ const Navbar = () => {
     { name: 'Podcasts', href: '/podcast' },
     { name: 'Members', href: '/members' },
     { name: 'Team', href: '/team' },
-    { name: 'Contact Us', href: '/contact-us' }
+    { name: 'Apply', href: '/member-application' },
+    { name: 'Contact Us', href: '/contact-us' },
+
   ];
 
   const menuVariants = {

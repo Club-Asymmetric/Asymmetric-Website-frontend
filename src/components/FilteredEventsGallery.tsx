@@ -26,17 +26,41 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   
-  // Simple overflow control like in events page
+  // Robust scroll lock (mobile friendly) when modal open
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (selectedEvent) {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.touchAction = 'none';
+      document.body.style.overscrollBehavior = 'none';
+      document.documentElement.style.overscrollBehavior = 'none';
+      const prevent = (e: TouchEvent) => e.preventDefault();
+      window.addEventListener('touchmove', prevent, { passive: false });
+      (window as any).__modalPreventTouch = prevent;
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overscrollBehavior = '';
+      const prevent = (window as any).__modalPreventTouch as (e: TouchEvent)=>void;
+      if (prevent) window.removeEventListener('touchmove', prevent);
+      delete (window as any).__modalPreventTouch;
     }
-    
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overscrollBehavior = '';
+      const prevent = (window as any).__modalPreventTouch as (e: TouchEvent)=>void;
+      if (prevent) window.removeEventListener('touchmove', prevent);
+      delete (window as any).__modalPreventTouch;
     };
   }, [selectedEvent]);
 
@@ -127,12 +151,20 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
 
                   {/* Image */}
                   <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
-                    <Image
-                      src={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
-                      alt={event.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
+                    {(() => {
+                      const first = event.photos && event.photos.length > 0 ? event.photos[0] : null;
+                      const src = first ? `/images/${first}` : "/placeholders/Events_Placeholder.png";
+                      return (
+                        <Image
+                          src={src}
+                          alt={event.name}
+                          fill
+                          sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                          priority={index < 2}
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                      );
+                    })()}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
@@ -196,13 +228,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 md:p-6"
-            style={{
-              top: `${typeof window !== 'undefined' ? window.scrollY : 0}px`,
-              left: '0',
-              width: typeof window !== 'undefined' ? window.innerWidth + "px" : '100vw',
-              height: typeof window !== 'undefined' ? window.innerHeight + "px" : '100vh'
-            }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 md:p-6"
             onClick={() => setSelectedEvent(null)}
           >
             <motion.div
@@ -214,12 +240,19 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative flex-shrink-0 h-40 sm:h-48 md:h-64 lg:h-80 xl:h-96">
-                <Image
-                  src={`/images/${selectedEvent.photos[0]}` || "/placeholders/Events_Placeholder.png"}
-                  alt={selectedEvent.name}
-                  fill
-                  className="object-cover"
-                />
+                {(() => {
+                  const first = selectedEvent.photos && selectedEvent.photos.length > 0 ? selectedEvent.photos[0] : null;
+                  const src = first ? `/images/${first}` : "/placeholders/Events_Placeholder.png";
+                  return (
+                    <Image
+                      src={src}
+                      alt={selectedEvent.name}
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                    />
+                  );
+                })()}
                 <button
                   onClick={() => setSelectedEvent(null)}
                   className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-black/70 hover:bg-black/90 rounded-full flex items-center justify-center text-white transition-colors duration-200 z-10 backdrop-blur-sm text-sm sm:text-base"
@@ -241,29 +274,6 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
                 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 text-blue-400">
                   {selectedEvent.name}
                 </h2>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-sm">
-                  <div className="bg-gray-800/50 p-3 rounded-lg">
-                    <div className="text-gray-400 mb-1">Location</div>
-                    <div className="text-white">{selectedEvent.location}</div>
-                  </div>
-                  <div className="bg-gray-800/50 p-3 rounded-lg">
-                    <div className="text-gray-400 mb-1">Participants</div>
-                    <div className="text-white">{selectedEvent.participants}</div>
-                  </div>
-                  <div className="bg-gray-800/50 p-3 rounded-lg">
-                    <div className="text-gray-400 mb-1">Team Size</div>
-                    <div className="text-white">
-                      {selectedEvent.min_team_size === selectedEvent.max_team_size 
-                        ? selectedEvent.min_team_size 
-                        : `${selectedEvent.min_team_size}-${selectedEvent.max_team_size}`}
-                    </div>
-                  </div>
-                  <div className="bg-gray-800/50 p-3 rounded-lg">
-                    <div className="text-gray-400 mb-1">Registration Opens</div>
-                    <div className="text-white">{formatDate(selectedEvent.registration_start)}</div>
-                  </div>
-                </div>
 
                 <div>
                   <h3 className="text-lg font-semibold mb-2 text-cyan-400">Description</h3>
