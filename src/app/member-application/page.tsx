@@ -216,37 +216,49 @@ const MemberApplicationForm: React.FC = () => {
                 </div>
               </motion.div>
             ) : (
-              <motion.form key="form" onSubmit={handleSubmit} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="space-y-8 md:space-y-10">
+              <motion.form key="form" noValidate onSubmit={handleSubmit} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="space-y-8 md:space-y-10">
+                {/* Error summary */}
+                {Object.keys(errors).length > 0 && (
+                  <div className="rounded-md border border-red-400/30 bg-red-900/30 px-4 py-3 text-xs md:text-sm text-red-200 space-y-1">
+                    <p className="font-semibold tracking-wide">Please fix the following:</p>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {Object.entries(errors).slice(0,4).map(([field,msg]) => (
+                        <li key={field}>{msg}</li>
+                      ))}
+                      {Object.keys(errors).length > 4 && <li>...and more</li>}
+                    </ul>
+                  </div>
+                )}
                 {/* Basic Text Fields */}
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="relative">
-                    <input type="text" name="name" value={form.name} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 peer-focus:left-1 rounded-3xl cursor-text text-sm md:text-base">Name <span className='text-red-400'>*</span></label>
+                    <input id="name" type="text" name="name" value={form.name} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
+                    <label htmlFor="name" className="absolute text-gray-300 duration-200 transform -translate-y-9 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 peer-focus:left-1 rounded-3xl cursor-text text-sm md:text-base">Name <span className='text-red-400'>*</span></label>
                     {errors.name && <p className="text-xs text-red-300 mt-1">{errors.name}</p>}
                   </div>
                   <div className="relative">
-                    <input type="email" name="mailId" value={form.mailId} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Mail ID <span className='text-red-400'>*</span></label>
+                    <input id="mailId" type="email" name="mailId" value={form.mailId} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
+                    <label htmlFor="mailId" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Mail ID <span className='text-red-400'>*</span></label>
                     {errors.mailId && <p className="text-xs text-red-300 mt-1">{errors.mailId}</p>}
                   </div>
                   <div className="relative">
-                    <input type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder=" " pattern="[0-9]*" inputMode="numeric" className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Contact Number <span className='text-red-400'>*</span></label>
+                    <input id="contactNumber" type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder=" " pattern="[0-9]*" inputMode="numeric" className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
+                    <label htmlFor="contactNumber" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Contact Number <span className='text-red-400'>*</span></label>
                     {errors.contactNumber && <p className="text-xs text-red-300 mt-1">{errors.contactNumber}</p>}
                   </div>
                   <div className="relative">
-                    <input type="url" name="linkedIn" value={form.linkedIn} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">LinkedIn URL (Optional)</label>
+                    <input id="linkedIn" type="url" name="linkedIn" value={form.linkedIn} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
+                    <label htmlFor="linkedIn" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">LinkedIn URL (Optional)</label>
                     {errors.linkedIn && <p className="text-xs text-red-300 mt-1">{errors.linkedIn}</p>}
                   </div>
                   <div className="relative">
-                    <input type="url" name="github" value={form.github} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">GitHub URL (Optional)</label>
+                    <input id="github" type="url" name="github" value={form.github} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
+                    <label htmlFor="github" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">GitHub URL (Optional)</label>
                     {errors.github && <p className="text-xs text-red-300 mt-1">{errors.github}</p>}
                   </div>
                   <div className="relative">
-                    <input type="url" name="resumeUrl" value={form.resumeUrl} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Resume URL (Optional)</label>
+                    <input id="resumeUrl" type="url" name="resumeUrl" value={form.resumeUrl} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
+                    <label htmlFor="resumeUrl" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Resume URL (Optional)</label>
                     {errors.resumeUrl && <p className="text-xs text-red-300 mt-1">{errors.resumeUrl}</p>}
                   </div>
                 </div>
