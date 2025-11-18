@@ -155,7 +155,7 @@ export const members = {
     role: "Chief Designer",
     photos: ["Akshay.jpg"],
     description:
-      "Legend tells of a being known only as 'Legendary AK' — forged in caffeine, tempered by deadlines, and  powered by panic. I specialize in making simple things complicated, and complicated things... even more complicated. I have no idea what i'm doing most of the time, but i do it with confidence and a weird smile that makes people think I've got a plan (i don't). I respond to stress with memes, avoid responsibilities like a professional ninja, and somehow end up in charge of things I didn't even sign up for. My presence in the team is something, unexpected, and somehow still part of the main storyline. I believe in doing things last minute, making things weird on purpose, and pretending everything is under control. If life had patch notes, I'd still skip the tutorial and click 'continue'.Either way, you won't forget me.",
+      "People call me Legendary AK, built on caffeine, deadlines, and pure panic. I turn simple things into a mess and make complicated things even worse, but I still act confident with a smile that makes everyone think I have a plan (I really don’t). I deal with stress using memes, dodge responsibilities like a pro, and still end up in charge of things I never asked for. Somehow, I’m always part of the main story, even when I don’t know how. I work last minute, add a little weirdness on purpose, and pretend everything is fine. If life gave instructions, I’d skip them and press “continue” anyway.",
     portfolio: "I don't have one",
     energySource: "Panic + coffee + pretending I have a plan.",
     dimension: "Somewhere between 'almost there' and 'lost again.'",
