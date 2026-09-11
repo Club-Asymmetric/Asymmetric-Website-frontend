@@ -7,7 +7,6 @@ interface PodcastData {
   guests: string[];
   description: string;
   image: string;
-  mime: string;
 }
 
 interface EventData {

@@ -6,7 +6,6 @@ interface PodcastData {
   guests: string[];
   description: string;
   image: string;
-  mime: string;
 }
 
 const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }) => {
@@ -15,7 +14,7 @@ const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }
       <div className="absolute -top-10 left-1/2 -translate-x-1/2">
         <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden relative">
           <Image
-            src={`/images/${image}`}
+            src={image}
             alt={name}
             width={96}
             height={96}

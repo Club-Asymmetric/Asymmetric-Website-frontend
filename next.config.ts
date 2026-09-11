@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         hostname: 'ass-dummy-backend.onrender.com',
         pathname: '/images/**', // Allow all paths under /images/
       },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        pathname: '/image/**', // Real Spotify episode cover art
+      },
     ],
     domains:['localhost'],
   }

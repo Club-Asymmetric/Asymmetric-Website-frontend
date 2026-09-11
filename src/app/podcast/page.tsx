@@ -16,13 +16,13 @@ interface PodcastData {
   guests: string[];
   description: string;
   image: string;
-  mime: string;
+  audioSrc: string;
   spotify: string;
+  releaseDate: string;
 }
 
-const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description, image, mime, spotify }) => {
+const Podcast: React.FC<PodcastData> = ({ name, guests, description, image, audioSrc, spotify, releaseDate }) => {
   const guestNames = guests.join(", ");
-  const sourceFile = `/audio/${id}.mp3`;
 
   return (
     <motion.div
@@ -33,7 +33,7 @@ const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description
     >
       <div className="flex justify-center lg:place-items-center mb-4 lg:mb-0">
         <Image
-          src={`${image}`} // Assume the image is served from the /images folder
+          src={image}
           alt={`${name} logo`}
           width={250}
           height={100}
@@ -42,7 +42,12 @@ const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description
       </div>
       <div className="flex flex-col gap-4 px-2 lg:px-10">
         <h1 className="text-lg sm:text-xl lg:text-3xl font-bold">{name}</h1>
-        <h2 className="font-imprintMTShadow text-xs sm:text-sm lg:text-base">{guestNames}</h2>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-zinc-400">
+          {guestNames && <span className="font-imprintMTShadow text-xs sm:text-sm lg:text-base text-white">{guestNames}</span>}
+          <span>
+            {new Date(releaseDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+          </span>
+        </div>
         <p className="text-xs sm:text-sm lg:text-base">{description}</p>
         <div className="icons flex flex-cols gap-4 items-center">
           <Link href={spotify} target="_blank" className="transition-colors">
@@ -50,11 +55,23 @@ const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description
           </Link>
         </div>
         <div className="flex items-center gap-4 relative">
-          <MusicPlayer 
-          sourceFile={sourceFile} 
-          podcastName={name}
-          spotifyLink={spotify}
-          />
+          {audioSrc ? (
+            <MusicPlayer
+              sourceFile={audioSrc}
+              podcastName={name}
+              spotifyLink={spotify}
+            />
+          ) : (
+            <iframe
+              title={`${name} on Spotify`}
+              src={`https://open.spotify.com/embed/episode/${spotify.split("/episode/")[1]}?utm_source=generator&theme=0`}
+              width="100%"
+              height="152"
+              style={{ border: 0, borderRadius: 12 }}
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          )}
         </div>
       </div>
     </motion.div>
@@ -85,7 +102,21 @@ export default function Podcasts() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="w-[95%] lg:w-[80%] mx-auto"
-    >      {podcastsData.length > 0 ? (
+    >
+      <div className="mb-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold text-center sm:text-left">
+          Featured Episodes
+        </h1>
+        <Link
+          href="https://open.spotify.com/show/0iMKRNbZOWxKWIAUYD7T0C"
+          target="_blank"
+          className="flex items-center gap-2 bg-ass-button text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300"
+        >
+          <FaSpotify className="w-4 h-4" />
+          Listen on Spotify
+        </Link>
+      </div>
+      {podcastsData.length > 0 ? (
         podcastsData.map((podcast) => (
           <Podcast
             key={podcast.id}
@@ -94,9 +125,10 @@ export default function Podcasts() {
             publish={podcast.publish}
             guests={podcast.guests}
             description={podcast.description}
-            image={`/images/${podcast.image}`}
-            mime={`/audio/${podcast.id}.mp3`}
+            image={podcast.image}
+            audioSrc={podcast.audioSrc}
             spotify={podcast.spotify}
+            releaseDate={podcast.releaseDate}
           />
         ))
       ) : (
