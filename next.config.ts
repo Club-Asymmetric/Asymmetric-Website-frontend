@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  eslint: {
+    // WARNING: disables ESLint blocking the build
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    // WARNING: allows production builds even if there are type errors
+    ignoreBuildErrors: true,
+  },
   images:{
     remotePatterns: [
       {

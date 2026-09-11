@@ -49,7 +49,9 @@ const Navbar = () => {
     { name: 'Podcasts', href: '/podcast' },
     { name: 'Members', href: '/members' },
     { name: 'Team', href: '/team' },
-    { name: 'Contact Us', href: '/contact-us' }
+    { name: 'Apply', href: '/member-application' },
+    { name: 'Contact Us', href: '/contact-us' },
+
   ];
 
   const menuVariants = {
@@ -104,11 +106,12 @@ const Navbar = () => {
         <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 lg:mt-5 mt-0">
           {/* Logo */}
           <Link href="/">
-            <div className="w-72 h-28 relative lg:scale-125">
+          {/* Reduced the LOGO SIZE is this ok? or shouldn't I reduce logo size? */}
+            <div className={`w-72 lg:w-48 xl:w-72 h-28 relative lg:scale-125`}>
               <Image
                 src="/logo/logo.png"
                 alt="Logo"
-                className={`z-50 transition-all duration-300 cursor-pointer ${
+                className={`-z-10 transition-all duration-300 cursor-pointer ${
                   shouldDissolveLogo ? 'opacity-0' : 'opacity-100'
                 } hover:scale-105`}
                 fill
@@ -126,24 +129,25 @@ const Navbar = () => {
           </Link>
 
           {/* Navigation */}
-          <nav className="bg-blue-950/70 backdrop-blur-md rounded-full min-w-max hidden lg:block">
+          <nav className="bg-black/80 backdrop-blur-md border border-zinc-800 rounded-full min-w-max hidden lg:block">
             <div className="flex items-center justify-center p-4 rounded-full px-10">
-              <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-14 xl:space-x-20">
+              {/* Also reduced the space for lg screens should I or shouldn't I? */}
+              <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-10 xl:space-x-20 font-mono uppercase tracking-wider">
                 {navItems.map((item) => (
                   <li key={item.name} className="whitespace-nowrap">
                     <Link
                       href={item.href}
                       className={`
-                        transition-all duration-200 text-base
+                        transition-all duration-200 text-sm
                         ${
                           pathname === item.href
-                            ? `text-cyan-400 hover:rounded-2xl hover:bg-black hover:text-white hover:py-2 hover:px-4 lg:hover:px-8 
+                            ? `text-[#00008b] hover:rounded-2xl hover:bg-[#00008b] hover:text-white hover:py-2 hover:px-4 lg:hover:px-8
                             ${hoveredItem!==null && hoveredItem !== item.name ? `${shouldDissolve ? 'opacity-0' : 'opacity-75'}` : 'opacity-100'}
                             `
                             :
                           hoveredItem !== null && hoveredItem !== item.name
-                            ? `text-gray-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
-                            : 'text-white hover:rounded-2xl hover:bg-white hover:text-black hover:py-2 hover:px-4 lg:hover:px-8'
+                            ? `text-zinc-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
+                            : 'text-white hover:rounded-2xl hover:bg-[#00008b] hover:text-white hover:py-2 hover:px-4 lg:hover:px-8'
                         }
                       `}
                       onMouseEnter={() => {
@@ -178,7 +182,7 @@ const Navbar = () => {
                 <rect x="10" y="60" width="30" height="10" rx="5" fill="white" />
               </svg>
               <svg
-                className={`h-10 w-10 ${isMenuOpen ? 'block' : 'hidden'}`}
+                className={`h-10 w-10 ${isMenuOpen ? 'block z-50' : 'hidden'}`}
                 fill="none"
                 viewBox="5 0 24 15"
                 stroke="currentColor"
@@ -204,8 +208,8 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div 
-              className="bg-blue-950/70 backdrop-blur-md rounded-bl-full rounded-tl-full py-4 px-5 text-right mx-10 lg:hidden"
+            <motion.div
+              className="bg-black/90 backdrop-blur-md border border-zinc-800 rounded-bl-full rounded-tl-full py-4 px-5 text-right mx-10 lg:hidden"
               onClick={(e) => e.stopPropagation()}
               style={{
                 marginTop: `${window.innerHeight/4}px`, // Dynamically set vertical center
@@ -216,21 +220,21 @@ const Navbar = () => {
               animate="open"
               exit="closed"
             >
-              <motion.ul>
+              <motion.ul className="font-mono uppercase tracking-wider">
                 {navItems.map((item) => (
-                  <motion.li 
-                    key={item.name} 
+                  <motion.li
+                    key={item.name}
                     className="py-2"
                     variants={itemVariants}
                   >
                     <Link
                       href={item.href}
                       className={`
-                        transition-all duration-200 text-base 
+                        transition-all duration-200 text-base
                         ${
-                          pathname === item.href 
-                            ? 'text-cyan-400 bg-black/50 rounded-2xl py-2 px-4'
-                            : 'text-white hover:rounded-2xl hover:bg-white hover:text-black hover:py-2 hover:px-4'
+                          pathname === item.href
+                            ? 'text-[#00008b] bg-zinc-900/70 rounded-2xl py-2 px-4'
+                            : 'text-white hover:rounded-2xl hover:bg-[#00008b] hover:text-white hover:py-2 hover:px-4'
                         }
                       `}
                       onClick={handleMobileMenuItemClick}

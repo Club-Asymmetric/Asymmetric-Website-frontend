@@ -3,6 +3,7 @@
 interface PodcastData {
   id: string;
   name: string;
+  publish: boolean;
   guests: string[];
   description: string;
   image: string;
@@ -14,12 +15,11 @@ interface EventData {
   name: string;
   participants: number;
   date: string;
-  registration_start: string;
+  registration_start: Date;
   location: string;
   min_team_size: number;
   max_team_size: number;
   description: string;
-  synopsis: string;
   photos: string[];
 }
 
@@ -27,26 +27,26 @@ import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
+import ScrollHero from '@/components/ScrollHero';
+import AdmitOneTicket, { TICKET_LAYOUT, TICKET_TEXTURE } from '@/components/ui/admit-one-ticket';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
-import axios from 'axios';
+import { events as eventsData } from '@/data/events';
+import { podcasts } from '@/data/podcasts';
 
 export default function Home() {
-  
+  const [showApplyPopup, setShowApplyPopup] = useState(true); // show each refresh
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
-  const [events, setEvents] = useState<EventData[]>([]);
-  const [popupContent, setPopupContent] = useState<{
+  const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
     name: string;
-    synopsis: string;
   }>({
     desc: "",
     img: "/placeholders/Events_Placeholder.png",
-    name: "Title",
-    synopsis: "synopsis"
+    name: "Title"
   });
 
 
@@ -63,18 +63,31 @@ export default function Home() {
     };
   }, [isOpen]);
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || showApplyPopup) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
     }
-  }, [isOpen]);
-
+    return () => { 
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isOpen, showApplyPopup]);
   interface PopupContent {
     desc: string;
     img: string;
     name: string;
-    synopsis: string;
   }
 
   interface PopupLocation {
@@ -82,10 +95,8 @@ export default function Home() {
     y: number;
   }
 
-  const openPopup = (content: PopupContent, e: React.MouseEvent) => {
-    setPopupLocation({ x: e.clientX, y: e.clientY });
-    setPopupContent(content);
-    setIsOpen(true);
+  const openPopup = () => {
+    window.location.href = "/events";
   };
 
   const closePopup = () => setIsOpen(false);
@@ -96,71 +107,75 @@ export default function Home() {
 
   function openRegistrationPage() {
     window.location.href = "/events/registration-form";
-  }
-
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const api = axios.create({
-          baseURL: `${localhost}/api`,
-        });
-        const response = await api.get('/events');
-        if (response.status !== 200) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data =  await response.data;
-        const eventsArray = Object.values(data) as EventData[];
-        setEvents(eventsArray);
-        eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        const limitedEventsArray = eventsArray.slice(0, 2);
-        setEvents(limitedEventsArray);
-      } catch (error) {
-        console.error("Failed to fetch events:", error);
-      }
-    };
-  
-    fetchEvents();
+  }  useEffect(() => {
+    // Load events from local data
+    const eventsArray = Object.values(eventsData) as EventData[];
+    eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const limitedEventsArray = eventsArray.slice(0, 2);
+    setEvents(limitedEventsArray);
   }, []);
 
-  const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+  const [podcastsData, setPodcastsData] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await fetch(`${localhost}/api/podcasts`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        setPodcasts(Object.values(data));
-      } catch (error) {
-        console.error('Failed to fetch podcasts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPodcasts();
+    // Load podcasts from local data
+    const podcastsArray = Object.values(podcasts) as PodcastData[];
+    // Filter only published podcasts
+    const publishedPodcasts = podcastsArray.filter(podcast => podcast.publish);
+    setPodcastsData(publishedPodcasts);
+    setLoading(false);
   }, []);
-
-  if (loading) 
-    return (
-      <LoadingSpinner />
-    )
 
   return (
     <div className='space-y-16'>
+        <ScrollHero />
+        {showApplyPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+            <div className="relative animate-zoomIn">
+              <button
+                aria-label="Close"
+                onClick={() => setShowApplyPopup(false)}
+                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+              <Link
+                href="/member-application"
+                onClick={() => setShowApplyPopup(false)}
+                aria-label="Apply to become a member"
+                className="block origin-center cursor-pointer max-[560px]:scale-[0.62] max-[420px]:scale-[0.52]"
+              >
+                <AdmitOneTicket
+                  name="Become a Member"
+                  presenter="Club Asymmetric presents"
+                  event="Open Applications"
+                  venue="CIT Chennai"
+                  dates="Rolling admissions"
+                  stubText="Apply now"
+                  watermark="ASY"
+                  width={560}
+                  layout={{ ...TICKET_LAYOUT, inkColor: '#ffffff', watermarkColor: '#ffffff', watermarkOpacity: 0.12 }}
+                  texture={{ ...TICKET_TEXTURE, colorBack: '#00008b', colorFront: '#000455', colorHighlight: '#001a8b' }}
+                  tilt={{ maxTilt: 7, glare: 0.12 }}
+                />
+              </Link>
+            </div>
+          </div>
+        )}
         {/* AboutUs Section */}
-        <div className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
+        <div id="home-content" className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
                 <ColorText text="Welcome to Asymmetric !" />
               </h1>
-              <p className="mt-4 text-sm md:text-base">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti itaque id esse. Doloribus, iure dolores. Cupiditate est blanditiis cum, vitae quos deserunt eligendi eaque ullam qui porro eum dicta magnam?
-                Sed omnis harum eveniet quas cumque id blanditiis non sunt voluptatem asperiores ab, nihil voluptate eligendi, aliquam suscipit laboriosam. Nostrum similique rem voluptatem recusandae, minus et tempore cum labore fugit!
+              <p className="mt-4 text-sm">
+                <br/>
+                Asymmetric Club is a student-founded technical community driven by the passion to explore, build, and share. We are a dynamic team dedicated to organizing workshops, hackathons, webinars, technical events, and competitions while also working on innovative projects.
+                <br/><br/>
+                We provide a collaborative and supportive space that encourages continuous learning and personal growth across a wide range of tech domains. Our mission is to empower ourselves and others through knowledge-sharing and hands-on experiences—raising awareness while staying aware.
+                <br/><br/>
+                Whether you're a seasoned tech enthusiast or just beginning your journey, Asymmetric Club welcomes you with open arms and versatile initiatives to support and enhance your technical skills.
               </p>
               <Link href='/about-us'>
                 <button className="mt-6 bg-ass-button hover:bg-white hover:text-black px-4 py-1 hover:scale-105 rounded-md transition-all duration-300">
@@ -181,12 +196,11 @@ export default function Home() {
         <div className="flex flex-col items-center w-full">
         <div className="flex flex-col bg-ass-gradient max-w-6xl mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
           {
-            events.map((event,index) => (
+            events.map((event, index) => (
               <Event
-                imageSrc={`${localhost}/images/are/not/here/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                imageSrc={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
                 key={event.id}
                 desc={event.description}
-                synopsis={event.synopsis}
                 name={event.name}
                 type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
                 date={event.date.slice(0,10)}
@@ -198,59 +212,11 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Popup */}
-      {isOpen && (
-        <motion.div 
-          className="fixed bg-[#000000b8] flex justify-center items-center z-50 overflow-hidden" 
-          style={{animationDuration: '1s', top: `${window.scrollY}px`, left: '0', width: window.innerWidth + "px", height: window.innerHeight + "px"}} 
-          onClick={closePopup}
-        >
-          <motion.div 
-            className="relative flex flex-col lg:flex-row bg-gradient-to-br from-[rgb(23,25,63)] via-[rgba(25,27,68,1)] 
-            to-[rgba(60,65,165,1)] w-[80%] max-h-[90vh] overflow-y-auto rounded-lg minimal-scrollbar"
-            onClick={handlePopupContentClick}
-            initial={{ opacity: 0 , scale: 0 , y:popupLocation.y-400  , x: popupLocation.x-800}}
-            animate={{ opacity: 1 , scale: 1 , y: 0 , x: 0}}
-            transition={{ duration: 0.7}}
-          >
-            <img 
-              src={popupContent.img} 
-              alt="Event" 
-              className="xl:w-[35%] md:w-[40%] sm:w-[50%] w-[20rem] md:h-full object-cover place-self-center rounded-l-lg py-4 px-12" 
-            />
-            
-            <div className="flex flex-col flex-1 pr-12 lg:ml-0 ml-8">
-              <p className="lg:text-2xl md:text-xl text-lg font-medium font-oswald leading-tight mb-3">
-          {popupContent.synopsis}
-              </p>
-              <p className="lg:text-4xl md:text-3xl text-2xl font-extrabold font-outfit mb-8">
-          {popupContent.name}
-              </p>
-              <p className="text-white lg:text-2xl md:text-xl text-lg font-normal font-outfit leading-7">
-          {popupContent.desc}
-              </p>
-              <button 
-          onClick={openRegistrationPage}
-          className="px-20 py-1 bg-[#88d0d1]/80 rounded text-lg mt-8 mx-auto hover:scale-105 transition-transform ease-in-out duration-300 mb-4 hover:bg-white hover:text-black"
-              >
-          Register
-              </button>
-            </div>
-            
-            <button 
-              className="absolute top-4 right-4 text-white hover:scale-110 transition-transform duration-100 ease-linear p-4"
-              onClick={closePopup}
-              aria-label="Close popup"
-            >
-              ✕
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">
-        {podcasts.slice(0, 3).map((podcast, index) => (
+        {loading && <LoadingSpinner />}
+        {podcastsData.slice(0, 3).map((podcast, index) => (
           <div
             key={index}
             className={`

@@ -176,11 +176,13 @@ const MainView = () => (
               return false;
           }}
           draggable={false}
-      />
-      <div className="grid grid-flow-row ml-[2px]">
-          <h1 className="text-4xl font-bold font-outfit place-self-center">{props.name}</h1>
-          <p className="text-md place-self-center">{props.description}</p>
-      </div>
+       />
+    <div className="flex flex-col ml-[2px] h-full">
+        <h1 className="text-4xl font-bold font-outfit text-center">{props.name}</h1>
+        <div className="flex-1 flex items-center justify-center">
+            <p className="text-md text-center">{props.description}</p>
+        </div>
+    </div>
   </motion.div>
 );
 
@@ -242,7 +244,7 @@ const InfoView = () => (
                 </div>
             </div>
 
-            <div className="md:hidden flex flex-row m w-full min-h-[80vh] overflow-hidden justify-center relative">
+            <div className="md:hidden flex flex-row m w-full min-h-[100vh] overflow-hidden justify-center relative">
               <AnimatePresence initial={false} custom={dragDirection}>
                 {currentIndex === 0 ? (
                   <motion.div
@@ -279,10 +281,12 @@ const InfoView = () => (
                                 return false;
                             }}
                             draggable={false}
-                        />
-                        <div className="grid grid-flow-row ml-[2px]">
-                            <h1 className="text-4xl font-bold font-outfit place-self-center">{props.name}</h1>
-                            <p className="text-md place-self-center">{props.description}</p>
+                         />
+                          <div className="flex flex-col ml-[2px] h-full">
+                            <h1 className="text-4xl font-bold font-outfit text-center">{props.name}</h1>
+                            <div className="flex-1 flex items-center justify-center">
+                                <p className="text-md text-center">{props.description}</p>
+                          </div>
                         </div>
                     </motion.div>
                   </motion.div>

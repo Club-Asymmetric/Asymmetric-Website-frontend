@@ -7,24 +7,22 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import PodcastSkeleton from "../../components/PodcastSkeleton";
 import { motion } from "framer-motion";
+import { podcasts } from "@/data/podcasts";
 
 interface PodcastData {
   id: string;
   name: string;
+  publish: boolean;
   guests: string[];
   description: string;
   image: string;
   mime: string;
+  spotify: string;
 }
 
-const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, mime }) => {
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
+const Podcast: React.FC<PodcastData> = ({ id, name, publish, guests, description, image, mime, spotify }) => {
   const guestNames = guests.join(", ");
-  const sourceFile = `${localhost}/api/podcasts/${id}/stream`;
-  const spotifyLink = `https://open.spotify.com/show/${name}`;
-  const youTubeLink = `https://youtube.com/${name}`;
-  const appleLink = `https://apple.com/${name}`;
+  const sourceFile = `/audio/${id}.mp3`;
 
   return (
     <motion.div
@@ -47,23 +45,15 @@ const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, 
         <h2 className="font-imprintMTShadow text-xs sm:text-sm lg:text-base">{guestNames}</h2>
         <p className="text-xs sm:text-sm lg:text-base">{description}</p>
         <div className="icons flex flex-cols gap-4 items-center">
-          <Link href={spotifyLink} target="_blank" className="transition-colors">
+          <Link href={spotify} target="_blank" className="transition-colors">
             <FaSpotify className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-green-800 rounded-lg" />
-          </Link>
-          <Link href={youTubeLink} target="_blank" className="transition-colors">
-            <FaYoutube className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-red-600 rounded-lg" />
-          </Link>
-          <Link href={appleLink} target="_blank" className="transition-colors">
-            <FaApple className="transition-all duration-300 w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 hover:bg-gray-500 rounded-lg" />
           </Link>
         </div>
         <div className="flex items-center gap-4 relative">
           <MusicPlayer 
           sourceFile={sourceFile} 
           podcastName={name}
-          spotifyLink={spotifyLink}
-          youtubeLink={youTubeLink}
-          appleLink={appleLink}
+          spotifyLink={spotify}
           />
         </div>
       </div>
@@ -72,28 +62,16 @@ const Podcast: React.FC<PodcastData> = ({ id, name, guests, description, image, 
 };
 
 export default function Podcasts() {
-  const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+  const [podcastsData, setPodcastsData] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const localhost = process.env.NEXT_PUBLIC_LOCALHOST;
-
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await fetch(`${localhost}/api/podcasts`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPodcasts(Object.values(data));
-      } catch (error) {
-        console.error("Failed to fetch podcasts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPodcasts();
+    // Convert podcasts object to array and set loading to false
+    const podcastsArray = Object.values(podcasts) as PodcastData[];
+    // Filter only published podcasts
+    const publishedPodcasts = podcastsArray.filter(podcast => podcast.publish);
+    setPodcastsData(publishedPodcasts);
+    setLoading(false);
   }, []);
   if (loading) {
     return <div className="w-[95%] lg:w-[80%] mx-auto">
@@ -107,17 +85,18 @@ export default function Podcasts() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="w-[95%] lg:w-[80%] mx-auto"
-    >
-      {podcasts.length > 0 ? (
-        podcasts.map((podcast) => (
+    >      {podcastsData.length > 0 ? (
+        podcastsData.map((podcast) => (
           <Podcast
             key={podcast.id}
             id={podcast.id}
             name={podcast.name}
+            publish={podcast.publish}
             guests={podcast.guests}
             description={podcast.description}
-            image={`${localhost}/images/are/not/here/${podcast.image}`}
-            mime={`${localhost}/api/podcasts/${podcast.id}/stream`} 
+            image={`/images/${podcast.image}`}
+            mime={`/audio/${podcast.id}.mp3`}
+            spotify={podcast.spotify}
           />
         ))
       ) : (

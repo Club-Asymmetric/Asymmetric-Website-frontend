@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Oswald, Outfit, ABeeZee, Parisienne, Metal } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import GlowyThing from "@/components/Glowything";
+import ChromeWrapper from "@/components/ChromeWrapper";
 import CookieSweet from "@/components/CookieSweet";
 
 //Configure the fonts
@@ -76,23 +74,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full ${outfit.variable} ${oswald.variable} ${aBeeZee.variable} ${nicoMoji.variable} ${parisienne.variable} ${metal.variable} ${imprintMTShadow.variable} ${geistSans.variable}`}>
       <head>
-
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
         className={`antialiased min-h-screen flex flex-col relative font-outfit`}
       >
         <div className="flex flex-col flex-grow relative over">
-            <div className="absolute inset-0 w-full pointer-events-none overflow-hidden" style={{ bottom: 'auto', height: '100%' }}>
-              <GlowyThing color="#88D0D1" left="-25vw" top="-120vh"/>
-              <GlowyThing color="#00FFFF" left="80vw" top="60vh"/>
-              <GlowyThing color="#E0C585" left="-50vw" top="350vh"/>  
-            </div>
-          <Navbar />
-          <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
-            {children}
-          </main>
-          <CookieSweet />
-          <Footer />
+          <ChromeWrapper>{children}</ChromeWrapper>
+          {/* <CookieSweet /> */}
         </div>
       </body>
     </html>
