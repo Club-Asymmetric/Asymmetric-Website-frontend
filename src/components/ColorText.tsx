@@ -6,7 +6,7 @@ interface ColorTextProps {
 }
 
 const ColorText = ({ text, interval = 100 }: ColorTextProps) => {
-  const colors = ['#FFFFFF', '#FF0000', '#00FF00', '#0000FF']; // White, Red, Green, Blue [SUGGEST A GOOD COLOR SCHEME]
+  const colors = ['#FFFFFF', '#00008B', '#1E3FCC', '#080B09']; // White, navy, royal blue, black — cipher theme
   const [currentCharIndex, setCurrentCharIndex] = useState<number>(-1);
   const [colorIndices, setColorIndices] = useState<number[]>(new Array(text.length).fill(0));
   const [isHovering, setIsHovering] = useState(false);

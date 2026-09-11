@@ -27,6 +27,8 @@ import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
+import ScrollHero from '@/components/ScrollHero';
+import AdmitOneTicket, { TICKET_LAYOUT, TICKET_TEXTURE } from '@/components/ui/admit-one-ticket';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
@@ -124,28 +126,44 @@ export default function Home() {
     setLoading(false);
   }, []);
 
-  if (loading) 
-    return (
-      <LoadingSpinner />
-    )
-
   return (
     <div className='space-y-16'>
+        <ScrollHero />
         {showApplyPopup && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="bg-ass-gradient border border-white/10 rounded-xl p-6 w-11/12 max-w-md relative animate-zoomIn">
-              <button aria-label="Close" onClick={()=>setShowApplyPopup(false)} className="absolute top-2 right-2 text-white/60 hover:text-white">✕</button>
-              <h2 className="text-xl font-bold text-white mb-3 text-center">Become a Member</h2>
-              <p className="text-sm text-white/70 mb-6 text-center">We are now accepting new member applications. Join the squad and build cool stuff with us.</p>
-              <div className="flex justify-center gap-4">
-                <Link href="/member-application" className="bg-ass-button text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-black transition-colors" onClick={()=>setShowApplyPopup(false)}>Apply Now</Link>
-                <button onClick={()=>setShowApplyPopup(false)} className="px-5 py-2 rounded-md border border-white/20 text-white/80 text-sm hover:bg-white hover:text-black transition-colors">Maybe Later</button>
-              </div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+            <div className="relative animate-zoomIn">
+              <button
+                aria-label="Close"
+                onClick={() => setShowApplyPopup(false)}
+                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+              <Link
+                href="/member-application"
+                onClick={() => setShowApplyPopup(false)}
+                aria-label="Apply to become a member"
+                className="block origin-center cursor-pointer max-[560px]:scale-[0.62] max-[420px]:scale-[0.52]"
+              >
+                <AdmitOneTicket
+                  name="Become a Member"
+                  presenter="Club Asymmetric presents"
+                  event="Open Applications"
+                  venue="CIT Chennai"
+                  dates="Rolling admissions"
+                  stubText="Apply now"
+                  watermark="ASY"
+                  width={560}
+                  layout={{ ...TICKET_LAYOUT, inkColor: '#ffffff', watermarkColor: '#ffffff', watermarkOpacity: 0.12 }}
+                  texture={{ ...TICKET_TEXTURE, colorBack: '#00008b', colorFront: '#000455', colorHighlight: '#001a8b' }}
+                  tilt={{ maxTilt: 7, glare: 0.12 }}
+                />
+              </Link>
             </div>
           </div>
         )}
         {/* AboutUs Section */}
-        <div className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
+        <div id="home-content" className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
             <div className="flex-1 text-center lg:text-left lg:ml-10">
               <h1 className="text-3xl md:text-4xl font-bold">
@@ -197,6 +215,7 @@ export default function Home() {
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">
+        {loading && <LoadingSpinner />}
         {podcastsData.slice(0, 3).map((podcast, index) => (
           <div
             key={index}

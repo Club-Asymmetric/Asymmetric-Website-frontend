@@ -1,0 +1,22 @@
+.section { --hero-progress: 0; --hero-reveal: 0; position: relative; height: 500svh; background: #080b09; color: white; isolation: isolate; }
+.viewport { position: sticky; top: 0; height: 100svh; min-height: 420px; overflow: hidden; }
+.canvas { position: absolute; inset: 0; opacity: calc(1 - var(--hero-reveal)); }
+.canvas canvas { display: block; width: 100%; height: 100%; }
+.intro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1.5rem; padding: clamp(1.5rem, 7vw, 8rem); opacity: var(--hero-reveal); pointer-events: none; background: #080b09; }
+.intro h1 { font-size: clamp(2.5rem, 7.5vw, 8rem); line-height: 1.04; letter-spacing: -.045em; font-weight: 600; }
+.intro h1 span { color: #00008b; }
+.intro p { max-width: 32rem; font-size: 1.125rem; line-height: 1.6; }
+.intro .eyebrow { font-size: .875rem; letter-spacing: .14em; }
+.cta { background: #00008b; color: #ffffff; padding: 1rem 1.5rem; border-radius: 3rem; font-size: 1rem; pointer-events: auto; }
+.skip { position: absolute; right: 1.5rem; top: 1.5rem; padding: .7rem 1rem; background: #080b09; color: white; border-radius: 2rem; font-size: .875rem; }
+.skip:focus-visible, .cta:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.hint, .loading { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #080b09; padding: .65rem 1rem; border-radius: 2rem; text-align: center; font-size: .875rem; }
+.progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: #00008b; transform-origin: left; transform: scaleX(var(--hero-progress)); }
+.section[data-status='loading'], .section[data-status='fallback'] { height: 100svh; min-height: 540px; }
+.section[data-status='loading'] .intro, .section[data-status='fallback'] .intro { opacity: 1; pointer-events: auto; }
+.section[data-status='fallback'] .canvas, .section[data-status='fallback'] .progress { display: none; }
+@media (max-width: 767px) { .section { height: 350svh; } .intro { padding: 1.5rem; } .intro h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); } }
+@media (prefers-reduced-motion: reduce) { .section { height: 100svh; min-height: 540px; } .intro { opacity: 1; pointer-events: auto; } .canvas, .progress, .hint { display: none; } }
+
+.intro { visibility: hidden; }
+.section[data-revealed="true"] .intro, .section[data-status="fallback"] .intro, .section[data-status="loading"] .intro { visibility: visible; }

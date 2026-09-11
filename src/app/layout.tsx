@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Oswald, Outfit, ABeeZee, Parisienne, Metal } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import GlowyThing from "@/components/Glowything";
+import ChromeWrapper from "@/components/ChromeWrapper";
 import CookieSweet from "@/components/CookieSweet";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 //Configure the fonts
 const outfit = Outfit({
@@ -86,18 +83,8 @@ export default function RootLayout({
         className={`antialiased min-h-screen flex flex-col relative font-outfit`}
       >
         <div className="flex flex-col flex-grow relative over">
-            <div className="absolute inset-0 w-full pointer-events-none overflow-hidden" style={{ bottom: 'auto', height: '100%' }}>
-              <GlowyThing color="#88D0D1" left="-25vw" top="-120vh"/>
-              <GlowyThing color="#00FFFF" left="80vw" top="60vh"/>
-              <GlowyThing color="#E0C585" left="-50vw" top="350vh"/>  
-            </div>
-          <Navbar />
-          <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
-            {children}
-            <SpeedInsights />
-          </main>
+          <ChromeWrapper>{children}</ChromeWrapper>
           {/* <CookieSweet /> */}
-          <Footer />
         </div>
       </body>
     </html>
