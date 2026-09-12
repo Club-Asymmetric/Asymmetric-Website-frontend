@@ -65,7 +65,7 @@ const Footer = () => {
             <Link href='/'>
               <div className="md:w-72 md:h-28 scale-110 relative py-7 md:py-0">
                 <Image 
-                  src="/logo/logo.png" 
+                  src="/assets/logo/logo.png" 
                   alt="Logo" 
                   fill
                   style={{ objectFit: 'contain' }}

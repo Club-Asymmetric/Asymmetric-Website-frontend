@@ -101,13 +101,13 @@ const Navbar = () => {
 
 
   return (
-    <div className="top-0 w-full">
+    <div className="sticky top-0 z-50 w-full">
       <div className="flex w-full items-center gap-10 px-7 py-5">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <div className="relative h-12 w-32 sm:h-14 sm:w-40">
               <Image
-                src="/logo/logo.png"
+                src="/assets/logo/logo.png"
                 alt="Logo"
                 className={`-z-10 transition-all duration-300 cursor-pointer ${
                   shouldDissolveLogo ? 'opacity-0' : 'opacity-100'

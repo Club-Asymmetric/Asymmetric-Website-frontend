@@ -60,7 +60,7 @@ export default function Event(props: {
           alt={props.name}
           className="w-full h-48 md:h-56 object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = "/placeholders/Events_Placeholder.png";
+            (e.target as HTMLImageElement).src = "/assets/placeholders/Events_Placeholder.png";
           }}
         />
         <div className="absolute top-2 left-2 bg-black/90 text-[#00008b] font-mono text-[10px] px-2 py-0.5 border border-zinc-700">

@@ -40,7 +40,7 @@ const Events = () => {
     type: string;
   }>({
     desc: "",
-    img: "/placeholders/Events_Placeholder.png",
+    img: "/assets/placeholders/Events_Placeholder.png",
     name: "",
     synopsis: "",
     location: "",
@@ -156,7 +156,7 @@ const Events = () => {
               <div className="relative bg-zinc-900 border-2 border-zinc-700 p-3 shadow-2xl rotate-2 transition-transform hover:rotate-0 duration-300">
                 <div className="overflow-hidden border border-zinc-800 relative group">
                   <img
-                    src="/group-photo/CatapultProgram3.jpg"
+                    src="/assets/group-photo/CatapultProgram3.jpg"
                     alt="Asymmetric Event"
                     className="w-full h-80 sm:h-96 object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                   />
@@ -225,8 +225,8 @@ const Events = () => {
                 index={idx}
                 imageSrc={
                   event.photos && event.photos[0]
-                    ? (event.photos[0].startsWith("/") ? event.photos[0] : `/images/${event.photos[0]}`)
-                    : "/placeholders/Events_Placeholder.png"
+                    ? (event.photos[0].startsWith("/") ? event.photos[0] : `/assets/images/${event.photos[0]}`)
+                    : "/assets/placeholders/Events_Placeholder.png"
                 }
                 desc={event.description}
                 synopsis={event.synopsis || ""}
@@ -296,7 +296,7 @@ const Events = () => {
                     name: "ASYMMETRIC AFTER DARK",
                     synopsis: "Music · Art · Games · People",
                     desc: "A high-octane night of creative hacking, audio-visual experiments, live demos, and unexpected collaborations. Join us as campus transforms into a playground of sound, light, and code.",
-                    img: "/group-photo/CatapultProgram3.jpg",
+                    img: "/assets/group-photo/CatapultProgram3.jpg",
                     location: "Main Auditorium, Campus",
                     date: "2025-10-12",
                     type: "CULTURE"
@@ -314,7 +314,7 @@ const Events = () => {
 
                 <div className="group border-2 border-black bg-white p-3 shadow-xl -rotate-2 hover:rotate-0 transition-transform">
                   <img
-                    src="/group-photo/CatapultProgram3.jpg"
+                    src="/assets/group-photo/CatapultProgram3.jpg"
                     alt="Featured Event 1"
                     className="w-full h-64 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -326,7 +326,7 @@ const Events = () => {
 
                 <div className="group border-2 border-black bg-[#0a0a0a] text-white p-3 shadow-2xl rotate-3 hover:rotate-0 transition-transform -mt-12 ml-8 relative z-10">
                   <img
-                    src="/group-photo/OnamEthnic.jpg"
+                    src="/assets/group-photo/OnamEthnic.jpg"
                     alt="Featured Event 2"
                     className="w-full h-56 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -404,7 +404,7 @@ const Events = () => {
                       alt={popupContent.name}
                       className="w-full h-64 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/placeholders/Events_Placeholder.png";
+                        (e.target as HTMLImageElement).src = "/assets/placeholders/Events_Placeholder.png";
                       }}
                     />
                     <div className="pt-2 text-[10px] font-mono font-bold text-black flex justify-between border-t border-black/20 mt-2">

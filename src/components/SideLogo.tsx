@@ -12,7 +12,7 @@ export default function SideLogo() {
     >
       <div className="relative h-40 w-40 xl:h-52 xl:w-52 opacity-90 drop-shadow-[0_0_25px_rgba(59,108,255,0.35)]">
         <Image
-          src="/logo/ass.png"
+          src="/assets/logo/ass.png"
           alt="Club Asymmetric"
           fill
           className="object-contain"

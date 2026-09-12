@@ -37,16 +37,16 @@ import { events as eventsData } from '@/data/events';
 import { podcasts } from '@/data/podcasts';
 
 const teamPhotos = [
-  '/group-photo/TeamGroupPhoto.png',
-  '/group-photo/TeamOfficeGroup.png',
-  '/group-photo/FreshworksVisit.png',
-  '/group-photo/DevFestMumbaiStage.png',
-  '/group-photo/HacksymmetricGroupPhoto.png',
-  '/group-photo/HacksymmetricOpenInnovationWinners.png',
-  '/group-photo/HacksymmetricAgenticAIWinners.png',
-  '/group-photo/HacksymmetricRunnerUps.png',
-  '/group-photo/AvatarWorkshopDemo.png',
-  '/group-photo/TeamSpeakersMoments.png',
+  '/assets/group-photo/TeamGroupPhoto.png',
+  '/assets/group-photo/TeamOfficeGroup.png',
+  '/assets/group-photo/FreshworksVisit.png',
+  '/assets/group-photo/DevFestMumbaiStage.png',
+  '/assets/group-photo/HacksymmetricGroupPhoto.png',
+  '/assets/group-photo/HacksymmetricOpenInnovationWinners.png',
+  '/assets/group-photo/HacksymmetricAgenticAIWinners.png',
+  '/assets/group-photo/HacksymmetricRunnerUps.png',
+  '/assets/group-photo/AvatarWorkshopDemo.png',
+  '/assets/group-photo/TeamSpeakersMoments.png',
 ];
 
 export default function Home() {
@@ -60,7 +60,7 @@ export default function Home() {
     name: string;
   }>({
     desc: "",
-    img: "/placeholders/Events_Placeholder.png",
+    img: "/assets/placeholders/Events_Placeholder.png",
     name: "Title"
   });
 
@@ -230,7 +230,7 @@ export default function Home() {
 
               <div className="relative z-10 flex w-full shrink-0 items-center justify-center lg:w-[320px]">
                 <img
-                  src="/logo/AboutUsLogo.png"
+                  src="/assets/logo/AboutUsLogo.png"
                   alt="Asymmetric Club"
                   className="w-48 sm:w-56 lg:w-full h-auto drop-shadow-[0_0_50px_rgba(59,108,255,0.4)]"
                 />
@@ -274,7 +274,7 @@ export default function Home() {
           {
             events.map((event, index) => (
               <Event
-                imageSrc={`/images/${event.photos[0]}` || "/placeholders/Events_Placeholder.png"}
+                imageSrc={`/assets/images/${event.photos[0]}` || "/assets/placeholders/Events_Placeholder.png"}
                 key={event.id}
                 desc={event.description}
                 name={event.name}

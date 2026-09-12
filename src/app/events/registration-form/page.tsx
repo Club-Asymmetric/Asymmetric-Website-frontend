@@ -149,7 +149,7 @@ const EventRegistrationForm = () => {
       <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
-          src={'/logo/ass.png'} 
+          src={'/assets/logo/ass.png'} 
           alt="Registration" 
           className='mx-auto z-10 absolute -inset-x-5 inset-y-20 sm:inset-0 md:-inset-10 lg:inset-0 w-fit h-fit object-cover opacity-5' 
           width={500} 

@@ -153,7 +153,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
                   <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                     {(() => {
                       const first = event.photos && event.photos.length > 0 ? event.photos[0] : null;
-                      const src = first ? `/images/${first}` : "/placeholders/Events_Placeholder.png";
+                      const src = first ? `/assets/images/${first}` : "/assets/placeholders/Events_Placeholder.png";
                       return (
                         <Image
                           src={src}
@@ -242,7 +242,7 @@ const FilteredEventsGallery: React.FC<FilteredEventsGalleryProps> = ({ events })
               <div className="relative flex-shrink-0 h-40 sm:h-48 md:h-64 lg:h-80 xl:h-96">
                 {(() => {
                   const first = selectedEvent.photos && selectedEvent.photos.length > 0 ? selectedEvent.photos[0] : null;
-                  const src = first ? `/images/${first}` : "/placeholders/Events_Placeholder.png";
+                  const src = first ? `/assets/images/${first}` : "/assets/placeholders/Events_Placeholder.png";
                   return (
                     <Image
                       src={src}

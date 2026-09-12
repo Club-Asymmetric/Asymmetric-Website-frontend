@@ -230,10 +230,12 @@ export const members = {
     photos: ["Vyshnavee.jpg"],
     description: "",
     portfolio: "I don't have one",
-    energySource: "",
-    dimension: "",
+    energySource:
+      "Cold coffee with extra ice, Music, conversations where I can just let everything out",
+    dimension: "Somewhere between \"I've got this\" and \"wait, What am i doing?\"",
     type: "",
-    hobbiesInstalled: "",
+    hobbiesInstalled:
+      "Building Stuff, Getting lost in music, Thinking way too much, Planning things out, exploring places, working out + a little time to myself",
     specialFeatures: "",
   },
   20: {
@@ -397,6 +399,23 @@ export const members = {
       "Music on repeat, playlist curating, photo editing, exploring new apps, experimenting with tech, café hopping, and turning random ideas into little digital projects.",
     specialFeatures:
       "Runs on caffeine, good music, and a scattered brain—multitasking is basically a built-in feature.",
+  },
+  30: {
+    id: "30",
+    name: "MOKSHITHA C",
+    role: "Human Resources",
+    generation: 3,
+    photos: ["MokshithaC.png"],
+    description:
+      "A curiosity-powered system exploring AI/ML, building projects, coordinating people, and constantly learning something new—powered by books, biryani, chocolate, and an occasional fictional escape.",
+    portfolio: "I don't have one",
+    energySource: "Biryani × Chocolate deserts × Deadline Pressure",
+    dimension: "Multitasking Zone",
+    type: "The \"I'll Handle It\" Human",
+    hobbiesInstalled:
+      "readBooks() • bingeWatch() • learnRandomThings() • collectNewInterests()",
+    specialFeatures:
+      "Task Orchestration Engine: Handles parallel tasks, coordinates moving parts, and keeps the workflow running when everyone else is still figuring out what to do.",
   },
   /* 13: {
     id: "13",

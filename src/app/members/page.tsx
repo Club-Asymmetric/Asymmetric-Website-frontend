@@ -85,7 +85,7 @@ const Page = () => {
                             energySource={member.energySource}
                             dimension={member.dimension}
                             type={member.type}
-                            imgSrc={`/images/${member.photos[0]}`}
+                            imgSrc={`/assets/images/${member.photos[0]}`}
                             hobbiesInstalled={member.hobbiesInstalled}
                             specialFeatures={member.specialFeatures}
                             reverse={index % 2 === 1}

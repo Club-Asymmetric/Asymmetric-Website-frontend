@@ -6,8 +6,8 @@ import { VoicePoweredOrb } from '@/components/ui/voice-powered-orb';
 import styles from './ScrollHero.module.css';
 
 // Locally bundled scenes with Club Asymmetric labels and original animation.
-const DEFAULT_DESKTOP = '/hero/desktop.glb';
-const DEFAULT_MOBILE = '/hero/mobile.glb';
+const DEFAULT_DESKTOP = '/assets/hero/desktop.glb';
+const DEFAULT_MOBILE = '/assets/hero/mobile.glb';
 
 export default function ScrollHero() {
   const section = useRef<HTMLElement>(null);
@@ -52,7 +52,7 @@ export default function ScrollHero() {
       const pointer = new THREE.Vector2();
       const smoothPointer = new THREE.Vector2();
       const draco = new DRACOLoader();
-      draco.setDecoderPath('/hero/draco/');
+      draco.setDecoderPath('/assets/hero/draco/');
       const loader = new GLTFLoader().setDRACOLoader(draco);
       const release = (object: import('three').Object3D) => {
         const textures = new Set<import('three').Texture>();

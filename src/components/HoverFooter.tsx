@@ -51,7 +51,7 @@ function HoverFooter() {
           <div className="flex flex-col space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <div className="relative h-10 w-10 flex-shrink-0">
-                <Image src="/logo/logo.png" alt="Club Asymmetric logo" fill style={{ objectFit: "contain" }} />
+                <Image src="/assets/logo/logo.png" alt="Club Asymmetric logo" fill style={{ objectFit: "contain" }} />
               </div>
               <span className="text-white text-2xl font-bold">Club Asymmetric</span>
             </Link>

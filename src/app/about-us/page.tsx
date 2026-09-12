@@ -20,7 +20,7 @@ export default function AboutUs() {
       title: "THE BEGINNING",
       subtitle: "WHERE CHAOS MET PURPOSE",
       desc: "It started in a crowded campus lab with a simple frustration: conventional clubs were too rigid. We wanted a playground for the curious, the hackers, and the misfits who wanted to build real things without permissions.",
-      image: "/group-photo/FirstMeet.jpg",
+      image: "/assets/group-photo/FirstMeet.jpg",
       rotation: "-rotate-2"
     },
     {
@@ -28,7 +28,7 @@ export default function AboutUs() {
       title: "THE BUILD",
       subtitle: "PROJECTS, HARDWARE & LATE NIGHTS",
       desc: "We shipped projects, threw open workshops, built hardware hacks, and broke things. Failure was not penalized—it was logged, analyzed, and turned into our next release.",
-      image: "/group-photo/CatapultProgram.jpg",
+      image: "/assets/group-photo/CatapultProgram.jpg",
       rotation: "rotate-2"
     },
     {
@@ -36,7 +36,7 @@ export default function AboutUs() {
       title: "THE COMMUNITY",
       subtitle: "MERGING DEVS, DESIGNERS & CREATIVES",
       desc: "Engineers joined artists, UI designers worked alongside systems programmers. The collective grew into a self-sustaining ecosystem of pure creative energy.",
-      image: "/group-photo/JuniorMeet.jpg",
+      image: "/assets/group-photo/JuniorMeet.jpg",
       rotation: "-rotate-1"
     },
     {
@@ -44,7 +44,7 @@ export default function AboutUs() {
       title: "WHAT IS NEXT",
       subtitle: "NO CEILINGS, NO BOUNDARIES",
       desc: "Scaling beyond campus borders, launching open-source initiatives, building hackathons, and expanding our physical & digital footprint across the ecosystem.",
-      image: "/group-photo/AndroidEspion.jpg",
+      image: "/assets/group-photo/AndroidEspion.jpg",
       rotation: "rotate-3"
     }
   ];
@@ -107,7 +107,7 @@ export default function AboutUs() {
               <div className="relative bg-zinc-900 border border-zinc-700 p-3 shadow-2xl -rotate-1 transition-transform hover:rotate-0 duration-300">
                 <div className="overflow-hidden border border-zinc-800 relative group">
                   <img
-                    src="/group-photo/FirstMeet.jpg"
+                    src="/assets/group-photo/FirstMeet.jpg"
                     alt="Asymmetric Students"
                     className="w-full h-[380px] sm:h-[440px] object-cover grayscale contrast-125 brightness-95 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                   />
@@ -341,7 +341,7 @@ export default function AboutUs() {
                 
                 <div className="border-2 border-black bg-white p-2 shadow-md -rotate-2 hover:rotate-0 transition-transform group">
                   <img 
-                    src="/group-photo/JuniorMeet.jpg" 
+                    src="/assets/group-photo/JuniorMeet.jpg" 
                     alt="Community 1"
                     className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -352,7 +352,7 @@ export default function AboutUs() {
 
                 <div className="border-2 border-black bg-white p-2 shadow-md rotate-3 hover:rotate-0 transition-transform mt-6 group">
                   <img 
-                    src="/group-photo/OnamEthnic.jpg" 
+                    src="/assets/group-photo/OnamEthnic.jpg" 
                     alt="Community 2"
                     className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -363,7 +363,7 @@ export default function AboutUs() {
 
                 <div className="border-2 border-black bg-white p-2 shadow-md rotate-1 hover:rotate-0 transition-transform group">
                   <img 
-                    src="/group-photo/ShootingVideo.jpg" 
+                    src="/assets/group-photo/ShootingVideo.jpg" 
                     alt="Community 3"
                     className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -374,7 +374,7 @@ export default function AboutUs() {
 
                 <div className="border-2 border-black bg-white p-2 shadow-md -rotate-3 hover:rotate-0 transition-transform -mt-4 group">
                   <img 
-                    src="/group-photo/CatapultProgram2.jpg" 
+                    src="/assets/group-photo/CatapultProgram2.jpg" 
                     alt="Community 4"
                     className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                   />

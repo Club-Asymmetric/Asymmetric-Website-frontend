@@ -15,182 +15,182 @@ interface SectionData {
 const sectionsData: SectionData[] = [
   {
     id: 1,
-    image: '/group-photo/AndroidEspion.png',
+    image: '/assets/group-photo/AndroidEspion.png',
     title: 'Android Espion Workshop',
     description: 'An interactive workshop where participants explored the intricacies of Android security, ethical hacking, and app vulnerabilities, gaining hands-on experience in mobile cybersecurity.',
     category: 'Workshop'
   },
   {
     id: 2,
-    image: '/group-photo/CatapultProgram.png',
+    image: '/assets/group-photo/CatapultProgram.png',
     title: 'Pitching Session',
     description: 'An exciting platform where aspiring entrepreneurs pitched their innovative ideas, received expert feedback, and refined their business strategies for real-world impact.',
     category: 'Program'
   },
   {
     id: 3,
-    image: '/group-photo/CatapultProgram2.png',
+    image: '/assets/group-photo/CatapultProgram2.png',
     title: 'Catapult Program',
     description: 'A mentorship-driven program designed to accelerate tech-driven ideas, providing guidance, resources, and networking opportunities to aspiring developers and entrepreneurs.',
     category: 'Program'
   },
   {
     id: 4,
-    image: '/group-photo/CatapultProgram3.png',
+    image: '/assets/group-photo/CatapultProgram3.png',
     title: 'Trinity Trios',
     description: 'A thrilling team-based competition where participants put their problem-solving, coding, and strategic thinking skills to the test in a high-energy environment.',
     category: 'Program'
   },
   {
     id: 5,
-    image: '/group-photo/FirstMeet.png',
+    image: '/assets/group-photo/FirstMeet.png',
     title: "The Beginning: Club's First Meetup",
     description: 'A historic moment marking the foundation of Asymmetric Club, bringing together like-minded tech enthusiasts eager to build a strong and innovative community.',
     category: 'Milestone'
   },
   {
     id: 6,
-    image: '/group-photo/JuniorMeet.png',
+    image: '/assets/group-photo/JuniorMeet.png',
     title: 'Welcoming the Juniors',
     description: "An engaging introduction session where seniors guided juniors through the club's vision, fostering mentorship and collaboration in tech-driven initiatives.",
     category: 'Milestone'
   },
   {
     id: 7,
-    image: '/group-photo/OnamEthnic.png',
+    image: '/assets/group-photo/OnamEthnic.png',
     title: 'Onam Special',
     description: 'A vibrant celebration of culture and tradition, where members came together to enjoy the festive spirit, strengthening bonds beyond the realm of technology.',
     category: 'Celebration'
   },
   {
     id: 8,
-    image: '/group-photo/ShootingVideo.png',
+    image: '/assets/group-photo/ShootingVideo.png',
     title: 'Behind the Scenes: Content Creation',
     description: 'A fun-filled day of brainstorming, scripting, and filming as the club worked on promotional videos, showcasing creativity and teamwork at its best.',
     category: 'Culture'
   },
   {
     id: 9,
-    image: '/group-photo/HappyJK.png',
+    image: '/assets/group-photo/HappyJK.png',
     title: 'Life at Asymmetric',
     description: "More than just a club—it's a family! From late-night coding sessions to exciting events, Asymmetric Club provides an unforgettable experience filled with learning, laughter, and growth.",
     category: 'Culture'
   },
   {
     id: 10,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Paper Presentation',
     description: "Tech Fiesta '26. Participants present innovative technical ideas, research work, or project concepts before a panel of judges, evaluated on originality, technical depth, and clarity.",
     category: 'Tech Fiesta'
   },
   {
     id: 11,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Tech Survivor – Elimination Arena',
     description: 'A multi-round competition of technical quizzes, logical reasoning, debugging tasks, coding rounds, and surprise challenges — teams are eliminated round by round.',
     category: 'Tech Fiesta'
   },
   {
     id: 12,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'UI Challenge – Design the Future',
     description: 'A fast-paced design sprint where teams design key screens, user flows, and a functional prototype for a given problem statement within a limited time.',
     category: 'Tech Fiesta'
   },
   {
     id: 13,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'LeetCode Speed Relay',
     description: 'Teams of 3-4 solve a LeetCode problem in relay format — each member gets five minutes at the keyboard before handing over control, no communication allowed during switches.',
     category: 'Tech Fiesta'
   },
   {
     id: 14,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Hack The Campus',
     description: 'An AR and QR based cyber treasure hunt — coding puzzles, encrypted clues, cybersecurity challenges, hidden website tasks, and AR missions across campus.',
     category: 'Tech Fiesta'
   },
   {
     id: 15,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Tech Debate',
     description: 'Participants debate trending technology topics — AI, cybersecurity, startups, coding culture, social media — focused on critical thinking and communication.',
     category: 'Tech Fiesta'
   },
   {
     id: 16,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Chess Championship',
     description: 'Individual chess competition featuring an online qualifier round followed by an offline final round on a physical chess board.',
     category: 'Tech Fiesta'
   },
   {
     id: 17,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Best Meme Creation',
     description: 'Create the funniest and most creative meme based on the events happening during Tech Fiesta — originality and relevance matter most.',
     category: 'Tech Fiesta'
   },
   {
     id: 18,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Missing Lyrics',
     description: 'Teams identify missing lyrics and recognize songs from background music tracks in a fun musical challenge.',
     category: 'Tech Fiesta'
   },
   {
     id: 19,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Murder Mystery',
     description: 'Teams investigate clues, analyze suspects, and solve a fictional crime scene before time runs out.',
     category: 'Tech Fiesta'
   },
   {
     id: 20,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Wiki Surfers',
     description: 'Teams race from one Wikipedia page to another using only internal Wikipedia links — fastest navigation with the fewest clicks wins.',
     category: 'Tech Fiesta'
   },
   {
     id: 21,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Adzap',
     description: 'Teams promote and sell a quirky or imaginary product through a creative advertisement performance filled with humor and innovation.',
     category: 'Tech Fiesta'
   },
   {
     id: 22,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Orchestration of Multi-Agent Systems in Production',
     description: 'How modern multi-agent AI systems are designed and operated at scale — agent coordination, scheduling, state management, fault tolerance, observability, and frameworks like Ray.',
     category: 'Workshop'
   },
   {
     id: 23,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Raspberry Pi, Linux and OpenCV: Building Intelligent Vision Systems',
     description: 'How Raspberry Pi, Linux, and OpenCV power intelligent systems — Linux fundamentals, SSH-based remote access, image processing, and practical computer vision applications.',
     category: 'Workshop'
   },
   {
     id: 24,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'MLOps for RAG Applications',
     description: 'The fusion of Retrieval-Augmented Generation, Machine Learning, and DevOps — embedding pipelines, deployment automation, monitoring, and scalable architectures.',
     category: 'Workshop'
   },
   {
     id: 25,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Building a Private Cloud with OpenStack',
     description: 'Cloud computing fundamentals and building a private cloud with OpenStack — deploying virtual machines, managing cloud services, and enterprise cloud architectures.',
     category: 'Workshop'
   },
   {
     id: 26,
-    image: '/placeholders/Events_Placeholder.png',
+    image: '/assets/placeholders/Events_Placeholder.png',
     title: 'Blockchains and Smart Contracts: Building the Decentralized Web',
     description: 'A practical introduction to blockchain technology and smart contracts — distributed ledgers, consensus mechanisms, cryptographic hashing, and decentralized applications.',
     category: 'Workshop'

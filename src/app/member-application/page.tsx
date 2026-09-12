@@ -391,7 +391,7 @@ const MemberApplicationForm: React.FC = () => {
         />
         {/* faint logo watermark */}
         <Image
-          src="/logo/ass.png"
+          src="/assets/logo/ass.png"
           alt=""
           aria-hidden="true"
           width={500}
