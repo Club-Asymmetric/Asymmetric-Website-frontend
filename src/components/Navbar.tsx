@@ -102,7 +102,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-[70] w-full">
-      <div className="flex w-full items-center gap-10 px-7 py-5">
+      <div className="flex w-full items-center gap-10 px-7 py-5 [transform:translateZ(0)] [will-change:transform]">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <div className="relative h-12 w-32 sm:h-14 sm:w-40">

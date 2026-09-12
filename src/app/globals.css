@@ -28,8 +28,6 @@
   --foreground-dark: #ededed;
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
-  --grayscale-amount: 0;
-  --transition-duration: 1000ms;
 
   /* shadcn/ui component tokens, tinted to the site's black + indigo palette */
   --border: rgba(255, 255, 255, 0.1);
@@ -56,14 +54,8 @@ body {
   color: var(--foreground);
   background: var(--background);
   overflow-x: hidden;
-  filter: grayscale(var(--grayscale-amount));
-  transition: filter var(--transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: filter;
 }
 
-html.grayscale-active {
-  --grayscale-amount: 100%;
-}
 .minimal-scrollbar {
   /* Enable scrolling */
   overflow-y: auto;
