@@ -51,7 +51,17 @@ const teamPhotos = [
 
 export default function Home() {
   const [showApplyPopup, setShowApplyPopup] = useState(true); // show each refresh
+  const [ticketWidth, setTicketWidth] = useState(560);
   const [teamPhotoIndex, setTeamPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    const computeTicketWidth = () => {
+      setTicketWidth(Math.min(560, window.innerWidth - 64));
+    };
+    computeTicketWidth();
+    window.addEventListener('resize', computeTicketWidth);
+    return () => window.removeEventListener('resize', computeTicketWidth);
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
@@ -146,11 +156,11 @@ export default function Home() {
         <ScrollHero />
         {showApplyPopup && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-            <div className="relative animate-zoomIn origin-center max-[620px]:scale-[0.68] max-[480px]:scale-[0.55] max-[360px]:scale-[0.48]">
+            <div className="relative animate-zoomIn">
               <button
                 aria-label="Close"
                 onClick={() => setShowApplyPopup(false)}
-                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors origin-top-right max-[620px]:scale-[1.47] max-[480px]:scale-[1.82] max-[360px]:scale-[2.08]"
+                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors"
               >
                 ✕
               </button>
@@ -168,7 +178,7 @@ export default function Home() {
                   dates="Rolling admissions"
                   stubText="Apply now"
                   watermark="ASY"
-                  width={560}
+                  width={ticketWidth}
                   layout={{ ...TICKET_LAYOUT, inkColor: '#ffffff', watermarkColor: '#ffffff', watermarkOpacity: 0.12 }}
                   texture={{ ...TICKET_TEXTURE, colorBack: '#00008b', colorFront: '#000455', colorHighlight: '#001a8b' }}
                   tilt={{ maxTilt: 7, glare: 0.12 }}
