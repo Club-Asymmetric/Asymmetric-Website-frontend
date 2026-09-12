@@ -26,11 +26,30 @@ const GENERATIONS: { value: 1 | 2 | 3; label: string }[] = [
     { value: 3, label: "3rd Generation" },
 ];
 
-// Lower rank shows first; roles not listed keep their existing relative order after these.
-const ROLE_PRIORITY: Record<string, number> = {
-    "President": 0,
-    "Vice President": 1,
-};
+// Lower rank shows first; roles matching none of these keep their existing
+// relative order, listed after all ranked roles (in any order).
+const ROLE_PRIORITY_RULES: { test: RegExp; priority: number }[] = [
+    { test: /vice[\s-]?president/, priority: 1 },
+    { test: /\bpresident\b/, priority: 0 },
+    { test: /secretary/, priority: 2 },
+    { test: /human resources?|hiring|\bhr\b/, priority: 3 },
+    { test: /tech(nical)?\s*lead/, priority: 4 },
+    { test: /coordinator/, priority: 5 },
+    { test: /treasur/, priority: 6 },
+    { test: /\bpr\b|marketing|public relations?/, priority: 7 },
+    { test: /\bcco\b|chief communication/, priority: 8 },
+    { test: /media\s*lead/, priority: 9 },
+    { test: /editor/, priority: 10 },
+    { test: /documentation/, priority: 11 },
+];
+
+function getRolePriority(role: string): number {
+    const normalized = role.toLowerCase();
+    for (const rule of ROLE_PRIORITY_RULES) {
+        if (rule.test.test(normalized)) return rule.priority;
+    }
+    return 100;
+}
 
 const Page = () => {
     const [membersData, setMembersData] = useState<MemberData[]>([]);
@@ -49,7 +68,7 @@ const Page = () => {
             membersData
                 .filter((member) => member.generation === selectedGeneration)
                 .slice()
-                .sort((a, b) => (ROLE_PRIORITY[a.role] ?? 99) - (ROLE_PRIORITY[b.role] ?? 99)),
+                .sort((a, b) => getRolePriority(a.role) - getRolePriority(b.role)),
         [membersData, selectedGeneration]
     );
 
