@@ -101,7 +101,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="sticky top-0 z-50 w-full">
+    <div className="sticky top-0 z-[70] w-full">
       <div className="flex w-full items-center gap-10 px-7 py-5">
           {/* Logo */}
           <Link href="/" className="shrink-0">
@@ -196,7 +196,7 @@ const Navbar = () => {
         <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 h-screen overflow-hidden" 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[65] h-screen overflow-hidden"
             onClick={() => setIsMenuOpen(false)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
