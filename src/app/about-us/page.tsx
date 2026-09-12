@@ -82,7 +82,7 @@ export default function AboutUs() {
               [ VOL. 01 — IDENTITY ]
             </div>
 
-            <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-black font-oswald uppercase leading-none tracking-tight">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl xl:text-9xl font-black font-oswald uppercase leading-none tracking-tight">
               WE THINK<br />
               <span className="text-[#00008b] underline decoration-4 underline-offset-8">DIFFERENTLY.</span>
             </h1>
@@ -399,7 +399,7 @@ export default function AboutUs() {
             {"// JOIN THE COLLECTIVE"}
           </div>
 
-          <h2 className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-black font-oswald uppercase leading-none tracking-tight">
+          <h2 className="text-3xl sm:text-5xl md:text-7xl xl:text-8xl font-black font-oswald uppercase leading-none tracking-tight">
             YOU DO NOT HAVE<br />
             <span className="text-[#00008b]">TO FIT THE PATTERN.</span>
           </h2>

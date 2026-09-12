@@ -203,12 +203,8 @@ const Navbar = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-black/90 backdrop-blur-md border border-zinc-800 rounded-bl-full rounded-tl-full py-4 px-5 text-right mx-10 lg:hidden"
+              className="bg-black/90 backdrop-blur-md border border-zinc-800 rounded-bl-full rounded-tl-full py-4 px-5 text-right mx-10 lg:hidden mt-[25vh] -translate-y-1/2"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                marginTop: `${window.innerHeight/4}px`, // Dynamically set vertical center
-                transform: "translateY(-50%)" // Adjust to center vertically
-              }}
               variants={menuVariants}
               initial="closed"
               animate="open"

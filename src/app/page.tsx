@@ -158,7 +158,8 @@ export default function Home() {
                 href="/member-application"
                 onClick={() => setShowApplyPopup(false)}
                 aria-label="Apply to become a member"
-                className="block origin-center cursor-pointer max-[560px]:scale-[0.62] max-[420px]:scale-[0.52]"
+                className="block cursor-pointer"
+                style={{ transform: 'scale(min(1, calc(88vw / 560px)))', transformOrigin: 'center' }}
               >
                 <AdmitOneTicket
                   name="Become a Member"

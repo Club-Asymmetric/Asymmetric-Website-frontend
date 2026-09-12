@@ -73,9 +73,17 @@ const ImagePopup: React.FC = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
+      className="fixed top-0 left-0 inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 px-4"
     >
-      <div className="relative grid grid-flow-row">
+      <button
+        onClick={handleClose}
+        aria-label="Close"
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[60] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-black/70 text-white text-lg font-bold backdrop-blur-sm transition-colors hover:bg-black/90"
+      >
+        X
+      </button>
+
+      <div className="relative grid grid-flow-row max-w-[80vw] sm:max-w-[300px]">
         {currentPopup === 'stop' && (
           <div
             id="stop-container"
@@ -86,8 +94,9 @@ const ImagePopup: React.FC = () => {
               alt="Popup Image"
               width={300}
               height={300}
+              className="h-auto w-full"
             />
-            <p className="text-white text-2xl place-self-center font-outfit font-bold">
+            <p className="text-white text-lg sm:text-2xl place-self-center font-outfit font-bold text-center">
               STOPPPP
             </p>
           </div>
@@ -103,19 +112,13 @@ const ImagePopup: React.FC = () => {
               alt="Popup Image"
               width={300}
               height={300}
+              className="h-auto w-full"
             />
-            <p className="text-white text-2xl place-self-center font-outfit font-bold">
+            <p className="text-white text-lg sm:text-2xl place-self-center font-outfit font-bold text-center">
               Why you right clicking the image PERV
             </p>
           </div>
         )}
-
-        <button
-          onClick={handleClose}
-          className="absolute top-0 right-0 mt-2 mr-2 text-white rounded-full p-2"
-        >
-          X
-        </button>
       </div>
     </div>
   );

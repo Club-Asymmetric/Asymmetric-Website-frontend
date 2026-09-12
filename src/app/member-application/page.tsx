@@ -3,9 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { db, storage } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp, query, where, getDocs, limit } from 'firebase/firestore';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { API_BASE_URL } from '@/lib/api';
 
 interface FormState {
   name: string;
@@ -320,43 +318,38 @@ const MemberApplicationForm: React.FC = () => {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const baseCol = collection(db, 'member_applications');
-      const mailQ = query(baseCol, where('mailId', '==', form.mailId), limit(1));
-      const phoneQ = query(baseCol, where('contactNumber', '==', form.contactNumber), limit(1));
-      const [mailSnap, phoneSnap] = await Promise.all([getDocs(mailQ), getDocs(phoneQ)]);
-      const dupErrors: Record<string, string> = {};
-      if (!mailSnap.empty) dupErrors.mailId = 'This email is already used';
-      if (!phoneSnap.empty) dupErrors.contactNumber = 'This contact number is already used';
-      if (Object.keys(dupErrors).length) {
-        setErrors((prev) => ({ ...prev, ...dupErrors }));
-        setSubmitting(false);
-        return;
-      }
+      const body = new FormData();
+      body.append('name', form.name);
+      body.append('mailId', form.mailId);
+      body.append('contactNumber', form.contactNumber);
+      body.append('department', form.department);
+      body.append('year', form.year);
+      body.append('track', form.track);
+      if (form.linkedIn) body.append('linkedIn', form.linkedIn);
+      if (form.github) body.append('github', form.github);
+      body.append('description', form.description);
+      if (resumeFile) body.append('resume', resumeFile);
 
-      let resumeUrl: string | null = null;
-      if (resumeFile) {
-        const path = `resumes/${Date.now()}-${resumeFile.name}`;
-        const fileRef = storageRef(storage, path);
-        await uploadBytes(fileRef, resumeFile);
-        resumeUrl = await getDownloadURL(fileRef);
-      }
-
-      await addDoc(collection(db, 'member_applications'), {
-        name: form.name,
-        mailId: form.mailId,
-        contactNumber: form.contactNumber,
-        department: form.department,
-        year: form.year,
-        track: form.track,
-        linkedIn: form.linkedIn || null,
-        github: form.github || null,
-        description: form.description,
-        resumeUrl,
-        createdAt: serverTimestamp(),
+      const res = await fetch(`${API_BASE_URL}/api/member-application`, {
+        method: 'POST',
+        body,
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        if (res.status === 409 && data?.message) {
+          const dupErrors: Record<string, string> = {};
+          if (data.message.toLowerCase().includes('email')) dupErrors.mailId = data.message;
+          if (data.message.toLowerCase().includes('contact')) dupErrors.contactNumber = data.message;
+          setErrors((prev) => ({ ...prev, ...dupErrors }));
+          return;
+        }
+        throw new Error(data?.message ?? 'Failed to submit');
+      }
+
       setSubmitted(true);
     } catch (err: any) {
-      console.error('Firestore submit error', err);
+      console.error('Application submit error', err);
       setSubmitError(err.message || 'Failed to submit');
     } finally {
       setSubmitting(false);

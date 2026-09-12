@@ -175,7 +175,7 @@ const EventRegistrationForm = () => {
       <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-6 md:mb-8">
         REGISTRATION FORM
       </h1>
-      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
+      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative overflow-hidden">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
         <Image 
           src={'/assets/logo/ass.png'} 

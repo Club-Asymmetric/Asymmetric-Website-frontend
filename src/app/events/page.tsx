@@ -126,7 +126,7 @@ const Events = () => {
               ★ ASYMMETRIC EVENT ARCHIVE
             </div>
 
-            <h1 className="text-7xl sm:text-8xl md:text-9xl xl:text-[10rem] font-black font-oswald uppercase leading-none tracking-tight">
+            <h1 className="text-6xl sm:text-8xl md:text-9xl xl:text-[10rem] font-black font-oswald uppercase leading-none tracking-tight">
               EVENTS<span className="text-[#00008b]">.</span>
             </h1>
 
