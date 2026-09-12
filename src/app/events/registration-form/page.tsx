@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { IoMdClose } from 'react-icons/io';
 import GlowyShit from '@/components/GlowyShit';
 import { events as eventsData } from '@/data/events';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Event {
   id: string;
@@ -37,6 +38,9 @@ interface FormData {
 const EventRegistrationForm = () => {
   const [events, setEvents] = useState<Record<string, Event>>({});
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     teamName: '',
@@ -113,38 +117,63 @@ const EventRegistrationForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!selectedEvent) {
       alert('Please select an event');
       return;
     }
-    
+
     if (formData.teamMembers.length < selectedEvent.min_team_size) {
       alert(`Minimum ${selectedEvent.min_team_size} team members required`);
       return;
     }
-    
+
     const hasEmptyFields = formData.teamMembers.some(
       member => !member.name || !member.department
     );
-    
+
     if (hasEmptyFields) {
       alert('Please fill in all team member details');
       return;
     }
 
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(null);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? 'Registration failed');
+      }
+      setSubmitSuccess('Registration successful! Check your email for confirmation.');
+      setFormData({
+        name: '',
+        teamName: '',
+        teamMembers: [{ name: '', department: '' }],
+        collegeName: '',
+        mailId: '',
+        mobileNumber: '',
+        event: '',
+      });
+      setSelectedEvent(null);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Registration failed');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="px-4 py-8 md:px-8 space-y-12">
       <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-6 md:mb-8">
         REGISTRATION FORM
-        <br /><br />
-        WoW you found the secret page! 🎉 <br />
-        But it won&apos;t work until the backend is ready 😅
       </h1>
       <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
         <GlowyShit color="#7E7E7E" left="15vh" top="20vh"/>
@@ -312,13 +341,22 @@ const EventRegistrationForm = () => {
               </p>
             )}
 
+            {/* Submit Feedback */}
+            {submitError && (
+              <p className="text-red-300 text-xs md:text-sm text-center">{submitError}</p>
+            )}
+            {submitSuccess && (
+              <p className="text-green-300 text-xs md:text-sm text-center">{submitSuccess}</p>
+            )}
+
             {/* Submit Button */}
             <div className='flex justify-center py-3'>
               <button
                 type="submit"
-                className="w-1/2 sm:w-1/3 xl:w-1/4 bg-gray-500 text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md cursor-not-allowed pointer-events-none"
+                disabled={isSubmitting}
+                className="w-1/2 sm:w-1/3 xl:w-1/4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md transition-colors"
               >
-                SUBMIT (Soon)
+                {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
               </button>
             </div>
           </form>

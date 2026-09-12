@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '@/lib/api';
 
 interface FormData {
   name: string;
@@ -46,6 +47,7 @@ const ContactUsForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -68,17 +70,31 @@ const ContactUsForm = () => {
     adjustTextareaHeight();
   }, [formData.message]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setSubmitError(null);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? 'Failed to send message');
+      }
       setIsSubmitted(true);
-    }, 1400);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
     setIsSubmitted(false);
+    setSubmitError(null);
     setFormData({ name: '', mailId: '', mobileNumber: '', topic: '', message: '' });
   };
 
@@ -296,7 +312,10 @@ const ContactUsForm = () => {
                 </div>
 
                 {/* Submit */}
-                <div className="flex justify-end">
+                <div className="flex flex-col items-end gap-2">
+                  {submitError && (
+                    <p className="text-sm text-red-400">{submitError}</p>
+                  )}
                   <motion.button
                     type="submit"
                     whileTap={{ scale: 0.98 }}
