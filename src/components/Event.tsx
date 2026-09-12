@@ -15,7 +15,7 @@ export default function Event(props: {
 }) {
   const openRegistrationPage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    window.location.href = "/events/registration-form";
+    window.location.href = "/member-application";
   };
 
   const cardIndex = props.index || 0;

@@ -184,6 +184,69 @@ const Events = () => {
         </div>
       </section>
 
+      {/* EVENT ARCHIVE */}
+      <section className="py-24 px-4 md:px-12 max-w-7xl mx-auto">
+
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-800 pb-6 mb-12 gap-4">
+          <div>
+            <div className="font-mono text-xs text-[#00008b] tracking-widest uppercase mb-2">
+              {"// COMPLETE CATALOGUE"}
+            </div>
+            <h2 className="text-5xl sm:text-6xl font-black font-oswald uppercase tracking-tight">
+              EVENT <span className="text-[#00008b]">ARCHIVE</span>
+            </h2>
+          </div>
+          <p className="font-mono text-xs text-zinc-400 max-w-xs">
+            SELECT A CATEGORY TO FILTER PAST &amp; UPCOMING SESSIONS.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-16 border-b border-zinc-800 pb-6">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`font-mono text-xs font-bold px-4 py-2.5 transition-all border ${
+                activeCategory === cat
+                  ? "bg-[#00008b] text-white border-[#00008b] shadow-[3px_3px_0px_0px_rgba(255,255,255,0.2)] scale-105"
+                  : "bg-zinc-900/80 text-zinc-300 border-zinc-700 hover:border-[#00008b] hover:text-white"
+              }`}
+            >
+              [ {cat} ]
+            </button>
+          ))}
+        </div>
+
+        {filteredEvents.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 items-start">
+            {filteredEvents.map((event, idx) => (
+              <Event
+                key={event.id || idx}
+                index={idx}
+                imageSrc={
+                  event.photos && event.photos[0]
+                    ? (event.photos[0].startsWith("/") ? event.photos[0] : `/images/${event.photos[0]}`)
+                    : "/placeholders/Events_Placeholder.png"
+                }
+                desc={event.description}
+                synopsis={event.synopsis || ""}
+                name={event.name}
+                type={event.category || (event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team")}
+                date={event.date.slice(0, 10)}
+                location={event.location}
+                openPopup={openPopup}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 border border-dashed border-zinc-800 p-12">
+            <div className="font-mono text-lg text-[#00008b] mb-2">[ NO EVENTS FOUND ]</div>
+            <p className="text-zinc-400 font-mono text-xs">NO SESSIONS CURRENTLY MATCH THIS CATEGORY FILTER.</p>
+          </div>
+        )}
+
+      </section>
+
       {/* FEATURED / UPCOMING EVENT ("NEXT UP") */}
       <section id="featured-event" className="py-24 px-4 md:px-12 bg-[#eae8e1] text-black border-b-2 border-black relative">
         <div className="max-w-7xl mx-auto">
@@ -279,69 +342,6 @@ const Events = () => {
           </div>
 
         </div>
-      </section>
-
-      {/* EVENT ARCHIVE */}
-      <section className="py-24 px-4 md:px-12 max-w-7xl mx-auto">
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-800 pb-6 mb-12 gap-4">
-          <div>
-            <div className="font-mono text-xs text-[#00008b] tracking-widest uppercase mb-2">
-              {"// COMPLETE CATALOGUE"}
-            </div>
-            <h2 className="text-5xl sm:text-6xl font-black font-oswald uppercase tracking-tight">
-              EVENT <span className="text-[#00008b]">ARCHIVE</span>
-            </h2>
-          </div>
-          <p className="font-mono text-xs text-zinc-400 max-w-xs">
-            SELECT A CATEGORY TO FILTER PAST &amp; UPCOMING SESSIONS.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-16 border-b border-zinc-800 pb-6">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`font-mono text-xs font-bold px-4 py-2.5 transition-all border ${
-                activeCategory === cat
-                  ? "bg-[#00008b] text-white border-[#00008b] shadow-[3px_3px_0px_0px_rgba(255,255,255,0.2)] scale-105"
-                  : "bg-zinc-900/80 text-zinc-300 border-zinc-700 hover:border-[#00008b] hover:text-white"
-              }`}
-            >
-              [ {cat} ]
-            </button>
-          ))}
-        </div>
-
-        {filteredEvents.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 items-start">
-            {filteredEvents.map((event, idx) => (
-              <Event
-                key={event.id || idx}
-                index={idx}
-                imageSrc={
-                  event.photos && event.photos[0]
-                    ? (event.photos[0].startsWith("/") ? event.photos[0] : `/images/${event.photos[0]}`)
-                    : "/placeholders/Events_Placeholder.png"
-                }
-                desc={event.description}
-                synopsis={event.synopsis || ""}
-                name={event.name}
-                type={event.category || (event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team")}
-                date={event.date.slice(0, 10)}
-                location={event.location}
-                openPopup={openPopup}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20 border border-dashed border-zinc-800 p-12">
-            <div className="font-mono text-lg text-[#00008b] mb-2">[ NO EVENTS FOUND ]</div>
-            <p className="text-zinc-400 font-mono text-xs">NO SESSIONS CURRENTLY MATCH THIS CATEGORY FILTER.</p>
-          </div>
-        )}
-
       </section>
 
       {/* EDITORIAL EVENT DETAIL MODAL */}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface PodcastData {
   id: string;
@@ -10,38 +11,33 @@ interface PodcastData {
 
 const PodcastCard: React.FC<PodcastData> = ({ name, guests, description, image }) => {
   return (
-    <div className="w-full max-w-[320px] bg-ass-gradient rounded-2xl p-4 sm:p-6 relative animate-zoomIn">
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2">
-        <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden relative">
-          <Image
-            src={image}
-            alt={name}
-            width={96}
-            height={96}
-            className="w-full h-full object-fill"
-          />
+    <div className="flex h-full w-full max-w-[340px] flex-col border border-white/10 bg-[#080809] p-6 sm:p-7 transition-colors duration-300 hover:border-[#3b6cff]/50">
+      <div className="flex items-center gap-4">
+        <div className="relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full border border-white/10">
+          <Image src={image} alt={name} fill className="object-cover" />
+        </div>
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">by</p>
+          <p className="font-parisienne text-lg sm:text-xl text-white">{guests.join(', ')}</p>
         </div>
       </div>
-      <div className="pt-12 md:pt-16 pb-2 text-center space-y-3 md:space-y-5">
-        <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold">
-          {name}
-        </h2>
-        <div className="space-y-1">
-          <p className="text-gray-400 font-parisienne text-sm sm:text-base">by</p>
-          <p className="text-white text-base sm:text-lg md:text-xl font-light font-parisienne">
-            {guests.join(', ')}
-          </p>
-        </div>
-        <p className="text-gray-300 text-xs sm:text-sm px-2 md:px-4 leading-relaxed">
-          {description}
-        </p>
-        <button
-          onClick={() => window.location.href = '/podcast'}
-          className="bg-ass-button text-white px-4 sm:px-8 md:px-12 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 mt-4"
-        >
-          Listen
-        </button>
-      </div>
+
+      <h2 className="mt-6 line-clamp-2 text-lg sm:text-xl font-semibold leading-snug text-white">
+        {name}
+      </h2>
+
+      <p className="mt-3 flex-1 line-clamp-5 text-xs sm:text-sm leading-relaxed text-white/55">
+        {description}
+      </p>
+
+      <div className="mt-6 h-px w-full bg-white/10" />
+      <Link
+        href="/podcast"
+        className="group mt-4 inline-flex w-fit items-center gap-2 font-mono text-xs uppercase tracking-widest text-white transition-colors duration-300 hover:text-[#3b6cff]"
+      >
+        Listen
+        <span className="transition-transform duration-300 group-hover:translate-x-1">↗</span>
+      </Link>
     </div>
   );
 };

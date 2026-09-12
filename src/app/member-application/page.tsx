@@ -1,47 +1,251 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import GlowyShit from '@/components/GlowyShit';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { db } from '@/lib/firebase';
+import { db, storage } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs, limit } from 'firebase/firestore';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 interface FormState {
   name: string;
   mailId: string;
   contactNumber: string;
-  department: string; // single select
-  year: string; // single select
-  track: string; // single select
+  department: string;
+  year: string;
+  track: string;
   linkedIn?: string;
   github?: string;
-  resumeUrl?: string; // external link (Drive, etc.)
   description: string;
 }
 
-// Map abbreviation -> full form
-const DEPARTMENTS: Record<string,string> = {
-  'AI-DS': 'Artificial Intelligence and Data Science',
-  'CSE': 'Computer Science and Engineering',
-  'AI-ML': 'Artificial Intelligence and Machine Learning',
-  'ECE': 'Electronics and Communication Engineering',
-  'VLSI': 'VLSI Design',
-  'EEE': 'Electrical and Electronics Engineering',
-  'MECH': 'Mechanical Engineering',
-  'CSBS': 'Computer Science and Business Systems',
-  'CS': 'Cyber Security',
-  'IT': 'Information Technology',
-  'ACT': 'Applied Cloud Technology',
-  'BME': 'Bio Medical Engineering',
-  'MCT': 'Mechatronics Engineering',
-  'CE': 'Civil Engineering'
-};
+const DEPARTMENTS = [
+  'Artificial Intelligence & Data Science',
+  'Computer Science Engineering',
+  'CSE (AI and Machine Learning)',
+  'Electronics & Communication Engineering',
+  'EE (VLSI Design & Technology)',
+  'Electrical & Electronics Engineering',
+  'Mechanical Engineering',
+  'Sciences & Humanities',
+  'Computer Science & Business Systems',
+  'CSE (Cyber Security)',
+  'Information Technology',
+  'ECE (Advanced Communication Technology)',
+  'Biomedical Engineering',
+  'B.E Mechatronics Engineering',
+  'Civil Engineering',
+];
 
-const YEARS = ['I','II','III','IV'];
-
-const TRACKS = ['Tech','Non-Tech'];
+const YEARS = ['I', 'II', 'III', 'IV'];
+const TRACKS: { label: string; value: string }[] = [
+  { label: 'TECH', value: 'Tech' },
+  { label: 'NON-TECH', value: 'Non-Tech' },
+];
 
 const urlPattern = /^(https?:\/\/)?[\w.-]+(\.[\w\.-]+)+[\w\-\._~:?#@!$&'()*+,;=/]*$/i;
+const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
+
+// ---------- Shared field primitives ----------
+
+function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-white/70">
+      {children} {required && <span className="text-red-400">*</span>}
+    </label>
+  );
+}
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return <p className="mt-1.5 text-xs text-red-300">{message}</p>;
+}
+
+const inputBase =
+  'h-[54px] w-full rounded-[12px] border bg-[#111218] px-4 text-sm text-white placeholder:text-white/30 transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] focus:outline-none focus:border-[#6366f1]';
+
+function TextField({
+  id,
+  label,
+  required,
+  error,
+  ...rest
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  error?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div>
+      <FieldLabel required={required}>{label}</FieldLabel>
+      <input
+        id={id}
+        className={`${inputBase} ${error ? 'border-red-400/60' : 'border-[#252633]'}`}
+        {...rest}
+      />
+      <FieldError message={error} />
+    </div>
+  );
+}
+
+// ---------- Searchable department select ----------
+
+function SearchableSelect({
+  id,
+  options,
+  value,
+  onChange,
+  placeholder,
+  error,
+}: {
+  id: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  error?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [highlight, setHighlight] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const filtered = query
+    ? options.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
+    : options;
+
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setQuery('');
+      }
+    };
+    document.addEventListener('mousedown', onClickOutside);
+    return () => document.removeEventListener('mousedown', onClickOutside);
+  }, []);
+
+  const openList = () => {
+    setOpen(true);
+    setHighlight(Math.max(0, options.indexOf(value)));
+    requestAnimationFrame(() => searchRef.current?.focus());
+  };
+
+  const selectOption = (opt: string) => {
+    onChange(opt);
+    setOpen(false);
+    setQuery('');
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (!open) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        openList();
+      }
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlight((h) => Math.min(h + 1, filtered.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlight((h) => Math.max(h - 1, 0));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (filtered[highlight]) selectOption(filtered[highlight]);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setOpen(false);
+      setQuery('');
+    }
+  };
+
+  return (
+    <div ref={rootRef} className="relative">
+      <FieldLabel required>Department</FieldLabel>
+      <button
+        type="button"
+        id={id}
+        onClick={() => (open ? setOpen(false) : openList())}
+        onKeyDown={onKeyDown}
+        className={`flex h-[54px] w-full items-center justify-between rounded-[12px] border bg-[#111218] px-4 text-left text-sm text-white transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] focus:outline-none ${
+          open || error ? 'border-[#6366f1]' : 'border-[#252633]'
+        } ${error && !open ? 'border-red-400/60' : ''}`}
+      >
+        <span className={`truncate ${value ? 'text-white' : 'text-white/30'}`}>{value || placeholder}</span>
+        <span className={`ml-2 shrink-0 text-white/40 transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+      </button>
+
+      {open && (
+        <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-[12px] border border-[#252633] bg-[#111218] shadow-2xl">
+          <input
+            ref={searchRef}
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setHighlight(0);
+            }}
+            onKeyDown={onKeyDown}
+            placeholder="Search department..."
+            className="w-full border-b border-[#252633] bg-transparent px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none"
+          />
+          <ul role="listbox" className="minimal-scrollbar max-h-56 overflow-y-auto py-1">
+            {filtered.length === 0 && <li className="px-4 py-3 text-sm text-white/40">No matches</li>}
+            {filtered.map((opt, i) => (
+              <li
+                key={opt}
+                role="option"
+                aria-selected={value === opt}
+                onMouseEnter={() => setHighlight(i)}
+                onClick={() => selectOption(opt)}
+                className={`cursor-pointer px-4 py-2.5 text-sm transition-colors ${
+                  i === highlight ? 'bg-[#6366f1]/20 text-white' : 'text-white/70'
+                } ${value === opt ? 'font-semibold text-white' : ''}`}
+              >
+                {opt}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <FieldError message={error} />
+    </div>
+  );
+}
+
+// ---------- Segmented control ----------
+
+function SegmentedControl({
+  options,
+  value,
+  onChange,
+}: {
+  options: { label: string; value: string }[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="inline-flex flex-wrap gap-1 rounded-[12px] border border-[#252633] bg-[#111218] p-1">
+      {options.map((opt) => (
+        <button
+          key={opt.value}
+          type="button"
+          onClick={() => onChange(opt.value)}
+          className={`rounded-[9px] px-5 py-2.5 text-sm font-semibold transition-colors ${
+            value === opt.value
+              ? 'bg-[#6366f1] text-white'
+              : 'text-white/50 hover:bg-[#6366f1]/15 hover:text-white'
+          }`}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 const MemberApplicationForm: React.FC = () => {
   const [form, setForm] = useState<FormState>({
@@ -53,65 +257,90 @@ const MemberApplicationForm: React.FC = () => {
     track: '',
     linkedIn: '',
     github: '',
-  resumeUrl: '',
-    description: ''
+    description: '',
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [errors, setErrors] = useState<Record<string,string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const descRef = useRef<HTMLTextAreaElement>(null);
 
   const autoGrow = () => {
-    const el = descRef.current; if(!el) return; el.style.height='auto'; el.style.height=Math.min(el.scrollHeight, 240)+"px";
+    const el = descRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 260) + 'px';
   };
-  useEffect(()=>{autoGrow();},[form.description]);
+  useEffect(() => {
+    autoGrow();
+  }, [form.description]);
 
-  // for radio groups use generic handler
-  const setSingle = (field: keyof Pick<FormState,'department'|'year'|'track'>, value: string) => {
-    setForm(prev => ({ ...prev, [field]: value }));
+  const setSingle = (field: keyof Pick<FormState, 'department' | 'year' | 'track'>, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm(prev=>({...prev, [name]: value}));
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file && file.size > MAX_RESUME_BYTES) {
+      setErrors((prev) => ({ ...prev, resumeFile: 'File must be under 5MB' }));
+      return;
+    }
+    setErrors((prev) => {
+      const { resumeFile: _drop, ...rest } = prev;
+      return rest;
+    });
+    setResumeFile(file);
   };
 
   const validate = (): boolean => {
-    const newErrors: Record<string,string> = {};
-    if(!form.name.trim()) newErrors.name = 'Name is required';
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.mailId)) newErrors.mailId = 'Valid email required';
-    if(!/^\d{10}$/.test(form.contactNumber)) newErrors.contactNumber = '10-digit contact number required';
-  if(!form.department) newErrors.department = 'Select a department';
-  if(!form.year) newErrors.year = 'Select a year';
-  if(!form.track) newErrors.track = 'Select a track';
-    if(form.linkedIn && !urlPattern.test(form.linkedIn)) newErrors.linkedIn = 'Invalid URL';
-    if(form.github && !urlPattern.test(form.github)) newErrors.github = 'Invalid URL';
-    if(!form.description.trim()) newErrors.description = 'Description is required';
-  if(form.resumeUrl && !urlPattern.test(form.resumeUrl)) newErrors.resumeUrl = 'Invalid resume URL';
+    const newErrors: Record<string, string> = {};
+    if (!form.name.trim()) newErrors.name = 'Name is required';
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.mailId)) newErrors.mailId = 'Valid email required';
+    if (!/^\d{10}$/.test(form.contactNumber)) newErrors.contactNumber = '10-digit contact number required';
+    if (!form.department) newErrors.department = 'Select a department';
+    if (!form.year) newErrors.year = 'Select a year';
+    if (!form.track) newErrors.track = 'Select a track';
+    if (form.linkedIn && !urlPattern.test(form.linkedIn)) newErrors.linkedIn = 'Invalid URL';
+    if (form.github && !urlPattern.test(form.github)) newErrors.github = 'Invalid URL';
+    if (!form.description.trim()) newErrors.description = 'Description is required';
+    if (!resumeFile) newErrors.resumeFile = 'Resume is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(!validate()) return;
+    if (!validate()) return;
     setSubmitting(true);
     setSubmitError(null);
     try {
-      // Duplicate check (mailId or contactNumber already exists)
       const baseCol = collection(db, 'member_applications');
       const mailQ = query(baseCol, where('mailId', '==', form.mailId), limit(1));
       const phoneQ = query(baseCol, where('contactNumber', '==', form.contactNumber), limit(1));
       const [mailSnap, phoneSnap] = await Promise.all([getDocs(mailQ), getDocs(phoneQ)]);
-      const dupErrors: Record<string,string> = {};
-      if(!mailSnap.empty) dupErrors.mailId = 'This email is already used';
-      if(!phoneSnap.empty) dupErrors.contactNumber = 'This contact number is already used';
-      if(Object.keys(dupErrors).length) {
-        setErrors(prev => ({ ...prev, ...dupErrors }));
+      const dupErrors: Record<string, string> = {};
+      if (!mailSnap.empty) dupErrors.mailId = 'This email is already used';
+      if (!phoneSnap.empty) dupErrors.contactNumber = 'This contact number is already used';
+      if (Object.keys(dupErrors).length) {
+        setErrors((prev) => ({ ...prev, ...dupErrors }));
         setSubmitting(false);
         return;
       }
+
+      let resumeUrl: string | null = null;
+      if (resumeFile) {
+        const path = `resumes/${Date.now()}-${resumeFile.name}`;
+        const fileRef = storageRef(storage, path);
+        await uploadBytes(fileRef, resumeFile);
+        resumeUrl = await getDownloadURL(fileRef);
+      }
+
       await addDoc(collection(db, 'member_applications'), {
         name: form.name,
         mailId: form.mailId,
@@ -122,8 +351,8 @@ const MemberApplicationForm: React.FC = () => {
         linkedIn: form.linkedIn || null,
         github: form.github || null,
         description: form.description,
-  resumeUrl: form.resumeUrl || null,
-        createdAt: serverTimestamp()
+        resumeUrl,
+        createdAt: serverTimestamp(),
       });
       setSubmitted(true);
     } catch (err: any) {
@@ -134,191 +363,311 @@ const MemberApplicationForm: React.FC = () => {
     }
   };
 
-  const reset = () => { setForm({ name:'',mailId:'',contactNumber:'',department:'',year:'',track:'',linkedIn:'',github:'',resumeUrl:'',description:''}); setErrors({}); setSubmitted(false); setSubmitError(null); };
+  const reset = () => {
+    setForm({
+      name: '',
+      mailId: '',
+      contactNumber: '',
+      department: '',
+      year: '',
+      track: '',
+      linkedIn: '',
+      github: '',
+      description: '',
+    });
+    setResumeFile(null);
+    setErrors({});
+    setSubmitted(false);
+    setSubmitError(null);
+  };
 
   return (
-    <div className="px-4 py-8 md:px-8 space-y-12">
-      <h1 className="text-xl md:text-2xl font-bold text-white text-center mb-2">
-        MEMBER APPLICATION
-      </h1>
-      
-      <div className="py-6 md:py-8 w-full md:w-4/5 lg:w-1/2 bg-ass-gradient mx-auto p-4 rounded-xl relative">
-        <GlowyShit color="#7E7E7E" left="15vh" top="20vh" />
-        <Image src={'/logo/ass.png'} alt="Member Application" className='mx-auto z-10 absolute -inset-x-5 inset-y-20 sm:inset-0 md:-inset-10 lg:inset-0 w-fit h-fit object-cover opacity-5' width={500} height={500} />
-        <div className="w-full max-w-2xl p-4 md:p-8 lg:p-10 relative z-10 mx-auto">
+    <div className="px-4 py-10 md:px-8 md:py-16">
+      <div className="relative mx-auto w-full max-w-[950px] overflow-hidden rounded-2xl border border-[#24252d] bg-[#0b0b0e] p-6 sm:p-8 md:p-12">
+        {/* subtle indigo corner glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#6366f1] opacity-[0.12] blur-[100px]"
+        />
+        {/* faint logo watermark */}
+        <Image
+          src="/logo/ass.png"
+          alt=""
+          aria-hidden="true"
+          width={500}
+          height={500}
+          className="pointer-events-none absolute inset-0 z-0 m-auto h-[80%] w-[80%] object-contain opacity-[0.025]"
+        />
+
+        <div className="relative z-10">
           <AnimatePresence mode="wait">
             {submitted ? (
               <motion.div
                 key="success"
-                initial={{opacity:0, y:20, scale:0.97}}
-                animate={{opacity:1, y:0, scale:1}}
-                exit={{opacity:0, y:-10}}
-                transition={{duration:0.55, ease:'easeOut'}}
-                className="relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-green-800/30 via-emerald-800/20 to-transparent p-8 md:p-10 space-y-6 shadow-[0_0_25px_-5px_rgba(16,185,129,0.4)]"
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.55, ease: 'easeOut' }}
+                className="relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#6366f1]/20 via-[#111218] to-transparent p-8 md:p-10 space-y-6"
               >
-                {/* Decorative pulses */}
                 <motion.div
-                  className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-green-400/10 blur-2xl"
-                  animate={{scale:[1,1.2,1]}}
-                  transition={{repeat:Infinity, duration:6, ease:'easeInOut'}}
-                />
-                <motion.div
-                  className="pointer-events-none absolute bottom-0 right-0 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl"
-                  animate={{scale:[1.1,0.9,1.1]}}
-                  transition={{repeat:Infinity, duration:7.5, ease:'easeInOut'}}
+                  className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-[#6366f1]/10 blur-2xl"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
                 />
                 <div className="relative z-10 space-y-4 text-center">
                   <motion.h2
-                    className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 bg-clip-text text-transparent tracking-wide"
-                    initial={{opacity:0, y:10}}
-                    animate={{opacity:1, y:0}}
-                    transition={{delay:0.1}}
+                    className="text-2xl md:text-3xl font-extrabold text-white tracking-wide"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
                   >
-                    Application Received ✨
+                    Application Received
                   </motion.h2>
                   <motion.p
-                    className="text-sm md:text-base leading-relaxed text-emerald-50/80 max-w-md mx-auto"
-                    initial={{opacity:0}}
-                    animate={{opacity:1}}
-                    transition={{delay:0.25}}
+                    className="text-sm md:text-base leading-relaxed text-white/70 max-w-md mx-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.25 }}
                   >
-                    Your profile just took a quantum leap into our system. Our team will review it soon and reach out if there’s a cosmic alignment. Keep building cool stuff in the meantime.
+                    Your application is in. Our team will review it and reach out if there&apos;s a fit. Keep building cool stuff in the meantime.
                   </motion.p>
                   <motion.div
                     className="flex flex-col md:flex-row gap-4 justify-center pt-2"
-                    initial={{opacity:0}}
-                    animate={{opacity:1}}
-                    transition={{delay:0.4}}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
                   >
                     <motion.button
-                      whileHover={{scale:1.05}}
-                      whileTap={{scale:0.95}}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
                       onClick={reset}
-                      className="px-6 py-2 rounded-md bg-ass-button hover:bg-gray-300 hover:text-black text-gray-100 text-sm md:text-base font-semibold transition-colors"
+                      className="px-6 py-2.5 rounded-[12px] bg-[#6366f1] hover:bg-[#5457e0] text-white text-sm md:text-base font-semibold transition-colors"
                     >
                       Submit Another
                     </motion.button>
-                    <a
+                    <Link
                       href="/"
-                      className="px-6 py-2 rounded-md border border-emerald-300/40 text-emerald-200 hover:bg-emerald-300 hover:text-black text-sm md:text-base font-semibold transition-colors"
+                      className="px-6 py-2.5 rounded-[12px] border border-white/15 text-white/80 hover:bg-white/5 text-sm md:text-base font-semibold transition-colors"
                     >
                       Back Home
-                    </a>
+                    </Link>
                   </motion.div>
                   <motion.p
-                    className="text-[11px] md:text-xs uppercase tracking-wider text-emerald-200/50 pt-4"
-                    initial={{opacity:0}}
-                    animate={{opacity:1}}
-                    transition={{delay:0.55}}
+                    className="text-[11px] md:text-xs uppercase tracking-wider text-white/30 pt-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.55 }}
                   >
-                    You’ll hear from us if there’s a fit — no spam, promise.
+                    You&apos;ll hear from us if there&apos;s a fit — no spam, promise.
                   </motion.p>
                 </div>
               </motion.div>
             ) : (
-              <motion.form key="form" noValidate onSubmit={handleSubmit} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="space-y-8 md:space-y-10">
+              <motion.form
+                key="form"
+                noValidate
+                onSubmit={handleSubmit}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-10"
+              >
+                {/* Header */}
+                <div className="space-y-3">
+                  <p className="font-mono text-xs tracking-[0.25em] text-[#6366f1] uppercase">Apply // Asymmetric</p>
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                    Build. Break. Learn. Repeat.
+                  </h1>
+                  <p className="text-sm md:text-base text-white/50 max-w-xl">
+                    Tell us a little about yourself. No corporate essays required.
+                  </p>
+                </div>
+
                 {/* Error summary */}
                 {Object.keys(errors).length > 0 && (
-                  <div className="rounded-md border border-red-400/30 bg-red-900/30 px-4 py-3 text-xs md:text-sm text-red-200 space-y-1">
+                  <div className="rounded-[12px] border border-red-400/30 bg-red-900/20 px-4 py-3 text-xs md:text-sm text-red-200 space-y-1">
                     <p className="font-semibold tracking-wide">Please fix the following:</p>
                     <ul className="list-disc list-inside space-y-0.5">
-                      {Object.entries(errors).slice(0,4).map(([field,msg]) => (
+                      {Object.entries(errors).slice(0, 4).map(([field, msg]) => (
                         <li key={field}>{msg}</li>
                       ))}
                       {Object.keys(errors).length > 4 && <li>...and more</li>}
                     </ul>
                   </div>
                 )}
-                {/* Basic Text Fields */}
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="relative">
-                    <input id="name" type="text" name="name" value={form.name} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label htmlFor="name" className="absolute text-gray-300 duration-200 transform -translate-y-9 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 peer-focus:left-1 rounded-3xl cursor-text text-sm md:text-base">Name <span className='text-red-400'>*</span></label>
-                    {errors.name && <p className="text-xs text-red-300 mt-1">{errors.name}</p>}
-                  </div>
-                  <div className="relative">
-                    <input id="mailId" type="email" name="mailId" value={form.mailId} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label htmlFor="mailId" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Mail ID <span className='text-red-400'>*</span></label>
-                    {errors.mailId && <p className="text-xs text-red-300 mt-1">{errors.mailId}</p>}
-                  </div>
-                  <div className="relative">
-                    <input id="contactNumber" type="tel" name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder=" " pattern="[0-9]*" inputMode="numeric" className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" required />
-                    <label htmlFor="contactNumber" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Contact Number <span className='text-red-400'>*</span></label>
-                    {errors.contactNumber && <p className="text-xs text-red-300 mt-1">{errors.contactNumber}</p>}
-                  </div>
-                  <div className="relative">
-                    <input id="linkedIn" type="url" name="linkedIn" value={form.linkedIn} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label htmlFor="linkedIn" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">LinkedIn URL (Optional)</label>
-                    {errors.linkedIn && <p className="text-xs text-red-300 mt-1">{errors.linkedIn}</p>}
-                  </div>
-                  <div className="relative">
-                    <input id="github" type="url" name="github" value={form.github} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label htmlFor="github" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">GitHub URL (Optional)</label>
-                    {errors.github && <p className="text-xs text-red-300 mt-1">{errors.github}</p>}
-                  </div>
-                  <div className="relative">
-                    <input id="resumeUrl" type="url" name="resumeUrl" value={form.resumeUrl} onChange={handleChange} placeholder=" " className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-white peer text-sm md:text-base" />
-                    <label htmlFor="resumeUrl" className="absolute text-gray-300 duration-200 transform -translate-y-9 peer-focus:left-1 scale-75 top-1 z-10 origin-[0] bg-transparent px-2 my-2 left-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:bg-white peer-focus:text-black peer-focus:-translate-y-6 rounded-3xl cursor-text text-sm md:text-base">Resume URL (Optional)</label>
-                    {errors.resumeUrl && <p className="text-xs text-red-300 mt-1">{errors.resumeUrl}</p>}
+
+                {/* Row 1 */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <TextField
+                    id="name"
+                    name="name"
+                    label="Name"
+                    required
+                    type="text"
+                    value={form.name}
+                    onChange={handleChange}
+                    error={errors.name}
+                    placeholder="Your full name"
+                  />
+                  <TextField
+                    id="mailId"
+                    name="mailId"
+                    label="Mail ID"
+                    required
+                    type="email"
+                    value={form.mailId}
+                    onChange={handleChange}
+                    error={errors.mailId}
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                {/* Row 2 */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <TextField
+                    id="contactNumber"
+                    name="contactNumber"
+                    label="Contact Number"
+                    required
+                    type="tel"
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    value={form.contactNumber}
+                    onChange={handleChange}
+                    error={errors.contactNumber}
+                    placeholder="10-digit number"
+                  />
+                  <TextField
+                    id="linkedIn"
+                    name="linkedIn"
+                    label="LinkedIn URL (optional)"
+                    type="url"
+                    value={form.linkedIn}
+                    onChange={handleChange}
+                    error={errors.linkedIn}
+                    placeholder="linkedin.com/in/you"
+                  />
+                </div>
+
+                {/* Row 3 */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <TextField
+                    id="github"
+                    name="github"
+                    label="GitHub URL (optional)"
+                    type="url"
+                    value={form.github}
+                    onChange={handleChange}
+                    error={errors.github}
+                    placeholder="github.com/you"
+                  />
+                  <div>
+                    <FieldLabel required>Resume</FieldLabel>
+                    <div
+                      className={`flex h-[54px] items-center justify-between gap-3 rounded-[12px] border bg-[#111218] px-4 transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] ${
+                        errors.resumeFile ? 'border-red-400/60' : 'border-[#252633]'
+                      }`}
+                    >
+                      {resumeFile ? (
+                        <div className="flex min-w-0 items-center gap-2">
+                          <span className="shrink-0 text-emerald-400">✓</span>
+                          <span className="truncate text-sm text-white/80">{resumeFile.name}</span>
+                        </div>
+                      ) : (
+                        <span className="truncate text-sm text-white/30">PDF or DOC, up to 5MB</span>
+                      )}
+                      <div className="flex shrink-0 items-center gap-3">
+                        {resumeFile && (
+                          <button
+                            type="button"
+                            onClick={() => setResumeFile(null)}
+                            className="text-xs text-white/50 transition-colors hover:text-red-300"
+                          >
+                            Remove
+                          </button>
+                        )}
+                        <label className="cursor-pointer rounded-[8px] bg-[#1b1c24] px-3 py-1.5 text-xs font-semibold text-white/80 transition-colors hover:bg-[#6366f1]/20 hover:text-white">
+                          {resumeFile ? 'Change' : 'Upload'}
+                          <input
+                            type="file"
+                            accept=".pdf,.doc,.docx"
+                            className="hidden"
+                            onChange={handleResumeChange}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <FieldError message={errors.resumeFile} />
                   </div>
                 </div>
 
-                {/* Radio Groups */}
-                <div className="grid md:grid-cols-3 gap-8">
-                  <fieldset className="space-y-3">
-                    <legend className="text-white font-semibold text-sm md:text-base">Department <span className="text-red-400">*</span></legend>
-                    <div className="flex flex-col gap-2 max-h-56 overflow-y-auto pr-1 minimal-scrollbar">
-                      {Object.entries(DEPARTMENTS).map(([abbr, full]) => (
-                        <label key={abbr} className="flex items-start gap-2 text-xs md:text-sm text-white/80 cursor-pointer">
-                          <input type="radio" name="department" value={abbr} className="accent-ass-button mt-[2px]" checked={form.department === abbr} onChange={()=>setSingle('department', abbr)} required />
-                          <span><span className="font-semibold text-white/90">{full}</span><span className="text-white/40"> ({abbr})</span></span>
-                        </label>
-                      ))}
-                    </div>
-                    {errors.department && <p className="text-xs text-red-300 mt-1">{errors.department}</p>}
-                  </fieldset>
+                {/* Row 4: Department + Year */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <SearchableSelect
+                    id="department"
+                    options={DEPARTMENTS}
+                    value={form.department}
+                    onChange={(v) => setSingle('department', v)}
+                    placeholder="Select your department"
+                    error={errors.department}
+                  />
+                  <div>
+                    <FieldLabel required>Year</FieldLabel>
+                    <SegmentedControl
+                      options={YEARS.map((y) => ({ label: y, value: y }))}
+                      value={form.year}
+                      onChange={(v) => setSingle('year', v)}
+                    />
+                    <FieldError message={errors.year} />
+                  </div>
+                </div>
 
-                  <fieldset className="space-y-3">
-                    <legend className="text-white font-semibold text-sm md:text-base">Year <span className="text-red-400">*</span></legend>
-                    <div className="flex flex-wrap gap-3">
-                      {YEARS.map(yr => (
-                        <label key={yr} className="flex items-center gap-2 text-xs md:text-sm text-white/80 cursor-pointer">
-                          <input type="radio" name="year" value={yr} className="accent-ass-button" checked={form.year === yr} onChange={()=>setSingle('year', yr)} required />
-                          <span>{yr}</span>
-                        </label>
-                      ))}
-                    </div>
-                    {errors.year && <p className="text-xs text-red-300 mt-1">{errors.year}</p>}
-                  </fieldset>
-
-                  <fieldset className="space-y-3">
-                    <legend className="text-white font-semibold text-sm md:text-base">Track <span className="text-red-400">*</span></legend>
-                    <div className="flex flex-col gap-2">
-                      {TRACKS.map(t => (
-                        <label key={t} className="flex items-center gap-2 text-xs md:text-sm text-white/80 cursor-pointer">
-                          <input type="radio" name="track" value={t} className="accent-ass-button" checked={form.track === t} onChange={()=>setSingle('track', t)} required />
-                          <span>{t}</span>
-                        </label>
-                      ))}
-                    </div>
-                    {errors.track && <p className="text-xs text-red-300 mt-1">{errors.track}</p>}
-                  </fieldset>
+                {/* Track */}
+                <div>
+                  <FieldLabel required>Track</FieldLabel>
+                  <SegmentedControl options={TRACKS} value={form.track} onChange={(v) => setSingle('track', v)} />
+                  <FieldError message={errors.track} />
                 </div>
 
                 {/* Description */}
-                <div className="relative">
-                  <textarea name="description" ref={descRef} value={form.description} onChange={handleChange} placeholder="Describe work you've done, projects, events, achievements..." maxLength={800} className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-md bg-blue-950/30 border border-blue-500/10 text-white placeholder:text-white/60 focus:outline-none focus:ring-1 focus:ring-white resize-none overflow-hidden min-h-[140px] text-sm md:text-base" aria-label="Description (required)" required />
-                  <div className="flex justify-between text-white/50 text-xs mt-1">
-                    <span><span className='text-red-400'>*</span> {form.description.length}/800</span>
+                <div>
+                  <FieldLabel required>What have you been up to?</FieldLabel>
+                  <p className="mb-2 text-xs text-white/40">
+                    Projects, events, competitions, experiments, communities — anything you&apos;re proud of.
+                  </p>
+                  <textarea
+                    name="description"
+                    ref={descRef}
+                    value={form.description}
+                    onChange={handleChange}
+                    maxLength={800}
+                    className="min-h-[140px] w-full resize-none overflow-hidden rounded-[12px] border border-[#252633] bg-[#111218] px-4 py-3.5 text-sm text-white placeholder:text-white/30 transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] focus:border-[#6366f1] focus:outline-none"
+                    aria-label="What have you been up to? (required)"
+                  />
+                  <div className="mt-1.5 flex justify-between text-xs text-white/40">
+                    <span>{form.description.length}/800</span>
                     {errors.description && <span className="text-red-300">{errors.description}</span>}
                   </div>
                 </div>
 
                 {/* Submit */}
                 {submitError && <p className="text-center text-red-400 text-sm">{submitError}</p>}
-                <div className="flex justify-center">
-                  <motion.button type="submit" disabled={submitting} whileHover={!submitting ? {backgroundColor:"rgb(229 231 235)",color:"rgb(0 0 0)",scale:1.05}: undefined} whileTap={!submitting ? {scale:0.95}: undefined} className={`w-1/2 sm:w-1/3 xl:w-1/4 bg-ass-button text-gray-100 py-2 text-sm md:text-base font-semibold rounded-md transition-colors disabled:opacity-60 disabled:cursor-not-allowed`}>
-                    {submitting ? 'Submitting...' : 'SUBMIT'}
+                <div className="flex justify-end">
+                  <motion.button
+                    type="submit"
+                    disabled={submitting}
+                    whileTap={!submitting ? { scale: 0.98 } : undefined}
+                    className="group flex h-[54px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#6366f1] px-8 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.45)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[230px]"
+                  >
+                    {submitting ? (
+                      'Submitting...'
+                    ) : (
+                      <>
+                        Submit Application
+                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      </>
+                    )}
                   </motion.button>
                 </div>
               </motion.form>

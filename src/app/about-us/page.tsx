@@ -410,7 +410,7 @@ export default function AboutUs() {
 
           <div className="pt-6">
             <Link
-              href="/contact-us"
+              href="/member-application"
               className="inline-flex items-center gap-3 bg-[#00008b] text-white font-oswald text-xl sm:text-2xl font-bold uppercase px-10 py-5 hover:bg-white hover:scale-105 transition-all duration-300 border-2 border-black shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)]"
             >
               <span>JOIN ASYMMETRIC</span>

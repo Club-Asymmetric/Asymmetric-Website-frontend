@@ -1,34 +1,48 @@
-# Scroll hero integration
+# Club Asymmetric scroll hero
 
-The homepage now mounts `src/components/ScrollHero.tsx` before its existing content. Three.js is dynamically imported on the client. The hero reads its own scroll bounds, seeks the GLB animation (including its embedded camera), and releases the pinned viewport into the original homepage. Scrolling backward rewinds the animation. Mobile uses the reference's separate mobile scene. Pointer parallax is desktop-only.
+## Install this update
 
-The readable club intro appears while loading, when reduced motion is enabled, on WebGL or model failures, and at the end of the animation. The scene stops rendering offscreen and when the tab is hidden. Resources and observers are disposed when the component unmounts. The podcast API no longer blocks the entire homepage.
+Copy the bundle's `src/components/` and `public/hero/` folders into your Next.js project, replacing the previous ScrollHero component and assets. Clear any `NEXT_PUBLIC_HERO_MODEL_URL` and `NEXT_PUBLIC_HERO_MOBILE_MODEL_URL` values pointing to the original Sprint URLs: the component now defaults to `/hero/desktop.glb` and `/hero/mobile.glb`.
 
-## Asset status — review before merging
+If you already applied the previous homepage patch, no homepage changes are needed. Otherwise import `ScrollHero` from `@/components/ScrollHero`, render `<ScrollHero />` above the homepage content, and give the following section `id="home-content"` for the skip link. Ensure the hero can render without waiting for podcast/API data.
 
-The defaults are the actual desktop and mobile scene URLs linked by https://razorpay.com/sprint/26:
+Dependencies (already present in the earlier patch):
+
+```bash
+npm install three@0.170.0
+npm install -D @types/three@0.170.0
+```
+
+Restart the development server after copying the files. The rendered 3D text is part of the models, not HTML overlays. The Register Now label is visual scene content, not a clickable registration control; the existing Events link is functional.
+
+## Changes in both scene files
+
+| Original surface | New wording |
+| --- | --- |
+| Shoe label | ASYMMETRIC |
+| Agentic Commerce | WORKSHOPS / MCP |
+| Payment Completed | iOS DEVELOPMENT |
+| Ask me anything | Explore workshops |
+| Global Checkout | TECH FIESTA |
+| Magic Checkout | HACKSYMMETRIC (two lines) |
+| Buy now | REGISTER NOW |
+| SPRINT 26 | WELCOME TO CLUB ASYMMETRIC |
+| 100+ LAUNCHES & UPDATES | WE BREAK THINGS |
+
+Original lettering geometry is replaced, including removal of the shoe's old texture reference and original right-shoe glyph primitive. The new shoe glyphs use skin weights and a smooth fitted surface to follow the existing animation. Camera paths, rigs, other objects, and animation timing remain unchanged. The scene retains its blue/white objects against a black background; the HTML end card uses black, green, and white.
+
+The source scenes are from the user-requested reference at https://razorpay.com/sprint/26. Desktop and mobile assets and Draco decoders are now bundled locally, removing the earlier remote model dependency. Original scene URLs:
 
 - https://pub-6903216751f64c07b3cecf6009faf318.r2.dev/Sprint.glb
 - https://pub-6903216751f64c07b3cecf6009faf318.r2.dev/Sprint_mobile.glb
 
-These third-party models are **not bundled or rebranded**. Download attempts in this development environment returned HTTP 403. As a result the real scene's appearance and cross-origin availability have not been verified. This is an integration draft, not a verified pixel-identical finished hero. The original scene may retain Razorpay/Sprint text and artwork. The surrounding fallback/end card is Club Asymmetric in black, green, and white; the reference model scene remains blue.
+## Validation
 
-For independent hosting, put appropriate scene files under `public/hero/` and configure these public build-time variables:
+- Both edited GLBs pass the Khronos glTF validator with zero errors. Eleven warnings remain in each scene.
+- TypeScript check passed.
+- Desktop scene rendered in headless Chromium at multiple animation times; shoe, workshop, Tech Fiesta, Hacksymmetric and welcome labels inspected.
+- Separate mobile model rendered at a portrait viewport.
 
-```
-NEXT_PUBLIC_HERO_MODEL_URL=/hero/desktop.glb
-NEXT_PUBLIC_HERO_MOBILE_MODEL_URL=/hero/mobile.glb
-```
+The repeatable model edit script is `scripts/rebrand-hero.mjs`. It requires original, unmodified source GLBs and the installed Three.js package. Do not run it against the already rebranded files; it deliberately checks the expected source mesh names. Source and output must be different files.
 
-Models must contain animation clips and an embedded perspective camera (preferably named `DutchCamera001`). Camera animation should remain inside the scene graph. Rebuild Next.js after changing these environment variables. Draco decoders use the same versioned Google CDN as the reference page. Self-host these as well if removing third-party runtime dependencies.
-
-## Review checks
-
-- Desktop: scroll from the initial scene to the end, then backward; camera and objects should rewind.
-- Mobile: verify framing on a real phone in both orientations. The selected model is chosen at mount; resize adjusts projection, without downloading another model during scrolling.
-- Block the GLB request: readable intro and Events link remain usable and the long scroll track collapses.
-- Emulate reduced motion: no scene fetch or long scroll track.
-- Tab through the hero: skip link and visible Events link are reachable; invisible end-card links are hidden.
-- Navigate away/back: only one canvas and one set of listeners should exist.
-
-No deployment or merge is included in this change.
+No GitHub push, merge, or production deployment was performed. The earlier connector write-access restriction remains unresolved.

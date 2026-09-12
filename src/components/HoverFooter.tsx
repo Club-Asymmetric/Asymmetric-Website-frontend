@@ -20,6 +20,7 @@ const footerLinks = [
     title: "Explore",
     links: [
       { label: "Podcasts", href: "/podcast" },
+      { label: "Blogs", href: "/blogs" },
       { label: "Members", href: "/members" },
       { label: "Contact Us", href: "/contact-us" },
       { label: "Live Chat", href: "https://discord.gg/pswGgSt3rR", pulse: true },

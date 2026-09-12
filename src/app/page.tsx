@@ -22,11 +22,13 @@ interface EventData {
   photos: string[];
 }
 
-import ColorText from '@/components/ColorText';
 import Event from '@/components/Event';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
 import ScrollHero from '@/components/ScrollHero';
+import ScrollExpand from '@/components/ScrollExpand';
+import BorderGlow from '@/components/BorderGlow';
+import { FloatingPaths } from '@/components/ui/background-paths';
 import AdmitOneTicket, { TICKET_LAYOUT, TICKET_TEXTURE } from '@/components/ui/admit-one-ticket';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -34,8 +36,22 @@ import { useState,useEffect } from 'react';
 import { events as eventsData } from '@/data/events';
 import { podcasts } from '@/data/podcasts';
 
+const teamPhotos = [
+  '/group-photo/TeamGroupPhoto.png',
+  '/group-photo/TeamOfficeGroup.png',
+  '/group-photo/FreshworksVisit.png',
+  '/group-photo/DevFestMumbaiStage.png',
+  '/group-photo/HacksymmetricGroupPhoto.png',
+  '/group-photo/HacksymmetricOpenInnovationWinners.png',
+  '/group-photo/HacksymmetricAgenticAIWinners.png',
+  '/group-photo/HacksymmetricRunnerUps.png',
+  '/group-photo/AvatarWorkshopDemo.png',
+  '/group-photo/TeamSpeakersMoments.png',
+];
+
 export default function Home() {
   const [showApplyPopup, setShowApplyPopup] = useState(true); // show each refresh
+  const [teamPhotoIndex, setTeamPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
@@ -161,36 +177,97 @@ export default function Home() {
             </div>
           </div>
         )}
-        {/* AboutUs Section */}
-        <div id="home-content" className="flex items-center justify-center my-10 px-6 md:px-0 w-full">
-          <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl p-6 md:p-10 max-w-6xl bg-ass-gradient w-full gap-6 lg:gap-10">
-            <div className="flex-1 text-center lg:text-left lg:ml-10">
-              <h1 className="text-3xl md:text-4xl font-bold">
-                <ColorText text="Welcome to Asymmetric !" />
-              </h1>
-              <p className="mt-4 text-sm">
-                <br/>
-                Asymmetric Club is a student-founded technical community driven by the passion to explore, build, and share. We are a dynamic team dedicated to organizing workshops, hackathons, webinars, technical events, and competitions while also working on innovative projects.
-                <br/><br/>
-                We provide a collaborative and supportive space that encourages continuous learning and personal growth across a wide range of tech domains. Our mission is to empower ourselves and others through knowledge-sharing and hands-on experiences—raising awareness while staying aware.
-                <br/><br/>
-                Whether you're a seasoned tech enthusiast or just beginning your journey, Asymmetric Club welcomes you with open arms and versatile initiatives to support and enhance your technical skills.
-              </p>
-              <Link href='/about-us'>
-                <button className="mt-6 bg-ass-button hover:bg-white hover:text-black px-4 py-1 hover:scale-105 rounded-md transition-all duration-300">
-                  Dive Deeper
-                </button>
-              </Link>
+        {/* AboutUs / Manifesto Section */}
+        <div id="home-content" className="w-full px-6 md:px-10 lg:px-16">
+          <BorderGlow
+            className="w-full max-w-7xl mx-auto"
+            backgroundColor="#080809"
+            borderRadius={6}
+            glowColor="228 90 65"
+            glowRadius={28}
+            glowIntensity={0.7}
+            coneSpread={20}
+            colors={['#1E3FCC', '#3b6cff', '#00008B']}
+          >
+            <div className="relative flex flex-col lg:flex-row items-center gap-10 overflow-hidden px-5 py-8 sm:px-8 md:px-10 md:py-12 lg:gap-16">
+              <FloatingPaths position={1} className="text-[#3b6cff]/25" />
+              <FloatingPaths position={-1} className="text-[#3b6cff]/15" />
+
+              <div className="relative z-10 w-full lg:flex-1">
+                <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.25em] text-white/50 uppercase">
+                  <span>About // 01</span>
+                  <span>Asymmetric&reg;</span>
+                </div>
+                <div className="mt-3 h-px w-full bg-white/15" />
+
+                <h2 className="mt-8 md:mt-10 font-bold uppercase leading-[0.95] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-[64px]">
+                  We break things.
+                  <br />
+                  <span className="text-[#3b6cff]">We build things.</span>
+                </h2>
+
+                <p className="mt-8 max-w-xl text-sm md:text-base text-white/70 leading-relaxed">
+                  ASYMMETRIC is a student-driven technical club that turns curiosity into capability&mdash;bringing emerging technologies, hands-on learning, competitions, Technical Fest, and real-world problem solving together to help students build, compete, and create meaningful impact.
+                </p>
+
+                <p className="mt-5 max-w-xl text-lg md:text-xl italic text-white/90">
+                  No spectators. Just curious people building together.
+                </p>
+
+                <Link
+                  href="/about-us"
+                  className="group mt-10 inline-flex items-center gap-2 border-b border-[#3b6cff]/60 pb-1 font-mono text-sm uppercase tracking-widest text-white transition-all duration-300 hover:border-[#3b6cff]"
+                >
+                  Explore Asymmetric
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&#8599;</span>
+                </Link>
+
+                <div className="mt-14 h-px w-full bg-white/15" />
+                <p className="mt-4 text-center font-mono text-[10px] tracking-[0.3em] text-white/30 uppercase lg:text-left">
+                  Built by students // for the curious
+                </p>
+              </div>
+
+              <div className="relative z-10 flex w-full shrink-0 items-center justify-center lg:w-[320px]">
+                <img
+                  src="/logo/AboutUsLogo.png"
+                  alt="Asymmetric Club"
+                  className="w-48 sm:w-56 lg:w-full h-auto drop-shadow-[0_0_50px_rgba(59,108,255,0.4)]"
+                />
+              </div>
             </div>
-            <div className="hidden lg:flex lg:justify-end lg:items-center">
-              <img 
-                src="/placeholders/Aboutus_Placeholder.png" 
-                alt="AboutUs" 
-                className="w-64 md:w-80 lg:w-96 h-auto"
-              />
-            </div>
-          </div>
+          </BorderGlow>
         </div>
+        {/* Team Section */}
+        <ScrollExpand
+          src={teamPhotos[teamPhotoIndex]}
+          alt="Club Asymmetric team"
+          title="One Team, One Family"
+          scrollHint="Scroll"
+          overlayScrim={0.7}
+          useWindowScroll
+        >
+          <h2 className="text-2xl md:text-4xl font-bold text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.6)]">
+            Club Asymmetric
+          </h2>
+          <p className="mt-2 max-w-xl mx-auto text-sm md:text-base text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
+            The people who build, break, and grow together.
+          </p>
+          <span className="mt-6 font-mono text-xs tracking-widest text-white/70 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+            {String(teamPhotoIndex + 1).padStart(2, '0')} / {String(teamPhotos.length).padStart(2, '0')}
+          </span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setTeamPhotoIndex((i) => (i + 1) % teamPhotos.length);
+            }}
+            aria-label="Next photo"
+            className="absolute right-4 sm:right-8 md:right-12 top-1/2 -translate-y-1/2 flex h-11 w-11 md:h-14 md:w-14 items-center justify-center rounded-full bg-[#3b6cff] text-lg md:text-xl text-white transition-transform duration-300 hover:scale-110"
+          >
+            →
+          </button>
+        </ScrollExpand>
+
         {/* Events Section */}
         <div className="flex flex-col items-center w-full">
         <div className="flex flex-col bg-ass-gradient max-w-6xl mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
@@ -213,14 +290,15 @@ export default function Home() {
 
       {/*Podcast Section*/}
       <div className="container mx-auto xl:px-40 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center animate-zoomIn">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch animate-zoomIn">
         {loading && <LoadingSpinner />}
         {podcastsData.slice(0, 3).map((podcast, index) => (
           <div
             key={index}
             className={`
-              ${index === 0 ? 'block' : 'hidden lg:block'} 
-              ${index === 1 ? 'hidden md:block' : ''} 
+              h-full
+              ${index === 0 ? 'block' : 'hidden lg:block'}
+              ${index === 1 ? 'hidden md:block' : ''}
               ${index === 2 ? 'hidden lg:block' : ''}
             `}
           >

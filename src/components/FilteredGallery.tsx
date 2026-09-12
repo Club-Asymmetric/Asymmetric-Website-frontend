@@ -75,6 +75,125 @@ const sectionsData: SectionData[] = [
     title: 'Life at Asymmetric',
     description: "More than just a club—it's a family! From late-night coding sessions to exciting events, Asymmetric Club provides an unforgettable experience filled with learning, laughter, and growth.",
     category: 'Culture'
+  },
+  {
+    id: 10,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Paper Presentation',
+    description: "Tech Fiesta '26. Participants present innovative technical ideas, research work, or project concepts before a panel of judges, evaluated on originality, technical depth, and clarity.",
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 11,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Tech Survivor – Elimination Arena',
+    description: 'A multi-round competition of technical quizzes, logical reasoning, debugging tasks, coding rounds, and surprise challenges — teams are eliminated round by round.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 12,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'UI Challenge – Design the Future',
+    description: 'A fast-paced design sprint where teams design key screens, user flows, and a functional prototype for a given problem statement within a limited time.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 13,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'LeetCode Speed Relay',
+    description: 'Teams of 3-4 solve a LeetCode problem in relay format — each member gets five minutes at the keyboard before handing over control, no communication allowed during switches.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 14,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Hack The Campus',
+    description: 'An AR and QR based cyber treasure hunt — coding puzzles, encrypted clues, cybersecurity challenges, hidden website tasks, and AR missions across campus.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 15,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Tech Debate',
+    description: 'Participants debate trending technology topics — AI, cybersecurity, startups, coding culture, social media — focused on critical thinking and communication.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 16,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Chess Championship',
+    description: 'Individual chess competition featuring an online qualifier round followed by an offline final round on a physical chess board.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 17,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Best Meme Creation',
+    description: 'Create the funniest and most creative meme based on the events happening during Tech Fiesta — originality and relevance matter most.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 18,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Missing Lyrics',
+    description: 'Teams identify missing lyrics and recognize songs from background music tracks in a fun musical challenge.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 19,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Murder Mystery',
+    description: 'Teams investigate clues, analyze suspects, and solve a fictional crime scene before time runs out.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 20,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Wiki Surfers',
+    description: 'Teams race from one Wikipedia page to another using only internal Wikipedia links — fastest navigation with the fewest clicks wins.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 21,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Adzap',
+    description: 'Teams promote and sell a quirky or imaginary product through a creative advertisement performance filled with humor and innovation.',
+    category: 'Tech Fiesta'
+  },
+  {
+    id: 22,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Orchestration of Multi-Agent Systems in Production',
+    description: 'How modern multi-agent AI systems are designed and operated at scale — agent coordination, scheduling, state management, fault tolerance, observability, and frameworks like Ray.',
+    category: 'Workshop'
+  },
+  {
+    id: 23,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Raspberry Pi, Linux and OpenCV: Building Intelligent Vision Systems',
+    description: 'How Raspberry Pi, Linux, and OpenCV power intelligent systems — Linux fundamentals, SSH-based remote access, image processing, and practical computer vision applications.',
+    category: 'Workshop'
+  },
+  {
+    id: 24,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'MLOps for RAG Applications',
+    description: 'The fusion of Retrieval-Augmented Generation, Machine Learning, and DevOps — embedding pipelines, deployment automation, monitoring, and scalable architectures.',
+    category: 'Workshop'
+  },
+  {
+    id: 25,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Building a Private Cloud with OpenStack',
+    description: 'Cloud computing fundamentals and building a private cloud with OpenStack — deploying virtual machines, managing cloud services, and enterprise cloud architectures.',
+    category: 'Workshop'
+  },
+  {
+    id: 26,
+    image: '/placeholders/Events_Placeholder.png',
+    title: 'Blockchains and Smart Contracts: Building the Decentralized Web',
+    description: 'A practical introduction to blockchain technology and smart contracts — distributed ledgers, consensus mechanisms, cryptographic hashing, and decentralized applications.',
+    category: 'Workshop'
   }
 ];
 

@@ -30,6 +30,19 @@
   --foreground: var(--foreground-dark);
   --grayscale-amount: 0;
   --transition-duration: 1000ms;
+
+  /* shadcn/ui component tokens, tinted to the site's black + indigo palette */
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #3b6cff;
+  --primary: #1e3fcc;
+  --primary-foreground: #ffffff;
+  --secondary: #18181b;
+  --secondary-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --accent: #3b6cff;
+  --accent-foreground: #ffffff;
 }
 
 @layer base {

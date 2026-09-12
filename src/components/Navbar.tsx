@@ -47,11 +47,11 @@ const Navbar = () => {
     { name: 'About Us', href: '/about-us' },
     { name: 'Events', href: '/events' },
     { name: 'Podcasts', href: '/podcast' },
+    { name: 'Blogs', href: '/blogs' },
     { name: 'Members', href: '/members' },
     { name: 'Team', href: '/team' },
     { name: 'Apply', href: '/member-application' },
     { name: 'Contact Us', href: '/contact-us' },
-
   ];
 
   const menuVariants = {
@@ -101,13 +101,11 @@ const Navbar = () => {
 
 
   return (
-    <div className="top-0 w-full min-w-max">
-      <div className="container mx-auto min-w-max">
-        <div className="flex lg:items-center lg:justify-center justify-between items-center lg:space-x-5 lg:mt-5 mt-0">
+    <div className="top-0 w-full">
+      <div className="flex w-full items-center gap-10 px-7 py-5">
           {/* Logo */}
-          <Link href="/">
-          {/* Reduced the LOGO SIZE is this ok? or shouldn't I reduce logo size? */}
-            <div className={`w-72 lg:w-48 xl:w-72 h-28 relative lg:scale-125`}>
+          <Link href="/" className="shrink-0">
+            <div className="relative h-12 w-32 sm:h-14 sm:w-40">
               <Image
                 src="/logo/logo.png"
                 alt="Logo"
@@ -115,7 +113,7 @@ const Navbar = () => {
                   shouldDissolveLogo ? 'opacity-0' : 'opacity-100'
                 } hover:scale-105`}
                 fill
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
                 onMouseEnter={() => {
                   setShouldDissolveLogo(false);
                   setHoverLogo(true);
@@ -129,25 +127,23 @@ const Navbar = () => {
           </Link>
 
           {/* Navigation */}
-          <nav className="bg-black/80 backdrop-blur-md border border-zinc-800 rounded-full min-w-max hidden lg:block">
-            <div className="flex items-center justify-center p-4 rounded-full px-10">
-              {/* Also reduced the space for lg screens should I or shouldn't I? */}
-              <ul className="flex flex-wrap justify-center md:space-x-8 lg:space-x-10 xl:space-x-20 font-mono uppercase tracking-wider">
+          <nav className="hidden lg:flex h-20 flex-1 items-center rounded-full border border-zinc-800 bg-black/80 backdrop-blur-md">
+            <ul className="flex h-full w-full items-center justify-evenly whitespace-nowrap px-6 font-mono text-sm xl:text-base uppercase tracking-wider">
                 {navItems.map((item) => (
-                  <li key={item.name} className="whitespace-nowrap">
+                  <li key={item.name}>
                     <Link
                       href={item.href}
                       className={`
-                        transition-all duration-200 text-sm
+                        inline-block rounded-full px-2.5 xl:px-3.5 py-1.5 xl:py-2 transition-all duration-200
                         ${
                           pathname === item.href
-                            ? `text-[#00008b] hover:rounded-2xl hover:bg-[#00008b] hover:text-white hover:py-2 hover:px-4 lg:hover:px-8
+                            ? `text-[#4f46e5] hover:bg-[#4f46e5] hover:text-white
                             ${hoveredItem!==null && hoveredItem !== item.name ? `${shouldDissolve ? 'opacity-0' : 'opacity-75'}` : 'opacity-100'}
                             `
                             :
                           hoveredItem !== null && hoveredItem !== item.name
                             ? `text-zinc-500 ${shouldDissolve ? 'opacity-0' : 'opacity-75'}`
-                            : 'text-white hover:rounded-2xl hover:bg-[#00008b] hover:text-white hover:py-2 hover:px-4 lg:hover:px-8'
+                            : 'text-white hover:bg-[#4f46e5] hover:text-white'
                         }
                       `}
                       onMouseEnter={() => {
@@ -163,26 +159,24 @@ const Navbar = () => {
                     </Link>
                   </li>
                 ))}
-              </ul>
-            </div>
+            </ul>
           </nav>
 
           {/* Hamburger Menu */}
-          <div className="lg:hidden relative -left-7">
+          <div className="lg:hidden shrink-0 ml-auto">
             <button
               className="focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {/* CHECK THE HAMBURGER POSITION */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-5 0 100 50" fill="none"
-              className={`h-10 w-10 ${isMenuOpen ? "hidden" : "block"} `}
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="-5 0 100 50" fill="none"
+              className={`h-8 w-8 ${isMenuOpen ? "hidden" : "block"} `}
               >
                 <rect x="10" y="20" width="60" height="10" rx="5" fill="white" />
                 <rect x="10" y="40" width="40" height="10" rx="5" fill="white" />
                 <rect x="10" y="60" width="30" height="10" rx="5" fill="white" />
               </svg>
               <svg
-                className={`h-10 w-10 ${isMenuOpen ? 'block z-50' : 'hidden'}`}
+                className={`h-8 w-8 ${isMenuOpen ? 'block z-50' : 'hidden'}`}
                 fill="none"
                 viewBox="5 0 24 15"
                 stroke="currentColor"
@@ -248,7 +242,6 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      </div>
     </div>
   );
 };
