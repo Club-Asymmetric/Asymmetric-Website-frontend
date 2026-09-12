@@ -146,19 +146,19 @@ export default function Home() {
         <ScrollHero />
         {showApplyPopup && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-            <button
-              aria-label="Close"
-              onClick={() => setShowApplyPopup(false)}
-              className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[60] flex h-10 w-10 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors"
-            >
-              ✕
-            </button>
-            <div className="relative animate-zoomIn">
+            <div className="relative animate-zoomIn origin-center max-[620px]:scale-[0.68] max-[480px]:scale-[0.55] max-[360px]:scale-[0.48]">
+              <button
+                aria-label="Close"
+                onClick={() => setShowApplyPopup(false)}
+                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors origin-top-right max-[620px]:scale-[1.47] max-[480px]:scale-[1.82] max-[360px]:scale-[2.08]"
+              >
+                ✕
+              </button>
               <Link
                 href="/member-application"
                 onClick={() => setShowApplyPopup(false)}
                 aria-label="Apply to become a member"
-                className="block origin-center cursor-pointer max-[620px]:scale-[0.68] max-[480px]:scale-[0.55] max-[360px]:scale-[0.48]"
+                className="block cursor-pointer"
               >
                 <AdmitOneTicket
                   name="Become a Member"
