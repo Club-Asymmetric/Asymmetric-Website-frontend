@@ -356,7 +356,7 @@ export const members = {
     name: "VIJAYARAMANUJAM N",
     role: "Chief Communication Officer",
     generation: 3,
-    photos: ["MemberPlaceholder.png"],
+    photos: ["VijayaramanujamN.jpg"],
     description:
       "I'm someone who is genuinely curious and doesn't like to stop at \"just knowing\" something—I want to understand how and why it works. I'm ambitious about my ideas, sometimes very particular about the details, and I keep refining my work until it matches the vision I have in my mind. I may ask a lot of questions, but that comes from wanting to learn deeply, build something meaningful, and prove to myself that I can turn my ideas into reality.",
     portfolio: "I don't have one",

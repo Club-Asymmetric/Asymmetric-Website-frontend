@@ -38,7 +38,7 @@ const DEPARTMENTS = [
 const YEARS = ['I', 'II', 'III', 'IV'];
 const TRACKS: { label: string; value: string }[] = [
   { label: 'TECH', value: 'Tech' },
-  { label: 'NON-TECH', value: 'Non-Tech' },
+  { label: 'NON-TECH (Event Coordination, Editing)', value: 'Non-Tech' },
 ];
 
 const urlPattern = /^(https?:\/\/)?[\w.-]+(\.[\w\.-]+)+[\w\-\._~:?#@!$&'()*+,;=/]*$/i;
@@ -307,7 +307,6 @@ const MemberApplicationForm: React.FC = () => {
     if (form.linkedIn && !urlPattern.test(form.linkedIn)) newErrors.linkedIn = 'Invalid URL';
     if (form.github && !urlPattern.test(form.github)) newErrors.github = 'Invalid URL';
     if (!form.description.trim()) newErrors.description = 'Description is required';
-    if (!resumeFile) newErrors.resumeFile = 'Resume is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -556,7 +555,7 @@ const MemberApplicationForm: React.FC = () => {
                     placeholder="github.com/you"
                   />
                   <div>
-                    <FieldLabel required>Resume</FieldLabel>
+                    <FieldLabel>Resume (optional)</FieldLabel>
                     <div
                       className={`flex h-[54px] items-center justify-between gap-3 rounded-[12px] border bg-[#111218] px-4 transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] ${
                         errors.resumeFile ? 'border-red-400/60' : 'border-[#252633]'
