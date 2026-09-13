@@ -134,53 +134,47 @@ const ImagePopup: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.5 }}
-                className={`group w-full max-w-5xl rounded-3xl border border-white/10 bg-[#101014] p-6 sm:p-9 md:p-11 hover:border-[#4f46e5]/40 transition-colors duration-300 flex flex-col md:flex-row gap-8 md:gap-10 ${
-                    props.reverse ? "md:flex-row-reverse" : ""
-                }`}
+                className="group grid w-full max-w-7xl grid-cols-1 gap-8 rounded-3xl border border-white/10 bg-[#101014] p-6 transition-colors duration-300 hover:border-[#4f46e5]/40 sm:p-9 md:grid-cols-[200px_minmax(0,1fr)_minmax(240px,0.75fr)] md:gap-10 md:p-11"
             >
-                {/* Left 70%: photo + name + bio */}
-                <div className="flex flex-col sm:flex-row gap-6 md:gap-8 md:w-[70%]">
-                    <div className="shrink-0 self-center sm:self-start">
-                        <div
-                            className="relative w-[180px] h-[180px] md:w-[200px] md:h-[200px] rounded-[28px] overflow-hidden ring-1 ring-white/10 transition-shadow duration-300 group-hover:ring-[#4f46e5]/40 group-hover:shadow-[0_0_28px_-10px_rgba(79,70,229,0.5)] select-none"
-                            onContextMenu={(e) => {
-                                e.preventDefault();
-                                handleOpen();
-                                return false;
-                            }}
-                        >
-                            <Image
-                                src={props.imgSrc}
-                                alt={props.name}
-                                fill
-                                sizes="200px"
-                                className="object-cover select-none"
-                                draggable={false}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col min-w-0">
-                        <h2 className="font-outfit font-bold text-[28px] md:text-[32px] leading-tight text-[#f5f5f5]">
-                            {props.name}
-                        </h2>
-                        {props.role && (
-                            <span className="mt-3 inline-flex w-fit items-center rounded-full border border-[#4f46e5]/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#a5b4fc]">
-                                {props.role}
-                            </span>
-                        )}
-                        <div className="mt-4 mb-4 h-px w-16 bg-white/10" />
-                        <p className="text-[15px] md:text-[16px] leading-[1.7] text-[#d4d4dc] max-w-[600px]">
-                            {props.description}
-                        </p>
+                {/* Left: photo */}
+                <div className="shrink-0 self-center md:self-start">
+                    <div
+                        className="relative w-[180px] h-[180px] md:w-[200px] md:h-[200px] rounded-[28px] overflow-hidden ring-1 ring-white/10 transition-shadow duration-300 group-hover:ring-[#4f46e5]/40 group-hover:shadow-[0_0_28px_-10px_rgba(79,70,229,0.5)] select-none"
+                        onContextMenu={(e) => {
+                            e.preventDefault();
+                            handleOpen();
+                            return false;
+                        }}
+                    >
+                        <Image
+                            src={props.imgSrc}
+                            alt={props.name}
+                            fill
+                            sizes="200px"
+                            className="object-cover select-none"
+                            draggable={false}
+                        />
                     </div>
                 </div>
 
-                {/* Divider */}
-                <div className="hidden md:block w-px bg-white/10 shrink-0" />
+                {/* Middle: name, role, and description */}
+                <div className="flex min-w-0 flex-col">
+                    <h2 className="font-outfit font-bold text-[28px] md:text-[32px] leading-tight text-[#f5f5f5]">
+                        {props.name}
+                    </h2>
+                    {props.role && (
+                        <span className="mt-3 inline-flex w-fit items-center rounded-full border border-[#4f46e5]/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#a5b4fc]">
+                            {props.role}
+                        </span>
+                    )}
+                    <div className="mt-4 mb-4 h-px w-16 bg-white/10" />
+                    <p className="text-[15px] md:text-[16px] leading-[1.7] text-[#d4d4dc]">
+                        {props.description}
+                    </p>
+                </div>
 
-                {/* Right 30%: metadata */}
-                <div className="flex flex-col md:w-[30%] md:min-w-[220px] gap-5">
+                {/* Right: remaining member details */}
+                <div className="flex flex-col gap-5 border-t border-white/10 pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
                     {rows.map(({ icon: Icon, label, value }, i) => (
                         <div
                             key={label}

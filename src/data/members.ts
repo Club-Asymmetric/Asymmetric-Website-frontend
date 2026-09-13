@@ -417,6 +417,24 @@ export const members = {
     specialFeatures:
       "Task Orchestration Engine: Handles parallel tasks, coordinates moving parts, and keeps the workflow running when everyone else is still figuring out what to do.",
   },
+  31: {
+    id: "31",
+    name: "LOKITH S",
+    role: "Human Resources",
+    generation: 2,
+    photos: ["LOKITH.png"],
+    description:
+      "Way too calm for the amount of chaos I manage. I code best when the deadline starts looking personal and live by the El Bicho mentality — SIUUU, No matter how packed life gets my +1 still gets priority access.",
+    portfolio: "I don't have one",
+    energySource:
+      "Ice cream on repeat, dark chocolate on standby, and my favourite team sitting on the winning side of the scorecard.",
+    dimension: "6'2 with a context window permanently overloaded.",
+    type: "Non-alcoholic • Low-latency",
+    hobbiesInstalled:
+      "Football after dark, building products with languages that don’t forgive bad grammar, and treating 2 AM like a perfectly reasonable time to start something new.",
+    specialFeatures:
+      "Untangling developer conflicts before they turn into merge conflicts, multitasking like it’s a native feature, and turning “what if?” into “it works.”",
+  },
   /* 13: {
     id: "13",
     name: "DHANISH BALA",
