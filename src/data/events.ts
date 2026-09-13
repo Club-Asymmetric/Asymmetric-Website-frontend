@@ -61,7 +61,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 3,
     category: "COMPETITION",
-    photos: ["TechFiesta_PaperPresentation_1.jpg", "TechFiesta_PaperPresentation_2.jpg"],
+    photos: ["PaperPresentation.jpg", "TechFiesta_PaperPresentation_1.jpg", "TechFiesta_PaperPresentation_2.jpg"],
     description:
       "Part of Tech Fiesta '26. Participants present innovative technical ideas, research work, or project concepts before a panel of judges. Evaluation is based on originality, technical depth, presentation skills, and clarity of explanation.",
   },
@@ -89,7 +89,7 @@ export const events = {
     min_team_size: 2,
     max_team_size: 4,
     category: "COMPETITION",
-    photos: ["TechFiesta_UIChallenge_1.jpg", "TechFiesta_UIChallenge_2.jpg"],
+    photos: ["UIChallenge.jpg", "TechFiesta_UIChallenge_1.jpg", "TechFiesta_UIChallenge_2.jpg"],
     description:
       "Part of Tech Fiesta '26. A fast-paced design sprint where participants create a user-friendly and visually appealing interface based on a given problem statement. Using tools such as Figma, teams design key screens, user flows, and a functional prototype within a limited time — e.g. designing a Smart Parking Application for a Smart City.",
   },
@@ -103,7 +103,7 @@ export const events = {
     min_team_size: 3,
     max_team_size: 4,
     category: "COMPETITION",
-    photos: ["TechFiesta_LeetCodeSpeedRelay_1.jpg", "TechFiesta_LeetCodeSpeedRelay_2.jpg"],
+    photos: ["LeetCodeSpeedRelay.jpg", "TechFiesta_LeetCodeSpeedRelay_1.jpg", "TechFiesta_LeetCodeSpeedRelay_2.jpg"],
     description:
       "Part of Tech Fiesta '26. Teams of 3-4 members solve a LeetCode problem together in relay format. Each participant gets only five minutes at the keyboard before handing over control to the next teammate — no communication is allowed during switches.",
   },
@@ -131,7 +131,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 2,
     category: "TALK",
-    photos: ["TechFiesta_TechDebate_1.jpg", "TechFiesta_TechDebate_2.jpg"],
+    photos: ["TechDebate.png", "TechFiesta_TechDebate_1.jpg", "TechFiesta_TechDebate_2.jpg"],
     description:
       "Part of Tech Fiesta '26. Participants debate trending technology topics such as AI, cybersecurity, startups, coding culture, social media, and future technologies. The event focuses on critical thinking, communication, technical awareness, and teamwork.",
   },
@@ -201,7 +201,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 2,
     category: "COMPETITION",
-    photos: ["TechFiesta_WikiSurfers_1.jpg", "TechFiesta_WikiSurfers_2.jpg"],
+    photos: ["WikiSurfers.jpg", "TechFiesta_WikiSurfers_1.jpg", "TechFiesta_WikiSurfers_2.jpg"],
     description:
       "Part of Tech Fiesta '26. Teams race from one Wikipedia page to another using only internal Wikipedia links. Fastest navigation with the fewest clicks wins.",
   },
@@ -229,7 +229,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 1,
     category: "WORKSHOP",
-    photos: ["Workshop_MultiAgentOrchestration_1.jpg", "Workshop_MultiAgentOrchestration_2.jpg"],
+    photos: ["MultiAgentOrchestration.jpg", "Workshop_MultiAgentOrchestration_1.jpg", "Workshop_MultiAgentOrchestration_2.jpg"],
     description:
       "Explore how modern multi-agent AI systems are designed and operated at scale using distributed systems principles. Learn agent coordination, scheduling, state management, fault tolerance, observability, and production limitations while examining frameworks like Ray for scalable agent workflows.",
   },
@@ -243,7 +243,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 1,
     category: "WORKSHOP",
-    photos: ["Workshop_RaspberryPiOpenCV_1.jpg", "Workshop_RaspberryPiOpenCV_2.jpg"],
+    photos: ["RaspberryPiOpenCV.jpg", "Workshop_RaspberryPiOpenCV_1.jpg", "Workshop_RaspberryPiOpenCV_2.jpg"],
     description:
       "Discover how Raspberry Pi, Linux, and OpenCV work together to power intelligent systems. Learn Linux fundamentals, SSH-based remote access, image processing techniques, and practical computer vision applications used in automation and AI-driven solutions.",
   },
@@ -257,7 +257,7 @@ export const events = {
     min_team_size: 1,
     max_team_size: 1,
     category: "WORKSHOP",
-    photos: ["Workshop_MLOpsForRAG_1.jpg", "Workshop_MLOpsForRAG_2.jpg"],
+    photos: ["MLOpsForRAG.jpg", "Workshop_MLOpsForRAG_1.jpg", "Workshop_MLOpsForRAG_2.jpg"],
     description:
       "Dive into the fusion of Retrieval-Augmented Generation, Machine Learning, and DevOps to build production-ready AI systems. Learn embedding pipelines, deployment automation, monitoring, and scalable architectures for real-world applications.",
   },
