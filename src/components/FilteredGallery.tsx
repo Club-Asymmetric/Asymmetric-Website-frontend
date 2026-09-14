@@ -78,7 +78,7 @@ const sectionsData: SectionData[] = [
   },
   {
     id: 10,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/PaperPresentation.jpg',
     title: 'Paper Presentation',
     description: "Tech Fiesta '26. Participants present innovative technical ideas, research work, or project concepts before a panel of judges, evaluated on originality, technical depth, and clarity.",
     category: 'Tech Fiesta'
@@ -92,14 +92,14 @@ const sectionsData: SectionData[] = [
   },
   {
     id: 12,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/UIChallenge.jpg',
     title: 'UI Challenge – Design the Future',
     description: 'A fast-paced design sprint where teams design key screens, user flows, and a functional prototype for a given problem statement within a limited time.',
     category: 'Tech Fiesta'
   },
   {
     id: 13,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/LeetCodeSpeedRelay.jpg',
     title: 'LeetCode Speed Relay',
     description: 'Teams of 3-4 solve a LeetCode problem in relay format — each member gets five minutes at the keyboard before handing over control, no communication allowed during switches.',
     category: 'Tech Fiesta'
@@ -113,7 +113,7 @@ const sectionsData: SectionData[] = [
   },
   {
     id: 15,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/TechDebate.png',
     title: 'Tech Debate',
     description: 'Participants debate trending technology topics — AI, cybersecurity, startups, coding culture, social media — focused on critical thinking and communication.',
     category: 'Tech Fiesta'
@@ -148,7 +148,7 @@ const sectionsData: SectionData[] = [
   },
   {
     id: 20,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/WikiSurfers.jpg',
     title: 'Wiki Surfers',
     description: 'Teams race from one Wikipedia page to another using only internal Wikipedia links — fastest navigation with the fewest clicks wins.',
     category: 'Tech Fiesta'
@@ -162,21 +162,21 @@ const sectionsData: SectionData[] = [
   },
   {
     id: 22,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/MultiAgentOrchestration.jpg',
     title: 'Orchestration of Multi-Agent Systems in Production',
     description: 'How modern multi-agent AI systems are designed and operated at scale — agent coordination, scheduling, state management, fault tolerance, observability, and frameworks like Ray.',
     category: 'Workshop'
   },
   {
     id: 23,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/RaspberryPiOpenCV.jpg',
     title: 'Raspberry Pi, Linux and OpenCV: Building Intelligent Vision Systems',
     description: 'How Raspberry Pi, Linux, and OpenCV power intelligent systems — Linux fundamentals, SSH-based remote access, image processing, and practical computer vision applications.',
     category: 'Workshop'
   },
   {
     id: 24,
-    image: '/assets/placeholders/Events_Placeholder.png',
+    image: '/assets/images/MLOpsForRAG.jpg',
     title: 'MLOps for RAG Applications',
     description: 'The fusion of Retrieval-Augmented Generation, Machine Learning, and DevOps — embedding pipelines, deployment automation, monitoring, and scalable architectures.',
     category: 'Workshop'
