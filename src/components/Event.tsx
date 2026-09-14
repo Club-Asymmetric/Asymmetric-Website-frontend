@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RiMapPinLine } from "react-icons/ri";
 import { IoCalendarOutline } from "react-icons/io5";
 
@@ -13,10 +13,7 @@ export default function Event(props: {
   index?: number;
   openPopup: (content: { desc: string; img: string; name: string; synopsis: string; location: string; date: string; type: string }, e: React.MouseEvent) => void;
 }) {
-  const openRegistrationPage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    window.location.href = "/member-application";
-  };
+  const [colored, setColored] = useState(false);
 
   const cardIndex = props.index || 0;
   const isDark = cardIndex % 2 === 0;
@@ -58,7 +55,10 @@ export default function Event(props: {
         <img
           src={props.imageSrc}
           alt={props.name}
-          className="w-full h-48 md:h-56 object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500"
+          onMouseEnter={() => setColored(true)}
+          className={`w-full h-48 md:h-56 object-cover contrast-125 group-hover:scale-105 transition-all duration-500 ${
+            colored ? "grayscale-0" : "grayscale"
+          }`}
           onError={(e) => {
             (e.target as HTMLImageElement).src = "/assets/placeholders/Events_Placeholder.png";
           }}
@@ -86,15 +86,7 @@ export default function Event(props: {
         </div>
       </div>
 
-      <div className={`mt-6 pt-4 border-t flex items-center justify-between font-mono text-xs ${isDark ? "border-zinc-800" : "border-black/20"}`}>
-        <button
-          onClick={openRegistrationPage}
-          className="bg-[#00008b] text-white font-bold px-4 py-2 hover:bg-white transition-colors border border-black flex items-center gap-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-        >
-          <span>GET SPOT</span>
-          <span>↗</span>
-        </button>
-
+      <div className={`mt-6 pt-4 border-t flex items-center justify-end font-mono text-xs ${isDark ? "border-zinc-800" : "border-black/20"}`}>
         <span className="group-hover:translate-x-1 transition-transform text-[#00008b] font-bold">
           DETAILS ↗
         </span>

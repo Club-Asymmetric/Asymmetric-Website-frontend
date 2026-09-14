@@ -27,6 +27,10 @@ const CATEGORIES = ["ALL", "TECH", "WORKSHOP", "HACKATHON", "TALK", "COMPETITION
 
 const Events = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [heroColored, setHeroColored] = useState(false);
+  const [coloredImages, setColoredImages] = useState<Set<string>>(new Set());
+  const markColored = (src: string) =>
+    setColoredImages((prev) => (prev.has(src) ? prev : new Set(prev).add(src)));
   const [events, setEvents] = useState<EventData[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [loading, setLoading] = useState(true);
@@ -158,7 +162,10 @@ const Events = () => {
                   <img
                     src="/assets/group-photo/CatapultProgram3.jpg"
                     alt="Asymmetric Event"
-                    className="w-full h-80 sm:h-96 object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    onMouseEnter={() => setHeroColored(true)}
+                    className={`w-full h-80 sm:h-96 object-cover contrast-125 group-hover:scale-105 transition-all duration-500 ${
+                      heroColored ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="absolute top-3 left-3 bg-black/90 text-[#00008b] font-mono text-[10px] px-2 py-1 border border-zinc-700">
                     LIVE ARCHIVE // 2025
@@ -316,7 +323,10 @@ const Events = () => {
                   <img
                     src="/assets/group-photo/CatapultProgram3.jpg"
                     alt="Featured Event 1"
-                    className="w-full h-64 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/CatapultProgram3.jpg")}
+                    className={`w-full h-64 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/CatapultProgram3.jpg") ? "grayscale-0" : "grayscale group-hover:grayscale-0"
+                    }`}
                   />
                   <div className="pt-2 text-xs font-mono font-bold flex justify-between">
                     <span>STAGE A // LIVE DEMOS</span>
@@ -328,7 +338,10 @@ const Events = () => {
                   <img
                     src="/assets/group-photo/OnamEthnic.jpg"
                     alt="Featured Event 2"
-                    className="w-full h-56 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/OnamEthnic.jpg")}
+                    className={`w-full h-56 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/OnamEthnic.jpg") ? "grayscale-0" : "grayscale group-hover:grayscale-0"
+                    }`}
                   />
                   <div className="pt-2 text-xs font-mono font-bold text-[#00008b] flex justify-between">
                     <span>INTERACTIVE JAM</span>
@@ -402,7 +415,10 @@ const Events = () => {
                     <img
                       src={popupContent.img}
                       alt={popupContent.name}
-                      className="w-full h-64 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                      onMouseEnter={() => markColored(popupContent.img)}
+                      className={`w-full h-64 object-cover contrast-125 transition-all duration-500 ${
+                        coloredImages.has(popupContent.img) ? "grayscale-0" : "grayscale group-hover:grayscale-0"
+                      }`}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "/assets/placeholders/Events_Placeholder.png";
                       }}

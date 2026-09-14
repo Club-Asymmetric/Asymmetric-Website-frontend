@@ -1,10 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function AboutUs() {
+  const [coloredImages, setColoredImages] = useState<Set<string>>(new Set());
+  const markColored = (src: string) =>
+    setColoredImages((prev) => (prev.has(src) ? prev : new Set(prev).add(src)));
+
   const manifestoItems = [
     "We learn.",
     "We build.",
@@ -109,7 +113,10 @@ export default function AboutUs() {
                   <img
                     src="/assets/group-photo/FirstMeet.jpg"
                     alt="Asymmetric Students"
-                    className="w-full h-[380px] sm:h-[440px] object-cover grayscale contrast-125 brightness-95 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/FirstMeet.jpg")}
+                    className={`w-full h-[380px] sm:h-[440px] object-cover contrast-125 brightness-95 group-hover:scale-105 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/FirstMeet.jpg") ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="absolute top-3 left-3 bg-black/80 text-white font-mono text-[10px] px-2 py-1 border border-zinc-700">
                     FIG 1.0 — INITIAL REACTION
@@ -244,7 +251,10 @@ export default function AboutUs() {
                 <img
                   src={step.image}
                   alt={step.title}
-                  className="w-full h-52 object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                  onMouseEnter={() => markColored(step.image)}
+                  className={`w-full h-52 object-cover contrast-125 group-hover:scale-105 transition-all duration-500 ${
+                    coloredImages.has(step.image) ? "grayscale-0" : "grayscale"
+                  }`}
                 />
                 <div className="absolute top-2 right-2 bg-black/90 text-[#00008b] font-mono text-[10px] px-2 py-0.5 border border-zinc-700">
                   IMG_LOG.{step.num}
@@ -340,10 +350,13 @@ export default function AboutUs() {
               <div className="grid grid-cols-2 gap-4">
                 
                 <div className="border-2 border-black bg-white p-2 shadow-md -rotate-2 hover:rotate-0 transition-transform group">
-                  <img 
-                    src="/assets/group-photo/JuniorMeet.jpg" 
+                  <img
+                    src="/assets/group-photo/JuniorMeet.jpg"
                     alt="Community 1"
-                    className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/JuniorMeet.jpg")}
+                    className={`w-full h-44 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/JuniorMeet.jpg") ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="pt-2 text-[11px] font-mono text-black font-bold">
                     BUILDERS &amp; HACKERS ↗
@@ -351,10 +364,13 @@ export default function AboutUs() {
                 </div>
 
                 <div className="border-2 border-black bg-white p-2 shadow-md rotate-3 hover:rotate-0 transition-transform mt-6 group">
-                  <img 
-                    src="/assets/group-photo/OnamEthnic.jpg" 
+                  <img
+                    src="/assets/group-photo/OnamEthnic.jpg"
                     alt="Community 2"
-                    className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/OnamEthnic.jpg")}
+                    className={`w-full h-44 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/OnamEthnic.jpg") ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="pt-2 text-[11px] font-mono text-black font-bold">
                     CULTURE &amp; MADNESS ↗
@@ -362,10 +378,13 @@ export default function AboutUs() {
                 </div>
 
                 <div className="border-2 border-black bg-white p-2 shadow-md rotate-1 hover:rotate-0 transition-transform group">
-                  <img 
-                    src="/assets/group-photo/ShootingVideo.jpg" 
+                  <img
+                    src="/assets/group-photo/ShootingVideo.jpg"
                     alt="Community 3"
-                    className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/ShootingVideo.jpg")}
+                    className={`w-full h-44 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/ShootingVideo.jpg") ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="pt-2 text-[11px] font-mono text-black font-bold">
                     CREATIVE DIRECTION ↗
@@ -373,10 +392,13 @@ export default function AboutUs() {
                 </div>
 
                 <div className="border-2 border-black bg-white p-2 shadow-md -rotate-3 hover:rotate-0 transition-transform -mt-4 group">
-                  <img 
-                    src="/assets/group-photo/CatapultProgram2.jpg" 
+                  <img
+                    src="/assets/group-photo/CatapultProgram2.jpg"
                     alt="Community 4"
-                    className="w-full h-44 object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+                    onMouseEnter={() => markColored("/assets/group-photo/CatapultProgram2.jpg")}
+                    className={`w-full h-44 object-cover contrast-125 transition-all duration-500 ${
+                      coloredImages.has("/assets/group-photo/CatapultProgram2.jpg") ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                   <div className="pt-2 text-[11px] font-mono text-black font-bold">
                     OPEN WORKSHOPS ↗

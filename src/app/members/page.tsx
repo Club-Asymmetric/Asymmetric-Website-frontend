@@ -32,8 +32,8 @@ const ROLE_PRIORITY_RULES: { test: RegExp; priority: number }[] = [
     { test: /vice[\s-]?president/, priority: 1 },
     { test: /\bpresident\b/, priority: 0 },
     { test: /secretary/, priority: 2 },
-    { test: /human resources?|hiring|\bhr\b/, priority: 3 },
-    { test: /tech(nical)?\s*lead/, priority: 4 },
+    { test: /tech(nical)?\s*lead/, priority: 3 },
+    { test: /human resources?|hiring|\bhr\b/, priority: 4 },
     { test: /coordinator/, priority: 5 },
     { test: /treasur/, priority: 6 },
     { test: /\bpr\b|marketing|public relations?/, priority: 7 },
@@ -105,6 +105,13 @@ const Page = () => {
                             dimension={member.dimension}
                             type={member.type}
                             imgSrc={`/assets/images/${member.photos[0]}`}
+                            imgPosition={
+                                member.name === "VENKAT RAMAN"
+                                    ? "center 15%"
+                                    : member.name === "MOKSHITHA C"
+                                        ? "center 10%"
+                                        : undefined
+                            }
                             hobbiesInstalled={member.hobbiesInstalled}
                             specialFeatures={member.specialFeatures}
                             reverse={index % 2 === 1}

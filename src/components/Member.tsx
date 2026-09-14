@@ -22,6 +22,7 @@ export default function Member(props: {
     name: string,
     role?: string,
     imgSrc: string,
+    imgPosition?: string,
     description: string,
     energySource: string,
     dimension: string,
@@ -151,6 +152,7 @@ const ImagePopup: React.FC = () => {
                             alt={props.name}
                             fill
                             sizes="200px"
+                            style={{ objectPosition: props.imgPosition ?? "center" }}
                             className="object-cover select-none"
                             draggable={false}
                         />
