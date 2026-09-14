@@ -9,22 +9,9 @@ interface PodcastData {
   image: string;
 }
 
-interface EventData {
-  id: string;
-  name: string;
-  participants: number;
-  date: string;
-  registration_start: Date;
-  location: string;
-  min_team_size: number;
-  max_team_size: number;
-  description: string;
-  photos: string[];
-}
-
-import Event from '@/components/Event';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PodcastCard from '@/components/PodcastCard';
+import BlogCard from '@/components/BlogCard';
 import ScrollHero from '@/components/ScrollHero';
 import ScrollExpand from '@/components/ScrollExpand';
 import BorderGlow from '@/components/BorderGlow';
@@ -33,20 +20,21 @@ import AdmitOneTicket, { TICKET_LAYOUT, TICKET_TEXTURE } from '@/components/ui/a
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
-import { events as eventsData } from '@/data/events';
+import { blogs } from '@/data/blogs';
 import { podcasts } from '@/data/podcasts';
 
 const teamPhotos = [
-  '/assets/group-photo/TeamGroupPhoto.png',
-  '/assets/group-photo/TeamOfficeGroup.png',
-  '/assets/group-photo/FreshworksVisit.png',
-  '/assets/group-photo/DevFestMumbaiStage.png',
-  '/assets/group-photo/HacksymmetricGroupPhoto.png',
-  '/assets/group-photo/HacksymmetricOpenInnovationWinners.png',
-  '/assets/group-photo/HacksymmetricAgenticAIWinners.png',
-  '/assets/group-photo/HacksymmetricRunnerUps.png',
-  '/assets/group-photo/AvatarWorkshopDemo.png',
-  '/assets/group-photo/TeamSpeakersMoments.png',
+  '/assets/group-photo/OneTeamOneFamily0.jpg',
+  '/assets/group-photo/OneTeamOneFamily1.jpg',
+  '/assets/group-photo/OneTeamOneFamily2.jpg',
+  '/assets/group-photo/OneTeamOneFamily3.jpg',
+  '/assets/group-photo/OneTeamOneFamily4.jpg',
+  '/assets/group-photo/OneTeamOneFamily5.jpg',
+  '/assets/group-photo/OneTeamOneFamily6.jpg',
+  '/assets/group-photo/OneTeamOneFamily7.jpg',
+  '/assets/group-photo/OneTeamOneFamily8.jpg',
+  '/assets/group-photo/OneTeamOneFamily9.jpg',
+  '/assets/group-photo/OneTeamOneFamily10.jpg',
 ];
 
 export default function Home() {
@@ -64,7 +52,7 @@ export default function Home() {
   }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
-  const [events, setEvents] = useState<EventData[]>([]);  const [popupContent, setPopupContent] = useState<{
+  const [popupContent, setPopupContent] = useState<{
     desc: string;
     img: string;
     name: string;
@@ -120,10 +108,6 @@ export default function Home() {
     y: number;
   }
 
-  const openPopup = () => {
-    window.location.href = "/events";
-  };
-
   const closePopup = () => setIsOpen(false);
 
   const handlePopupContentClick = (e: React.MouseEvent) => {
@@ -132,13 +116,7 @@ export default function Home() {
 
   function openRegistrationPage() {
     window.location.href = "/events/registration-form";
-  }  useEffect(() => {
-    // Load events from local data
-    const eventsArray = Object.values(eventsData) as EventData[];
-    eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    const limitedEventsArray = eventsArray.slice(0, 2);
-    setEvents(limitedEventsArray);
-  }, []);
+  }
 
   const [podcastsData, setPodcastsData] = useState<PodcastData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -250,6 +228,7 @@ export default function Home() {
         </div>
         {/* Team Section */}
         <ScrollExpand
+          id="team-section"
           src={teamPhotos[teamPhotoIndex]}
           alt="Club Asymmetric team"
           title="One Team, One Family"
@@ -269,6 +248,16 @@ export default function Home() {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              setTeamPhotoIndex((i) => (i - 1 + teamPhotos.length) % teamPhotos.length);
+            }}
+            aria-label="Previous photo"
+            className="absolute left-4 sm:left-8 md:left-12 top-1/2 -translate-y-1/2 flex h-11 w-11 md:h-14 md:w-14 items-center justify-center rounded-full bg-[#3b6cff] text-lg md:text-xl text-white transition-transform duration-300 hover:scale-110"
+          >
+            ←
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
               setTeamPhotoIndex((i) => (i + 1) % teamPhotos.length);
             }}
             aria-label="Next photo"
@@ -278,45 +267,64 @@ export default function Home() {
           </button>
         </ScrollExpand>
 
-        {/* Events Section */}
-        <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col bg-ass-gradient max-w-6xl mx-8 sm:w-[80vw] pt-8 mt-8 rounded-[20px] animate-zoomIn">
-          {
-            events.map((event, index) => (
-              <Event
-                imageSrc={`/assets/images/${event.photos[0]}` || "/assets/placeholders/Events_Placeholder.png"}
-                key={event.id}
-                desc={event.description}
-                name={event.name}
-                type={event.min_team_size === 1 ? (event.max_team_size === 1 ? "Individual" : "Individual/Team") : "Team"}
-                date={event.date.slice(0,10)}
-                location={event.location}
-                openPopup={openPopup}
-              />
-            ))
-          }
+        {/* Featured Blogs Section */}
+        <div className="max-w-[1800px] mx-auto px-6 sm:px-10 lg:px-16 py-10">
+          <div className="mb-10 text-center">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#3b6cff]">
+              Blogs // Asymmetric
+            </p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Featured Blogs</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-14 justify-items-center items-stretch animate-zoomIn">
+            {blogs.slice(0, 3).map((post) => (
+              <div key={post.id} className="h-full w-full">
+                <BlogCard {...post} />
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/blogs"
+              className="flex items-center gap-2 rounded-full bg-ass-button px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black"
+            >
+              View All Blogs
+            </Link>
+          </div>
         </div>
-      </div>
 
       {/*Podcast Section*/}
-      <div className="container mx-auto xl:px-40 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch animate-zoomIn">
-        {loading && <LoadingSpinner />}
-        {podcastsData.slice(0, 3).map((podcast, index) => (
-          <div
-            key={index}
-            className={`
-              h-full
-              ${index === 0 ? 'block' : 'hidden lg:block'}
-              ${index === 1 ? 'hidden md:block' : ''}
-              ${index === 2 ? 'hidden lg:block' : ''}
-            `}
+      <div className="max-w-[1800px] mx-auto px-6 sm:px-10 lg:px-16 py-10">
+        <div className="mb-10 text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#3b6cff]">
+            Podcast // Asymmetric
+          </p>
+          <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Featured Episodes</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-14 justify-items-center items-stretch animate-zoomIn">
+          {loading && <LoadingSpinner />}
+          {podcastsData.slice(0, 3).map((podcast, index) => (
+            <div
+              key={index}
+              className={`
+                h-full
+                ${index === 0 ? 'block' : 'hidden lg:block'}
+                ${index === 1 ? 'hidden md:block' : ''}
+                ${index === 2 ? 'hidden lg:block' : ''}
+              `}
+            >
+              <PodcastCard {...podcast} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/podcast"
+            className="flex items-center gap-2 rounded-full bg-ass-button px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black"
           >
-            <PodcastCard {...podcast} />
-          </div>
-        ))}
+            View All Podcasts
+          </Link>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

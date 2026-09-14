@@ -3,7 +3,6 @@
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import HoverFooter from '@/components/HoverFooter';
-import SideLogo from '@/components/SideLogo';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // Fully standalone pages (own nav, own footer-less layout) opt out of all site chrome.
@@ -31,7 +30,6 @@ export default function ChromeWrapper({ children }: { children: React.ReactNode 
   return (
     <>
       {!ownNav && <Navbar />}
-      <SideLogo />
       <main className="flex-grow flex-shrink-0 mb-10 relative z-10">
         {children}
         <SpeedInsights />

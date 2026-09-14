@@ -435,6 +435,42 @@ export const members = {
     specialFeatures:
       "Untangling developer conflicts before they turn into merge conflicts, multitasking like it’s a native feature, and turning “what if?” into “it works.”",
   },
+  32: {
+    id: "32",
+    name: "AARYA B",
+    role: "Technical Lead",
+    generation: 2,
+    photos: ["AaryaB.png"],
+    description:
+      "I'm not here to flex, but somehow the code keeps doing it for me. I just enjoy building things, solving problems that shouldn't be this complicated, and quietly letting the results speak louder than I ever could.",
+    portfolio: "I don't have one",
+    energySource:
+      "Unlimited dahi puri, fast Wi-Fi, successful builds, and one person with VIP access to my life, my chaos, and every unnecessary headache.",
+    dimension: "No fixed coordinates, somewhere between peace and happiness.",
+    type: "Laughs in serious situations",
+    hobbiesInstalled:
+      "Random midnight walks, tasting my own cooking, breaking code just to see how it breaks, and to see how it works.",
+    specialFeatures:
+      "Can watch an entire application collapse without blinking, open 15 terminal windows, change one line, and casually say, \"Fixed,\" like nothing ever happened.",
+  },
+  33: {
+    id: "33",
+    name: "SIDDARTH V",
+    role: "Workshop Lead",
+    generation: 3,
+    photos: ["MemberPlaceholder.png"],
+    description:
+      "A professional chaos architect disguised as a workshop lead. I walk into rooms with questions, walk out with ideas, and somehow convince everyone this was the plan all along. My days are spent turning awkward silence into discussion, random thoughts into frameworks, and \"I have no idea\" into something suspiciously actionable.",
+    portfolio: "I don't have one",
+    energySource:
+      "Coffee, chaos, curiosity, and the beautiful panic of a room that has 10 minutes left and no consensus.",
+    dimension: "The Strange Place Between \"Let's Brainstorm\" and \"Oh God, We Actually Have a Plan\"",
+    type: "The Catalyst (Human, mostly)",
+    hobbiesInstalled:
+      "Brainstorming, Whiteboard Warfare, Question-Asking, Idea Excavation, Controlled Chaos",
+    specialFeatures:
+      "Can turn a room full of people staring at each other into a functioning workshop, extract ideas from the quietest person in the room, and somehow leave with everyone believing they contributed to the master plan.",
+  },
   /* 13: {
     id: "13",
     name: "DHANISH BALA",

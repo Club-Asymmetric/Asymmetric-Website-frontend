@@ -105,6 +105,13 @@ const Page = () => {
                             dimension={member.dimension}
                             type={member.type}
                             imgSrc={`/assets/images/${member.photos[0]}`}
+                            imgPosition={
+                                member.name === "VENKAT RAMAN"
+                                    ? "center 15%"
+                                    : member.name === "MOKSHITHA C"
+                                        ? "center 10%"
+                                        : undefined
+                            }
                             hobbiesInstalled={member.hobbiesInstalled}
                             specialFeatures={member.specialFeatures}
                             reverse={index % 2 === 1}
