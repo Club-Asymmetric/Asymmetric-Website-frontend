@@ -14,6 +14,7 @@ interface FormState {
   track: string;
   linkedIn?: string;
   github?: string;
+  resumeLink?: string;
   description: string;
 }
 
@@ -42,7 +43,6 @@ const TRACKS: { label: string; value: string }[] = [
 ];
 
 const urlPattern = /^(https?:\/\/)?[\w.-]+(\.[\w\.-]+)+[\w\-\._~:?#@!$&'()*+,;=/]*$/i;
-const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
 
 // ---------- Shared field primitives ----------
 
@@ -255,9 +255,9 @@ const MemberApplicationForm: React.FC = () => {
     track: '',
     linkedIn: '',
     github: '',
+    resumeLink: '',
     description: '',
   });
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -283,19 +283,6 @@ const MemberApplicationForm: React.FC = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    if (file && file.size > MAX_RESUME_BYTES) {
-      setErrors((prev) => ({ ...prev, resumeFile: 'File must be under 5MB' }));
-      return;
-    }
-    setErrors((prev) => {
-      const { resumeFile: _drop, ...rest } = prev;
-      return rest;
-    });
-    setResumeFile(file);
-  };
-
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
     if (!form.name.trim()) newErrors.name = 'Name is required';
@@ -306,6 +293,7 @@ const MemberApplicationForm: React.FC = () => {
     if (!form.track) newErrors.track = 'Select a track';
     if (form.linkedIn && !urlPattern.test(form.linkedIn)) newErrors.linkedIn = 'Invalid URL';
     if (form.github && !urlPattern.test(form.github)) newErrors.github = 'Invalid URL';
+    if (form.resumeLink && !urlPattern.test(form.resumeLink)) newErrors.resumeLink = 'Invalid URL';
     if (!form.description.trim()) newErrors.description = 'Description is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -317,21 +305,21 @@ const MemberApplicationForm: React.FC = () => {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const body = new FormData();
-      body.append('name', form.name);
-      body.append('mailId', form.mailId);
-      body.append('contactNumber', form.contactNumber);
-      body.append('department', form.department);
-      body.append('year', form.year);
-      body.append('track', form.track);
-      if (form.linkedIn) body.append('linkedIn', form.linkedIn);
-      if (form.github) body.append('github', form.github);
-      body.append('description', form.description);
-      if (resumeFile) body.append('resume', resumeFile);
-
       const res = await fetch(`${API_BASE_URL}/api/member-application`, {
         method: 'POST',
-        body,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          mailId: form.mailId,
+          contactNumber: form.contactNumber,
+          department: form.department,
+          year: form.year,
+          track: form.track,
+          linkedIn: form.linkedIn || undefined,
+          github: form.github || undefined,
+          resumeLink: form.resumeLink || undefined,
+          description: form.description,
+        }),
       });
 
       if (!res.ok) {
@@ -365,9 +353,9 @@ const MemberApplicationForm: React.FC = () => {
       track: '',
       linkedIn: '',
       github: '',
+      resumeLink: '',
       description: '',
     });
-    setResumeFile(null);
     setErrors({});
     setSubmitted(false);
     setSubmitError(null);
@@ -554,44 +542,16 @@ const MemberApplicationForm: React.FC = () => {
                     error={errors.github}
                     placeholder="github.com/you"
                   />
-                  <div>
-                    <FieldLabel>Resume (optional)</FieldLabel>
-                    <div
-                      className={`flex h-[54px] items-center justify-between gap-3 rounded-[12px] border bg-[#111218] px-4 transition-colors hover:border-[#6366f1] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] ${
-                        errors.resumeFile ? 'border-red-400/60' : 'border-[#252633]'
-                      }`}
-                    >
-                      {resumeFile ? (
-                        <div className="flex min-w-0 items-center gap-2">
-                          <span className="shrink-0 text-emerald-400">✓</span>
-                          <span className="truncate text-sm text-white/80">{resumeFile.name}</span>
-                        </div>
-                      ) : (
-                        <span className="truncate text-sm text-white/30">PDF or DOC, up to 5MB</span>
-                      )}
-                      <div className="flex shrink-0 items-center gap-3">
-                        {resumeFile && (
-                          <button
-                            type="button"
-                            onClick={() => setResumeFile(null)}
-                            className="text-xs text-white/50 transition-colors hover:text-red-300"
-                          >
-                            Remove
-                          </button>
-                        )}
-                        <label className="cursor-pointer rounded-[8px] bg-[#1b1c24] px-3 py-1.5 text-xs font-semibold text-white/80 transition-colors hover:bg-[#6366f1]/20 hover:text-white">
-                          {resumeFile ? 'Change' : 'Upload'}
-                          <input
-                            type="file"
-                            accept=".pdf,.doc,.docx"
-                            className="hidden"
-                            onChange={handleResumeChange}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                    <FieldError message={errors.resumeFile} />
-                  </div>
+                  <TextField
+                    id="resumeLink"
+                    name="resumeLink"
+                    label="Resume Link (optional, keep it publicly accessible)"
+                    type="url"
+                    value={form.resumeLink}
+                    onChange={handleChange}
+                    error={errors.resumeLink}
+                    placeholder="drive.google.com/your-resume"
+                  />
                 </div>
 
                 {/* Row 4: Department + Year */}

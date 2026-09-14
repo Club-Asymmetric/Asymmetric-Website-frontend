@@ -6,7 +6,7 @@ import GroupPhoto from "@/components/GroupPhoto";
 import FilteredGallery from "@/components/FilteredGallery";
 
 const Page = () => {
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
 
   useEffect(() => {
     // Hide scrollbar when component mounts
