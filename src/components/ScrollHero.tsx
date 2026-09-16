@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { VoicePoweredOrb } from '@/components/ui/voice-powered-orb';
+import Image from 'next/image';
 import styles from './ScrollHero.module.css';
 
 // Locally bundled scenes with Club Asymmetric labels and original animation.
@@ -187,7 +187,15 @@ export default function ScrollHero() {
           </nav>
           <div className={styles.orb} aria-hidden="true">
             <div className={styles.orbFrame} />
-            <VoicePoweredOrb enableVoiceControl={false} hue={215} className="relative w-full h-full rounded-full overflow-hidden" />
+            <div className={styles.mascot}>
+              <Image
+                src="/assets/mascot/mascot.png"
+                alt=""
+                fill
+                sizes="(max-width: 1023px) 0px, 420px"
+                priority
+              />
+            </div>
           </div>
         </div>
         <a className={styles.skip} href="#home-content">Skip intro ↓</a>
