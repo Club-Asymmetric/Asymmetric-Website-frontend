@@ -272,7 +272,7 @@ export const members: MemberData[] = [
     id: "36",
     name: "SREESUDAN",
     role: "Core Member",
-    generation: 3,
+    generation: 2,
     photos: ["Sreesudan.png"],
     description:
       "Curious student who enjoys learning, building, and exploring new ideas with the team.",
