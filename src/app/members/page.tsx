@@ -21,11 +21,11 @@ interface MemberData {
 }
 
 const GENERATIONS: { value: 1 | 2 | 3; label: string }[] = [
-    { value: 1, label: "1st Generation" },
-    { value: 2, label: "2nd Generation" },
-    { value: 3, label: "3rd Generation" },
+    { value: 3, label: "2029" },
+    { value: 2, label: "2028" },
+    { value: 1, label: "2027" },
 ];
-
+ 
 // Lower rank shows first; roles matching none of these keep their existing
 // relative order, listed after all ranked roles (in any order).
 const ROLE_PRIORITY_RULES: { test: RegExp; priority: number }[] = [
@@ -36,11 +36,12 @@ const ROLE_PRIORITY_RULES: { test: RegExp; priority: number }[] = [
     { test: /tech(nical)?\s*lead/, priority: 4 },
     { test: /coordinator/, priority: 5 },
     { test: /treasur/, priority: 6 },
-    { test: /\bpr\b|marketing|public relations?/, priority: 7 },
-    { test: /\bcco\b|chief communication/, priority: 8 },
-    { test: /media\s*lead/, priority: 9 },
-    { test: /editor/, priority: 10 },
-    { test: /documentation/, priority: 11 },
+    { test: /workshop\s*lead/, priority: 7 },
+    { test: /\bpr\b|promo(tion)?|marketing|public relations?/, priority: 8 },
+    { test: /\bcco\b|chief communication/, priority: 9 },
+    { test: /media\s*lead/, priority: 10 },
+    { test: /editor/, priority: 11 },
+    { test: /documentation/, priority: 12 },
 ];
 
 function getRolePriority(role: string): number {
@@ -54,7 +55,7 @@ function getRolePriority(role: string): number {
 const Page = () => {
     const [membersData, setMembersData] = useState<MemberData[]>([]);
     const [loading, setLoading] = useState(true);
-    const [selectedGeneration, setSelectedGeneration] = useState<1 | 2 | 3>(1);
+    const [selectedGeneration, setSelectedGeneration] = useState<1 | 2 | 3>(3);
 
     useEffect(() => {
         // Convert members object to array and set loading to false

@@ -57,7 +57,7 @@ export const members: MemberData[] = [
     name: "VIMANTHAN",
     role: "Vice President",
     generation: 3,
-    photos: ["MemberPlaceholder.png"],
+    photos: ["Vimanthan.jpg"],
     description:
       "The kind of person who can get interested in something they know absolutely nothing about and refuse to leave until they've figured it out. Naturally drawn to technology, problem-solving, and trying things just to see where they lead, Vimanthan has a habit of turning random rabbit holes into actual projects. Usually juggling several ideas at once, learning something new with each one, and occasionally watching a \"simple\" idea evolve into something far more ambitious than intended. Where the next idea will lead is anyone's guess — but there's rarely a dull moment along the way.",
     portfolio: "I don't have one",
@@ -239,6 +239,21 @@ export const members: MemberData[] = [
     specialFeatures: "",
   },
   {
+    id: "34",
+    name: "DURUVAA S",
+    role: "Promotion Lead",
+    generation: 3,
+    photos: ["DuruvaaS.png"],
+    description:
+      "I’m a B.Tech Information Technology student at Chennai Institute of Technology who enjoys exploring technology, building things, and occasionally breaking them just to understand how they work. I’m interested in app development, web development, and AI/ML, with a strong preference for learning by actually making things rather than just reading about them. I also enjoy communicating ideas, promoting projects, and turning technical concepts into something people actually want to know about.",
+    portfolio: "I don't have one",
+    energySource: "Curiosity, caffeine, and the unreasonable belief that “I’ll fix it in five minutes.”",
+    dimension: "Beyond the Debugger.",
+    type: "“Wait… but what if we try this?” Type.",
+    hobbiesInstalled: "Badminton • Sketching • Photography • Cycling • Hiking • Urban Exploring • Movie Binging",
+    specialFeatures: "Can turn a random idea into a project — usually after debugging it at 2 AM.",
+  },
+  {
     id: "20",
     name: "HARI PRIYAN R",
     role: "Core Member",
@@ -252,6 +267,21 @@ export const members: MemberData[] = [
     type: "“Let's See What Happens” Type.",
     hobbiesInstalled: "Badminton, Drawing, Photography, Cycling",
     specialFeatures: "Turns “What if we try this?” into an actual project.",
+  },
+  {
+    id: "36",
+    name: "SREESUDAN",
+    role: "Core Member",
+    generation: 3,
+    photos: ["Sreesudan.png"],
+    description:
+      "Curious student who enjoys learning, building, and exploring new ideas with the team.",
+    portfolio: "I don't have one",
+    energySource: "Curiosity, Creativity & Continuous Learning",
+    dimension: "Technology × Innovation × Collaboration",
+    type: "Tech Enthusiast & Problem Solver",
+    hobbiesInstalled: "Coding • Exploring Tech • Designing • Learning New Things",
+    specialFeatures: "Turns ideas into practical solutions action/ Events.",
   },
   {
     id: "21",
@@ -270,6 +300,57 @@ export const members: MemberData[] = [
       "Coding, Mechanical Keyboards, LEGO, Classics, F1, Piano-On-The-Side, Digital Minimalism, Grammar Nazi",
     specialFeatures:
       "Can turn one conversation into six side quests, three random references, and at least one grammar correction.",
+  },
+  {
+    id: "37",
+    name: "AKSHAYA THIRUMURUGAN",
+    role: "President",
+    generation: 2,
+    photos: ["AkshayaThirumurugan.png"],
+    description:
+      "I like building things, solving problems, and figuring out why my code decided to stop working at the worst possible time. I can spend hours understanding a project line by line, usually with ChatGPT as my unofficial debugging partner. I enjoy turning random ideas into working projects and somehow end up taking the lead whenever things get chaotic.",
+    portfolio: "I don't have one",
+    energySource: "Unlimited filter coffee, fully charged earbuds & Spotify Premium.",
+    dimension: "Somewhere between code, ideas, overthinking and “I’ll figure it out.”",
+    type: "Pretending to be nonchalant.",
+    hobbiesInstalled:
+      "Rewatching The Office for the nth time, imagining future scenarios, randomly redesigning my day in my head, understanding my own code for 4 hours straight, and roaming around for 45 minutes with absolutely no destination.",
+    specialFeatures:
+      "Not easily scared when things go out of control. I’ll listen to everyone’s opinion, shake my head, change things until I’m convinced, and then somehow convince everyone else too",
+  },
+  {
+    id: "35",
+    name: "YASWANT U",
+    role: "Secretary",
+    generation: 2,
+    photos: ["YaswantU.png"],
+    description:
+      "The person who turns random ideas into actual events, manages the chaos behind the scenes, and somehow makes everything happen on time.",
+    portfolio: "I don't have one",
+    energySource:
+      "Last-minute ideas, successful events, team energy, fasti, good coordination, and the satisfaction of seeing a plan actually work.",
+    dimension:
+      "Somewhere between event planning, technical chaos, team coordination, and making sure nothing falls apart / Making impossible things possible :)",
+    type: "Organizes everything while pretending it’s completely under control.",
+    hobbiesInstalled:
+      "Planning tech events, coordinating teams, brainstorming new ideas, managing club activities, solving last-minute problems, and being involved in almost everything happening around the club.",
+    specialFeatures:
+      "Can handle multiple events, teams, tasks, and unexpected problems simultaneously — and still ask, “What are we doing next?”",
+  },
+  {
+    id: "38",
+    name: "RAGAVI B",
+    role: "Secretary",
+    generation: 2,
+    photos: ["RagaviB.png"],
+    description:
+      "A curious builder at heart who enjoys turning ideas into something real. I like taking responsibility, solving problems, and seeing things through from the first idea to the final execution. Quiet at first, but strong once committed. I value genuine connections, stay loyal to the people close to me, and always look for a better way to do things.",
+    portfolio: "I don't have one",
+    energySource: "Tea, ice cream, pinterest, Laptop, song.",
+    dimension: "404: Ordinary Dimension Not Found",
+    type: "“I’ll Figure It Out” Type",
+    hobbiesInstalled: "Pinterest scrolling, exploring new idea",
+    specialFeatures: "Quietly ambitious, deeply loyal, and strong once committed.",
   },
   {
     id: "22",
@@ -474,7 +555,7 @@ export const members: MemberData[] = [
     name: "SIDDARTH V",
     role: "Workshop Lead",
     generation: 3,
-    photos: ["MemberPlaceholder.png"],
+    photos: ["SiddarthV.png"],
     description:
       "A professional chaos architect disguised as a workshop lead. I walk into rooms with questions, walk out with ideas, and somehow convince everyone this was the plan all along. My days are spent turning awkward silence into discussion, random thoughts into frameworks, and \"I have no idea\" into something suspiciously actionable.",
     portfolio: "I don't have one",
