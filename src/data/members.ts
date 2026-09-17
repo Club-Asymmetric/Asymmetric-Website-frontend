@@ -573,7 +573,7 @@ export const members: MemberData[] = [
     name: "UGANTHAN",
     role: "Graphic Designer",
     generation: 1,
-    photos: ["Uganthan.jpg"],
+    photos: ["Uganthan.png"],
     description:
       "UGANTHAN aka BEN10 aka VK, Somewhere between the protagonist and the guy who was never supposed to be in the scene. I start 17 side quests at once, master approximately 0.7% of each, and somehow call it character development. If I'm not coding, designing, watching a movie, learning something random or questioning reality at 2 AM — I'm probably doing all of them simultaneously.",
     portfolio: "I don't have one",
