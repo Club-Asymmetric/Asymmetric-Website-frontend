@@ -568,6 +568,23 @@ export const members: MemberData[] = [
     specialFeatures:
       "Can turn a room full of people staring at each other into a functioning workshop, extract ideas from the quietest person in the room, and somehow leave with everyone believing they contributed to the master plan.",
   },
+  {
+    id: "39",
+    name: "UGANTHAN",
+    role: "Graphic Designer",
+    generation: 1,
+    photos: ["Uganthan.jpg"],
+    description:
+      "UGANTHAN aka BEN10 aka VK, Somewhere between the protagonist and the guy who was never supposed to be in the scene. I start 17 side quests at once, master approximately 0.7% of each, and somehow call it character development. If I'm not coding, designing, watching a movie, learning something random or questioning reality at 2 AM — I'm probably doing all of them simultaneously.",
+    portfolio: "I don't have one",
+    energySource: "Gallons (Coffee + Coke + White Monster) + 2 AM motivation + movies + music",
+    dimension: "TESSERACT — simultaneously existing in 69 possible timelines, succeeding in none on schedule",
+    type: "Master of None. Jackass of All Trades.",
+    hobbiesInstalled:
+      "Coding.exe • Movies • Music • Design • Photography • Travel • Doom Scroll • Drums • Roller Skating • Rock Climbing • Cooking • Gaming and things I don't remember at all",
+    specialFeatures:
+      "Can rewatch the same movie infinitely and still act surprised at the plot. Powered by Harris, ARR, The Weeknd, The Smiths, Arctic Monkeys, Tame Impala and The Neighbourhood.",
+  },
   /* 13: {
     id: "13",
     name: "DHANISH BALA",
