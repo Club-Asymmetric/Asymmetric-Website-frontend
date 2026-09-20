@@ -228,7 +228,8 @@ export const members: MemberData[] = [
     role: "President",
     generation: 3,
     photos: ["Vyshnavee.jpg"],
-    description: "",
+    description:
+      "A person who likes figuring things out on their own, making choices that feel right, and building things along the way. Always open to growing, trying something new, and seeing where things go without needing everything figured out. More of a night person — somehow, that's when the thoughts start flowing.",
     portfolio: "I don't have one",
     energySource:
       "Cold coffee with extra ice, Music, conversations where I can just let everything out",
