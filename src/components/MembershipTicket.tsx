@@ -64,10 +64,10 @@ export default function MembershipTicket() {
           </p>
         </div>
 
-        <h2 className="my-8 font-oswald text-5xl font-black uppercase leading-[0.92] tracking-tight sm:text-6xl md:text-7xl">
-          <span className="block text-white">BECOME</span>
+        <h2 className="my-8 font-oswald text-4xl font-black uppercase leading-[0.92] tracking-tight sm:text-5xl md:text-6xl">
+          <span className="block text-white">APPLICATIONS</span>
           <span className="block" style={{ color: NEON }}>
-            A MEMBER
+            CLOSED
           </span>
         </h2>
 
@@ -97,10 +97,10 @@ export default function MembershipTicket() {
           <ArrowUpRight size={18} />
         </span>
         <span
-          className="font-oswald text-lg font-bold uppercase tracking-[0.3em] text-white"
+          className="font-oswald text-xs font-bold uppercase tracking-[0.25em] text-zinc-400"
           style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
         >
-          JOIN US
+          CLOSED
         </span>
       </div>
     </Link>

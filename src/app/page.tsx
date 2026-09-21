@@ -16,7 +16,6 @@ import ScrollHero from '@/components/ScrollHero';
 import ScrollExpand from '@/components/ScrollExpand';
 import BorderGlow from '@/components/BorderGlow';
 import { FloatingPaths } from '@/components/ui/background-paths';
-import AdmitOneTicket, { TICKET_LAYOUT, TICKET_TEXTURE } from '@/components/ui/admit-one-ticket';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState,useEffect } from 'react';
@@ -38,18 +37,7 @@ const teamPhotos = [
 ];
 
 export default function Home() {
-  const [showApplyPopup, setShowApplyPopup] = useState(true); // show each refresh
-  const [ticketWidth, setTicketWidth] = useState(560);
   const [teamPhotoIndex, setTeamPhotoIndex] = useState(0);
-
-  useEffect(() => {
-    const computeTicketWidth = () => {
-      setTicketWidth(Math.min(560, window.innerWidth - 64));
-    };
-    computeTicketWidth();
-    window.addEventListener('resize', computeTicketWidth);
-    return () => window.removeEventListener('resize', computeTicketWidth);
-  }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [popupLocation, setPopupLocation] = useState({ x: 0, y: 0 });
   const [popupContent, setPopupContent] = useState<{
@@ -61,7 +49,6 @@ export default function Home() {
     img: "/assets/placeholders/Events_Placeholder.png",
     name: "Title"
   });
-
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -75,8 +62,9 @@ export default function Home() {
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen]);
+
   useEffect(() => {
-    if (isOpen || showApplyPopup) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
@@ -96,7 +84,8 @@ export default function Home() {
       document.body.style.touchAction = '';
       document.documentElement.style.overflow = '';
     };
-  }, [isOpen, showApplyPopup]);
+  }, [isOpen]);
+
   interface PopupContent {
     desc: string;
     img: string;
@@ -132,39 +121,7 @@ export default function Home() {
   return (
     <div className='space-y-16'>
         <ScrollHero />
-        {showApplyPopup && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-            <div className="relative animate-zoomIn">
-              <button
-                aria-label="Close"
-                onClick={() => setShowApplyPopup(false)}
-                className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-[#00008b] hover:text-white transition-colors"
-              >
-                ✕
-              </button>
-              <Link
-                href="/member-application"
-                onClick={() => setShowApplyPopup(false)}
-                aria-label="Apply to become a member"
-                className="block cursor-pointer"
-              >
-                <AdmitOneTicket
-                  name="Become a Member"
-                  presenter="Club Asymmetric presents"
-                  event="Open Applications"
-                  venue="CIT Chennai"
-                  dates="Rolling admissions"
-                  stubText="Apply now"
-                  watermark="ASY"
-                  width={ticketWidth}
-                  layout={{ ...TICKET_LAYOUT, inkColor: '#ffffff', watermarkColor: '#ffffff', watermarkOpacity: 0.12 }}
-                  texture={{ ...TICKET_TEXTURE, colorBack: '#00008b', colorFront: '#000455', colorHighlight: '#001a8b' }}
-                  tilt={{ maxTilt: 7, glare: 0.12 }}
-                />
-              </Link>
-            </div>
-          </div>
-        )}
+        {/* AboutUs / Manifesto Section */}
         {/* AboutUs / Manifesto Section */}
         <div id="home-content" className="w-full px-6 md:px-10 lg:px-16">
           <BorderGlow

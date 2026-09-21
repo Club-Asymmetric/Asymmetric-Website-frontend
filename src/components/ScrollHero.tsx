@@ -177,7 +177,7 @@ export default function ScrollHero() {
           <p>We break things!<br />We build things!</p>
           <div className={styles.ctaRow}>
             <Link href="/events" className={styles.cta}>Explore our events ↗</Link>
-            <Link href="/member-application" className={styles.ctaOutline}>Apply now ↗</Link>
+            <Link href="/member-application" className={styles.ctaOutline}>Applications Closed ↗</Link>
           </div>
           <nav className={styles.quickNav} aria-label="Quick links">
             <Link href="/about-us">About Us</Link>
